@@ -2,6 +2,12 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        @if ($errors->any())
+            <div class="font-medium text-red-600 dark:text-red-400">
+                Упс! Что-то пошло не так:
+            </div>
+            <x-input-error :messages="$errors->all()" style="list-style-type: disc; list-style-position: inside;" class="mt-2" />
+        @endif
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
