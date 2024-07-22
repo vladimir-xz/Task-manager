@@ -6,7 +6,7 @@
             <div class="font-medium text-red-600 dark:text-red-400">
                 Упс! Что-то пошло не так:
             </div>
-            <x-input-error :messages="$errors->all()" style="list-style-type: disc; list-style-position: inside;" class="mt-2" />
+            <x-input-error :messages="$errors->all()" class="mt-2 list-disc" />
         @endif
         <!-- Name -->
         <div>

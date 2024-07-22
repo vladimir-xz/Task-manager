@@ -6,5 +6,12 @@
     "Name": "Имя",
     "Login": "Вход",
     "Sign up": "Регистрация",
-    "Logout": "Выход"
+    "Logout": "Выход",
+    "Create": "Создать",
+    "Edit": "Обновить",
+    "Tasks": "Задачи",
+    "Statuses": "Статусы",
+    "Marks": "Метки",
+    "Create status": "Создать статус",
+    "Change status": "Изменить статус"
 }

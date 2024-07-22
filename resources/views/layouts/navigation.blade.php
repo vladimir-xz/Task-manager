@@ -1,8 +1,8 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 py-2.5">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700 py-2.5">
     <!-- Primary Navigation Menu -->
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Logo -->
-                <a class="flex items-center" href="{{ route('dashboard') }}">
+                <a class="flex items-center" href="{{ route('main') }}">
                     <x-application-logo class="text-xl text-gray-800 dark:text-gray-200" />
                 </a>
 
@@ -15,7 +15,7 @@
                             </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            <x-nav-link :href="route('task_statuses.index')" :active="request()->routeIs('task_statuses.index')">
                                 {{ __('Statuses') }}
                             </x-nav-link>
                         </li>
