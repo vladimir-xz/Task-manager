@@ -13,5 +13,6 @@
     "Statuses": "Статусы",
     "Marks": "Метки",
     "Create status": "Создать статус",
-    "Change status": "Изменить статус"
+    "Change status": "Изменить статус",
+    "Status has been changed succesfully": "Статус успешно изменён"
 }

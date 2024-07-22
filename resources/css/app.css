@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .alert,
+    .alert-success {
+        background-color: #bbf7d0;
+        display: block;
+        width: 100%;
+    }
+  }

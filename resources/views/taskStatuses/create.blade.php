@@ -3,16 +3,12 @@
         <h1 class="mb-5 text-5xl">{{ __('Create status') }}</h1>
     </x-slot>
 
-    <div class="w-50">
-        {{  html()->form('POST', route('task_statuses.store'))->class('w-50')->open() }}
-        <div class="flex flex-col">
-            @include('taskStatuses.form')
-            <div class="mt-2">
-                <x-primary-button>
-                    {{ __('Create') }}
-                </x-primary-button>
-            </div>
+    {{  html()->form('POST', route('task_statuses.store'))->class('flex flex-col w-50')->open() }}
+        @include('taskStatuses.form')
+        <div class="mt-2">
+            <x-primary-button>
+                {{ __('Create') }}
+            </x-primary-button>
         </div>
-        {{  html()->form()->close() }}
-    </div>
+    {{  html()->form()->close() }}
 </x-app-layout>

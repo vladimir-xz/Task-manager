@@ -38,6 +38,8 @@ class TaskStatusController extends Controller
         $taskStatus->fill($data);
         $taskStatus->save();
 
+        flash(__('flash.statusCreated'))->success();
+
         return redirect()
         ->route('task_statuses.index');
     }
@@ -47,7 +49,8 @@ class TaskStatusController extends Controller
      */
     public function show(TaskStatus $taskStatus)
     {
-        return view('taskStatuses.show', compact('taskStatus'));
+        return redirect()
+        ->route('task_statuses.index');
     }
 
     /**
@@ -70,6 +73,8 @@ class TaskStatusController extends Controller
         $taskStatus->fill($data);
         $taskStatus->save();
 
+        flash(__('flash.statusChanged'))->success();
+
         return redirect()
         ->route('task_statuses.index');
     }
@@ -79,6 +84,7 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
+        flash(__('flash.StatusDeleted'))->success();
         $taskStatus->delete();
         return redirect()
         ->route('task_statuses.index');
