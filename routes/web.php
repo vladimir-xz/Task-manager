@@ -23,8 +23,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('tasks', TaskController::class)->only([
-        'show'
+    Route::resource('tasks', TaskController::class)->except([
+        'index', 'show'
     ]);
     Route::resource('task_statuses', TaskStatusController::class)->except([
         'index', 'show'
