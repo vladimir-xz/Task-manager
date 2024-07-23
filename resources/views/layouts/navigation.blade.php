@@ -10,7 +10,7 @@
                 <div class="items-center justify-between w-full lg:flex lg:w-auto lg:order-1 hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
                                 {{ __('Tasks') }}
                             </x-nav-link>
                         </li>

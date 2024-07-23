@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="mb-5 text-5xl">Статусы</h1>
+        <h1 class="mb-5 text-5xl">{{ __('Statuses')}}</h1>
     </x-slot>
 
     <a href="{{ route('task_statuses.create') }}">
@@ -27,10 +27,10 @@
                     <td>
                         @auth
                             <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('task_statuses.destroy', $taskStatus)  }}">
-                                Удалить
+                                {{ __('Delete') }}
                             </a>
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('task_statuses.edit', $taskStatus)  }}">
-                                Изменить
+                                {{ __('Change') }}
                             </a>
                         @endauth
                     </td>
