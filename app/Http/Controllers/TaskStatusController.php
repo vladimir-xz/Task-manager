@@ -12,7 +12,7 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        $taskStatuses = TaskStatus::all();
+        $taskStatuses = TaskStatus::paginate(15);
 
         return view('taskStatuses.index', compact('taskStatuses'));
     }
@@ -49,8 +49,7 @@ class TaskStatusController extends Controller
      */
     public function show(TaskStatus $taskStatus)
     {
-        return redirect()
-        ->route('task_statuses.index');
+        abort(403);
     }
 
     /**
@@ -67,7 +66,7 @@ class TaskStatusController extends Controller
     public function update(Request $request, TaskStatus $taskStatus)
     {
         $data = $request->validate([
-            'name' => 'required|unique:task_statuses'
+            'name' => 'required|unique:task_statuses,name,' . $taskStatus->id,
         ]);
 
         $taskStatus->fill($data);
@@ -84,6 +83,10 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
+        if ($taskStatus->tasks) {
+            flash(__('flash.StatusNotDeleted'))->warning();
+            back();
+        }
         flash(__('flash.StatusDeleted'))->success();
         $taskStatus->delete();
         return redirect()

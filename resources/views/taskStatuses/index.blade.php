@@ -39,4 +39,7 @@
         </tbody>
     </table>
 
+    <div class="mt-3">
+        {{ $taskStatuses->links('pagination::tailwind') }}
+    </div>
 </x-app-layout>

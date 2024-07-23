@@ -18,5 +18,10 @@
     "Delete": "Удалить",
     "Change": "Изменить",
     "Create status": "Создать статус",
-    "Change status": "Изменить статус"
+    "Change status": "Изменить статус",
+    "Marsk": "Метки",
+    "Status": "Статус",
+    "Description": "Описание",
+    "View task": "Просмотр задачи",
+    "Create task": "Создать задачу"
 }

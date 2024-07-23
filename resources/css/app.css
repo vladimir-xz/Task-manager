@@ -4,10 +4,19 @@
 
 
 @layer components {
-    .alert,
-    .alert-success {
-        background-color: #bbf7d0;
+    .alert {
         display: block;
         width: 100%;
     }
-  }
+    .alert-success {
+        background-color: #bbf7d0;
+    }
+
+    .alert-warning {
+        background-color: rgb(234 179 8);
+    }
+
+    .alert-error {
+        background-color: rgb(239 68 68);
+    }
+}

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\TaskStatus;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -12,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::paginate(15);
         // foreach ($allTasks as $task) {
         //     $statusName = $task->status->name;
         //     $author = $task->creator->name;
@@ -29,7 +32,19 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::select('id', 'name')->get();
+        $taskStatuses = TaskStatus::all();
+
+        $usersByIds = $users->mapWithKeys(function (User $record) {
+            return [$record->id => $record->name];
+        })
+            ->prepend(null, '')
+            ->all();
+        $statusesByIds = $taskStatuses->mapWithKeys(function (TaskStatus $record) {
+            return [$record->id => $record->name];
+        })->all();
+
+        return view('tasks.create', compact('usersByIds', 'statusesByIds'));
     }
 
     /**
@@ -37,7 +52,21 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'status_id' => 'required',
+            'created_by_id' => 'prohibited'
+        ]);
+
+        $data['created_by_id'] = $request->user()->id;
+        $task = new Task();
+        $task->fill($data);
+        $task->save();
+
+        flash(__('flash.taskCreated'))->success();
+
+        return redirect()
+        ->route('tasks.index');
     }
 
     /**
@@ -45,7 +74,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -53,7 +82,21 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $users = User::select('id', 'name')->get();
+        $taskStatuses = TaskStatus::all();
+
+        $usersByIds = $users->mapWithKeys(function (User $record) {
+            return [$record->id => $record->name];
+        })
+            ->prepend(null, '')
+            ->all();
+        $statusesByIds = $taskStatuses->mapWithKeys(function (TaskStatus $record) {
+            return [$record->id => $record->name];
+        })
+            ->prepend(null, '')
+            ->all();
+
+        return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds'));
     }
 
     /**
@@ -61,7 +104,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'status_id' => 'required',
+            'created_by_id' => 'prohibited'
+        ]);
+
+        $task->fill($data);
+        $task->save();
+
+        flash(__('flash.taskUpdated'))->success();
+
+        return redirect()
+        ->route('tasks.index');
     }
 
     /**
@@ -69,6 +124,12 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        if (! Gate::allows('delete-post', $task)) {
+            abort(403);
+        }
+        flash(__('flash.TaskDeleted'))->success();
+        $task->delete();
+        return redirect()
+        ->route('tasks.index');
     }
 }

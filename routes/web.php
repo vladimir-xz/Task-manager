@@ -14,13 +14,18 @@ Route::resource('task_statuses', TaskStatusController::class)->only([
     'index'
 ]);
 
-Route::resource('tasks', TaskController::class);
+Route::resource('tasks', TaskController::class)->only([
+    'index', 'show'
+]);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('tasks', TaskController::class)->only([
+        'show'
+    ]);
     Route::resource('task_statuses', TaskStatusController::class)->except([
         'index', 'show'
     ])->missing(function (Request $request) {
