@@ -83,11 +83,11 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if ($taskStatus->tasks) {
-            flash(__('flash.StatusNotDeleted'))->warning();
-            back();
+        if (count($taskStatus->tasks) !== 0) {
+            flash(__('flash.statusNotDeleted'))->warning();
+            return back();
         }
-        flash(__('flash.StatusDeleted'))->success();
+        flash(__('flash.statusDeleted'))->success();
         $taskStatus->delete();
         return redirect()
         ->route('task_statuses.index');

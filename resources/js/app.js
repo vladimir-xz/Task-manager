@@ -8,3 +8,4 @@ window.Alpine = Alpine;
 
 ujs.start();
 Alpine.start();
+

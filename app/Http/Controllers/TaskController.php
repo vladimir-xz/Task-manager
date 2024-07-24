@@ -7,6 +7,7 @@ use App\Models\TaskStatus;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -122,11 +123,14 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Request $request, Task $task)
     {
-        if (! Gate::allows('delete-post', $task)) {
-            abort(403);
+        if ($request->user()->id !== $task->created_by_id) {
+            return abort(403);
         }
+        // if (Gate::denies('delete-post', $task)) {
+        //     abort(403);
+        // }
         flash(__('flash.TaskDeleted'))->success();
         $task->delete();
         return redirect()
