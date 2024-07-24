@@ -30,7 +30,7 @@ class TaskFactory extends Factory
     public function assignetToSequence()
     {
         return $this->sequence(
-            ['assigned_to_id' => rand(1, 6)],
+            ['assigned_to_id' => rand(1, 5)],
             ['assigned_to_id' => null],
         );
     }

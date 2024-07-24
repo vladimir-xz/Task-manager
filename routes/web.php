@@ -13,6 +13,7 @@ Route::get('/', function () {
 Route::get('task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
 Route::get('tasks/{task}/show', [TaskController::class, 'show'])->name('tasks.show');
+// Route::resource('tasks', TaskController::class)->only(['index', 'show']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -24,9 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]);
     Route::resource('task_statuses', TaskStatusController::class)->except([
         'index', 'show'
-    ])->missing(function (Request $request) {
-        return redirect()->route('task_statuses.index');
-    });
+    ]);
 });
 
 Route::middleware('auth')->group(function () {

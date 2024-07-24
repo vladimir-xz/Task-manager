@@ -31,7 +31,7 @@ class TaskStatusController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|unique:task_statuses'
+            'name' => 'required|string|unique:task_statuses'
         ]);
 
         $taskStatus = new TaskStatus();
@@ -66,7 +66,7 @@ class TaskStatusController extends Controller
     public function update(Request $request, TaskStatus $taskStatus)
     {
         $data = $request->validate([
-            'name' => 'required|unique:task_statuses,name,' . $taskStatus->id,
+            'name' => 'required|string|unique:task_statuses,name,' . $taskStatus->id,
         ]);
 
         $taskStatus->fill($data);

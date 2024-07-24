@@ -21,7 +21,7 @@
                         </li>
                         <li>
                             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                {{ __('Marks') }}
+                                {{ __('Labels') }}
                             </x-nav-link>
                         </li>
                     </ul>
