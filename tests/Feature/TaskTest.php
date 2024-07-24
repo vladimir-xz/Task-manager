@@ -30,37 +30,30 @@ class TaskTest extends TestCase
 
     public function testIndex(): void
     {
-        $response = $this->getJson(route('tasks.index'));
+        $response = $this->get(route('tasks.index'));
 
         $response->assertStatus(200);
     }
 
     public function testShow(): void
     {
-        $response = $this->getJson(route('tasks.show', $this->task));
+        $response = $this->get(route('tasks.show', $this->task));
 
         $response->assertStatus(200);
     }
 
     public function testCreate(): void
     {
-        // $response = $this->getJson(route('tasks.create'));
-        // $response->assertStatus(302);
-
         $response = $this->actingAs($this->user)->getJson(route('tasks.create'));
-        $response = $this->getJson(route('tasks.create'));
+        $response = $this->get(route('tasks.create'));
 
         $response->assertStatus(200);
     }
 
     public function testEdit(): void
     {
-        // $response = $this->getJson(route('tasks.create'));
-        // $response->assertStatus(302);
-
         $response = $this->actingAs($this->user)->getJson(route('tasks.create'));
-        $response = $this->getJson(route('tasks.create'));
-        $response->dump();
+        $response = $this->get(route('tasks.create'));
         $response->assertStatus(200);
     }
 
@@ -91,7 +84,7 @@ class TaskTest extends TestCase
 
     public function testDestroy(): void
     {
-        $task = Task::factory()->for($this->user, 'creator')->create();
+        $task = Task::factory()->for($this->user, 'author')->create();
         $response = $this
             ->actingAs($this->user)
             ->delete(route('tasks.destroy', $task));

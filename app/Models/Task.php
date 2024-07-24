@@ -22,7 +22,7 @@ class Task extends Model
         return $this->belongsTo('App\Models\TaskStatus');
     }
 
-    public function creator()
+    public function author()
     {
         return $this->belongsTo('App\Models\User', 'created_by_id');
     }

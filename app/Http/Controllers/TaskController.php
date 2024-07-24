@@ -24,7 +24,7 @@ class TaskController extends Controller
                 'id' => $record->id,
                 'statusName' => $record->status->name,
                 'name' => $record->name,
-                'author' => $record->creator->name,
+                'author' => $record->author->name,
                 'assignedTo' => $record->assignedTo?->name ?? null,
                 'createdAt' => $record->created_at
             ];
