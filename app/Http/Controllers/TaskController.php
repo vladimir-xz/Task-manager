@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\TaskStatus;
 use App\Models\Task;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -16,15 +17,19 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate(15);
-        // foreach ($allTasks as $task) {
-        //     $statusName = $task->status->name;
-        //     $author = $task->creator->name;
-        //     $executor = $task->assignedTo->name;
-        //     $task->statusName = $statusName;
-        //     $task->author = $author;
-        //     $task->executor = $executor;
-        // }
+        $allTasks = Task::all();
+
+        $neededTasks = $allTasks->map(function ($record) {
+            return (object) [
+                'id' => $record->id,
+                'statusName' => $record->status->name,
+                'name' => $record->name,
+                'author' => $record->creator->name,
+                'assignedTo' => $record->assignedTo?->name ?? null,
+                'createdAt' => $record->created_at
+            ];
+        });
+        $tasks = new Paginator($neededTasks, 15);
         return view('tasks.index', compact('tasks'));
     }
 

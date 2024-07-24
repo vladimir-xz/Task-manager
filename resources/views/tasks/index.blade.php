@@ -13,31 +13,31 @@
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
                 <th>ID</th>
-                <th>Статус</th>
-                <th>Имя</th>
-                <th>Автор</th>
-                <th>Исполнитель</th>
-                <th>Дата создания</th>
-                <th>Действия</th>
+                <th>{{ __('Status') }}</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Author') }}</th>
+                <th>{{ __('Executor') }}</th>
+                <th>{{ __('Created at') }}</th>
+                <th>{{ __('Actions')}} </th>
             </tr>
         </thead>
         <tbody>
             @foreach ($tasks as $task)
                 <tr class="border-b border-dashed text-left">
                     <td>{{  $task->id }}</td>
-                    <td>{{  $task->status->name   }}</td>
+                    <td>{{  $task->statusName   }}</td>
                     <td>
-                        <a href="{{ route('tasks.show', $task)}}" class="text-blue-700 hover:text-indigo-400">
+                        <a href="{{ route('tasks.show', $task->id)}}" class="text-blue-700 hover:text-indigo-400">
                             <x-short-inscription>
                                 {{  $task->name }}
                             </x-short-inscription>
                         </a></td>
-                    <td>{{  $task->creator->name }}</td>
-                    <td>{{  $task->assignedTo?->name }}</td>
-                    <td>{{  $task->created_at }}</td>
+                    <td>{{  $task->author }}</td>
+                    <td>{{  $task->assignedTo }}</td>
+                    <td>{{  $task->createdAt }}</td>
                     <td>                        
                         @auth
-                            @if (Auth::id() === $task->creator->id)
+                            @if (Auth::user()->name === $task->author)
                                 <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task)  }}">
                                     {{ __('Delete') }}
                                 </a>

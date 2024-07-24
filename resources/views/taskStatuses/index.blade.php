@@ -13,9 +13,9 @@
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
                 <th>ID</th>
-                <th>Имя</th>
-                <th>Дата создания</th>
-                <th>Действия</th>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Created at') }}</th>
+                <th>{{ __('Actions') }}</th>
             </tr>
         </thead>
         <tbody>
