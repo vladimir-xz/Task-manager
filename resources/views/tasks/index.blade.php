@@ -38,11 +38,11 @@
                     <td>                        
                         @auth
                             @if (Auth::user()->name === $task->author)
-                                <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task)  }}">
+                                <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task->id)  }}">
                                     {{ __('Delete') }}
                                 </a>
                             @endif
-                            <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task)  }}">
+                            <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task->id)  }}">
                                 {{ __('Change') }}
                             </a>
                         @endauth

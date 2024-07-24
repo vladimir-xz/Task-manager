@@ -7,5 +7,5 @@ return [
     "taskCreated" => "Задача успешно создана",
     "TaskDeleted" => "Задача успешно удалена",
     "TaskUpdated" => "Задача успешно обновлена",
-    "StatusNotDeleted" => "Не удалось удалить статус",
+    "statusNotDeleted" => "Не удалось удалить статус",
 ];
