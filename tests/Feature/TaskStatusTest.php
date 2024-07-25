@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\User;
 use Database\Seeders\TaskStatusSeeder;
 use App\Models\TaskStatus;
+use Database\Seeders\LabelSeeder;
 use Illuminate\Database\Eloquent\Collection;
 
 class TaskStatusTest extends TestCase
@@ -25,6 +26,7 @@ class TaskStatusTest extends TestCase
         parent::setUp();
 
         $this->seed(TaskStatusSeeder::class);
+        $this->seed(LabelSeeder::class);
         $this->taskStatus = TaskStatus::all()->first();
         $this->user = User::factory()->create();
     }
