@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
@@ -18,6 +19,8 @@ Route::get('tasks/{task}/show', [TaskController::class, 'show'])->name('tasks.sh
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('labels', LabelController::class);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('tasks', TaskController::class)->except([

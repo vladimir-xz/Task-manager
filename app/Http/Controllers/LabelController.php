@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 class LabelController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $labels = Label::paginate(15);
+
+        return view('labels.index', compact('labels'));
     }
 
     /**
@@ -20,7 +22,7 @@ class LabelController extends Controller
      */
     public function create()
     {
-        //
+        return view('labels.create');
     }
 
     /**
@@ -28,7 +30,18 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|unique:labels'
+        ]);
+
+        $label = new Label();
+        $label->fill($data);
+        $label->save();
+
+        flash(__('flash.labelCreated'))->success();
+
+        return redirect()
+        ->route('labels.index');
     }
 
     /**
@@ -36,7 +49,7 @@ class LabelController extends Controller
      */
     public function show(Label $label)
     {
-        //
+        abort(403);
     }
 
     /**
@@ -44,7 +57,7 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        //
+        return view('labels.edit', compact('label'));
     }
 
     /**
@@ -52,7 +65,17 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|unique:labels,name,' . $label->id,
+        ]);
+
+        $label->fill($data);
+        $label->save();
+
+        flash(__('flash.labelChanged'))->success();
+
+        return redirect()
+        ->route('labels.index');
     }
 
     /**
@@ -60,6 +83,13 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        //
+        if (count($label->tasks) !== 0) {
+            flash(__('flash.labelNotDeleted'))->warning();
+            return back();
+        }
+        $label->delete();
+        flash(__('flash.labelDeleted'))->success();
+        return redirect()
+        ->route('labels.index');
     }
 }

@@ -20,7 +20,7 @@
                             </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            <x-nav-link :href="route('labels.index')" :active="request()->routeIs('labels.index')">
                                 {{ __('Labels') }}
                             </x-nav-link>
                         </li>

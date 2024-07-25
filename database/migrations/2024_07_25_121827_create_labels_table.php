@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
-            $table->strign('name');
+            $table->string('name');
             $table->text('description')->nullable();
-            $table->foreignId('task_id')->constrained('tasks');
             $table->timestamps();
         });
     }

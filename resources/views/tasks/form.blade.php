@@ -16,7 +16,7 @@
     {{  html()->label(__('Description'), 'description')->class($labelStyle) }}
 </div>
 <div {{ $divAttributes }}>
-    {{  html()->text('description')->class($inputStyle)}}
+    {{  html()->textarea('description')->class($inputStyle)}}
 </div>
 <x-input-error :messages="$errors->get('description')" class="mt-2" />
 <div {{ $divAttributes }}>

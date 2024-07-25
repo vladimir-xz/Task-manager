@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Label extends Model
 {
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
     public function tasks()
     {
-        // У каждого пользователя много постов
-        // hasMany определяется у модели, имеющей внешние ключи в других таблицах
-        return $this->hasMany('App\Models\Task', 'label_id');
+        return $this->belongsToMany('App\Models\Task');
     }
 }

@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Task;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,15 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()
-            ->count(5)
-            ->create();
         $this->call([
+            UserSeeder::class,
             TaskStatusSeeder::class,
+            LabelSeeder::class,
+            TaskSeeder::class,
+            TaskLabelSeeder::class
         ]);
-        Task::factory()
-            ->assignetToSequence()
-            ->count(5)
-            ->create();
     }
 }

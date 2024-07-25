@@ -14,8 +14,8 @@ class LabelSeeder extends Seeder
     public function run(): void
     {
         Label::firstOrCreate([
-            'name' => 'Ошибка',
-            'description' => '	Какая-то ошибка в коде или проблема с функциональностью'
+            'name' => 'ошибка',
+            'description' => 'Какая-то ошибка в коде или проблема с функциональностью'
         ]);
         Label::firstOrCreate([
             'name' => 'документация',
@@ -26,7 +26,7 @@ class LabelSeeder extends Seeder
             'description' => 'Повтор другой задачи'
         ]);
         Label::firstOrCreate([
-            'name' => 'дубликат',
+            'name' => 'доработка',
             'description' => 'Новая фича, которую нужно запилить'
         ]);
     }

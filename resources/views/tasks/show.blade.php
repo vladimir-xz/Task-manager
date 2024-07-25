@@ -25,7 +25,13 @@
             <span class="font-medium">{{ __('Marsk')}}: </span>
         </li>
         <li>
-
+            @if ($task->labels)
+                @foreach ($task->labels as $label)
+                    <x-label>
+                        {{ $label->name }}
+                    </x-label>
+                @endforeach
+            @endif
         </li>
     </ul>
 </x-app-layout>

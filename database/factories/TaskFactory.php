@@ -23,7 +23,7 @@ class TaskFactory extends Factory
             'name' => $this->faker->sentence(),
             'description' => $this->faker->sentence(10),
             'status_id' => TaskStatus::all()->random(),
-            'created_by_id' => User::all()->random()
+            'created_by_id' => User::all()->random(),
         ];
     }
 
