@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Logo -->
-                <a class="flex items-center" href="{{ route('dashboard') }}">
+                <a class="flex items-center" href="{{ route('main') }}">
                     <x-application-logo class="text-xl text-gray-800 dark:text-gray-200" />
                 </a>
 

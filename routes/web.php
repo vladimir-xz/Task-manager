@@ -9,13 +9,18 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('index');
-})->name('dashboard');
+})->name('main');
 
 Route::get('task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
 Route::get('tasks/{task}/show', [TaskController::class, 'show'])->name('tasks.show');
-Route::get('labels', [TaskController::class, 'index'])->name('labels.index');
 // Route::resource('tasks', TaskController::class)->only(['index', 'show']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('labels', LabelController::class);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('tasks', TaskController::class)->except([
@@ -24,7 +29,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('task_statuses', TaskStatusController::class)->except([
         'index', 'show'
     ]);
-    Route::resource('labels', LabelController::class)->except('index');
 });
 
 Route::middleware('auth')->group(function () {
