@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\TaskStatus;
+use App\Models\User;
+use App\Models\Label;
 
 class Task extends Model
 {
@@ -19,21 +22,21 @@ class Task extends Model
 
     public function status()
     {
-        return $this->belongsTo('App\Models\TaskStatus');
+        return $this->belongsTo(TaskStatus::class);
     }
 
     public function author()
     {
-        return $this->belongsTo('App\Models\User', 'created_by_id');
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     public function assignedTo()
     {
-        return $this->belongsTo('App\Models\User', 'assigned_to_id');
+        return $this->belongsTo(User::class, 'assigned_to_id');
     }
 
     public function labels()
     {
-        return $this->belongsToMany('App\Models\Label');
+        return $this->belongsToMany(Label::class);
     }
 }

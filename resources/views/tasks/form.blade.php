@@ -33,9 +33,10 @@
     {{  html()->select('assigned_to_id', $usersByIds)->class($inputStyle)}}
 </div>
 <x-input-error :messages="$errors->get('assigned_to_id')" class="mt-2" />
-<!-- <div {{ $divAttributes }}>
-    {{  html()->label(__('Marks'), 'name')->class($labelStyle) }}
+<div {{ $divAttributes }}>
+    {{  html()->label(__('Labels'), 'labels')->class($labelStyle) }}
 </div>
 <div {{ $divAttributes }}>
-    {{  html()->input('text', 'name')->class($inputStyle)}}
-</div> -->
+    {{  html()->multiselect('labels', $labelsById)->class($inputStyle)}}
+</div>
+<x-input-error :messages="$errors->get('label_id')" class="mt-2" />

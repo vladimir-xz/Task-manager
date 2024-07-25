@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\TaskStatus;
 use App\Models\Task;
+use App\Models\Label;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -40,6 +41,7 @@ class TaskController extends Controller
     {
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
+        $labels = Label::all();
 
         $usersByIds = $users->mapWithKeys(function (User $record) {
             return [$record->id => $record->name];
@@ -48,9 +50,14 @@ class TaskController extends Controller
             ->all();
         $statusesByIds = $taskStatuses->mapWithKeys(function (TaskStatus $record) {
             return [$record->id => $record->name];
+        })
+            ->prepend(null, '')
+            ->all();
+        $labelsById = $labels->mapWithKeys(function (Label $record) {
+            return [$record->id => $record->name];
         })->all();
 
-        return view('tasks.create', compact('usersByIds', 'statusesByIds'));
+        return view('tasks.create', compact('usersByIds', 'statusesByIds', 'labelsById'));
     }
 
     /**
@@ -61,14 +68,19 @@ class TaskController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
-            'description' => 'string',
-            'created_by_id' => 'prohibited|integer'
+            'description' => 'string|nullable',
+            'created_by_id' => 'prohibited|integer',
+            'labels' => 'array|nullable'
         ]);
 
         $data['created_by_id'] = $request->user()->id;
+
+        $labels = $request->input('labels');
+
         $task = new Task();
         $task->fill($data);
         $task->save();
+        $task->labels()->attach($labels);
 
         flash(__('flash.taskCreated'))->success();
 
@@ -91,6 +103,7 @@ class TaskController extends Controller
     {
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
+        $labels = Label::all();
 
         $usersByIds = $users->mapWithKeys(function (User $record) {
             return [$record->id => $record->name];
@@ -100,10 +113,12 @@ class TaskController extends Controller
         $statusesByIds = $taskStatuses->mapWithKeys(function (TaskStatus $record) {
             return [$record->id => $record->name];
         })
-            ->prepend(null, '')
             ->all();
+        $labelsById = $labels->mapWithKeys(function (Label $record) {
+            return [$record->id => $record->name];
+        })->all();
 
-        return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds'));
+        return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }
 
     /**
@@ -114,11 +129,15 @@ class TaskController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
-            'description' => 'string',
-            'created_by_id' => 'prohibited|integer'
+            'description' => 'string|nullable',
+            'created_by_id' => 'prohibited|integer',
+            'labels' => 'array|nullable'
         ]);
 
+        $labels = $request->input('labels');
+
         $task->fill($data);
+        $task->labels()->sync($labels);
         $task->save();
 
         flash(__('flash.taskUpdated'))->success();
@@ -138,7 +157,7 @@ class TaskController extends Controller
         // if (Gate::denies('delete-post', $task)) {
         //     abort(403);
         // }
-        flash(__('flash.TaskDeleted'))->success();
+        flash(__('flash.taskDeleted'))->success();
         $task->delete();
         return redirect()
         ->route('tasks.index');

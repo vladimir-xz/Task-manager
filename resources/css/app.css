@@ -5,12 +5,12 @@
 
 @layer components {
     .alert-success {
-        background-color: #bbf7d0;
+        @apply background-color: #bbf7d0;
     }
     .alert-warning {
-        background-color: rgb(234 179 8);
+        @apply background-color: rgb(234 179 8);
     }
     .alert-error {
-        background-color: rgb(239 68 68);
+        @apply background-color: rgb(239 68 68);
     }
 }

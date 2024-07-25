@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Task;
 
 class TaskStatus extends Model
 {
@@ -15,6 +16,6 @@ class TaskStatus extends Model
     {
         // У каждого пользователя много постов
         // hasMany определяется у модели, имеющей внешние ключи в других таблицах
-        return $this->hasMany('App\Models\Task', 'status_id');
+        return $this->hasMany(Task::class, 'status_id');
     }
 }
