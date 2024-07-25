@@ -30,8 +30,8 @@ class TaskController extends Controller
 
         $usersByIds = Utils::groupById($users);
         $authorsByIds = $usersByIds;
-        $authors = collect($usersByIds)->prepend(__('Author'), null)->all();
-        $executors = collect($authorsByIds)->prepend(__('Executor'), null)->all();
+        $authors = collect($authorsByIds)->prepend(__('Author'), null)->all();
+        $executors = collect($usersByIds)->prepend(__('Executor'), null)->all();
         $statusesByIds = Utils::groupById($taskStatuses, __('Status'));
 
         $neededTasks = $allTasks->map(function ($record) {

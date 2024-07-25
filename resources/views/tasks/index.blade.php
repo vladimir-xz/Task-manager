@@ -6,7 +6,7 @@
     <div class="flex w-full items-center justify-between">
         {{  html()->form('GET', route('tasks.index'))->open() }}
                 {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)    }}
-                {{  html()->select('filter[id]', $authors, $filter['id'] ?? 0)    }}
+                {{  html()->select('filter[created_by_id]', $authors, $filter['created_by_id'] ?? 0)    }}
                 {{  html()->select('filter[assigned_to_id]', $executors, $filter['assigned_to_id'] ?? 0)    }}
                 <x-primary-button>
                     {{ __('Accept') }}
