@@ -15,9 +15,9 @@ class TaskLabelSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 5; $i++) {
-            Task::all()->random()->labels()->saveMany([
-                Label::all()->random(),
-                Label::all()->random()
+            Task::all()->random()->labels()->sync([
+                rand(1, 4),
+                rand(1, 4)
             ]);
         }
     }
