@@ -24,6 +24,7 @@ class TaskTest extends TestCase
         $this->user = User::all()->first();
         $this->body = [
             'name' => 'test',
+            'description' => 'test',
             'status_id' => $this->task->status->id
         ];
     }

@@ -61,6 +61,7 @@ class TaskController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
+            'description' => 'string',
             'created_by_id' => 'prohibited|integer'
         ]);
 
@@ -113,6 +114,7 @@ class TaskController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
+            'description' => 'string',
             'created_by_id' => 'prohibited|integer'
         ]);
 

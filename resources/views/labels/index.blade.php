@@ -15,6 +15,7 @@
                 <th>ID</th>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Created at') }}</th>
+                <th>{{ __('Description') }}</th>
                 <th>{{ __('Actions') }}</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <tr class="border-b border-dashed text-left">
                     <td>{{  $label->id }}</td>
                     <td>{{  $label->name   }}</td>
+                    <td>{{  $label->description   }}</td>
                     <td>{{  $label->created_at }}</td>
                     <td>
                         @auth

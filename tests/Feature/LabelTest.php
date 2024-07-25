@@ -16,7 +16,8 @@ class LabelTest extends TestCase
     protected Label $label;
     protected User $user;
     protected array $body = [
-        'name' => 'test'
+        'name' => 'test',
+        'description' => 'test'
     ];
 
     protected function setUp(): void

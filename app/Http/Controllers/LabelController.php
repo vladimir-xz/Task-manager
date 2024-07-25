@@ -31,7 +31,8 @@ class LabelController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|unique:labels'
+            'name' => 'required|string|unique:labels',
+            'description' => 'string',
         ]);
 
         $label = new Label();
@@ -67,6 +68,7 @@ class LabelController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|unique:labels,name,' . $label->id,
+            'description' => 'string',
         ]);
 
         $label->fill($data);
