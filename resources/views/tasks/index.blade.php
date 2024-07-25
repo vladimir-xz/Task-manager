@@ -3,11 +3,21 @@
         <h1 class="mb-5 text-5xl">{{ __('Tasks')}}</h1>
     </x-slot>
 
-    <a href="{{ route('tasks.create') }}">
-        <x-primary-button >
-            {{ __('Create task') }}
-        </x-primary-button>
-    </a>
+    <div class="flex w-full items-center justify-between">
+        {{  html()->form('GET', route('tasks.index'))->open() }}
+                {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)    }}
+                {{  html()->select('filter[id]', $authors, $filter['id'] ?? 0)    }}
+                {{  html()->select('filter[assigned_to_id]', $executors, $filter['assigned_to_id'] ?? 0)    }}
+                <x-primary-button>
+                    {{ __('Accept') }}
+                </x-primary-button>
+        {{ html()->form()->close()}}
+        <a href="{{ route('tasks.create') }}">
+            <x-primary-button >
+                {{ __('Create task') }}
+            </x-primary-button>
+        </a>
+    </div>
 
     <table class="mt-4">
         <thead class="border-b-2 border-solid border-black text-left">

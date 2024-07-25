@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Models\TaskStatus;
 use App\Models\Task;
 use App\Models\Label;
+use App\Helpers\Utils;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
@@ -16,9 +18,21 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $allTasks = Task::all();
+        $filter = $request->query('filter', []);
+        $allTasks = QueryBuilder::for(Task::class)
+            ->allowedFilters(array_keys($filter))
+            ->get();
+
+        $users = User::all();
+        $taskStatuses = TaskStatus::all();
+
+        $usersByIds = Utils::groupById($users);
+        $authorsByIds = $usersByIds;
+        $authors = collect($usersByIds)->prepend(__('Author'), null)->all();
+        $executors = collect($authorsByIds)->prepend(__('Executor'), null)->all();
+        $statusesByIds = Utils::groupById($taskStatuses, __('Status'));
 
         $neededTasks = $allTasks->map(function ($record) {
             return (object) [
@@ -31,7 +45,7 @@ class TaskController extends Controller
             ];
         });
         $tasks = new Paginator($neededTasks, 15);
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'statusesByIds', 'authors', 'executors', 'filter'));
     }
 
     /**
@@ -43,19 +57,9 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
 
-        $usersByIds = $users->mapWithKeys(function (User $record) {
-            return [$record->id => $record->name];
-        })
-            ->prepend(null, '')
-            ->all();
-        $statusesByIds = $taskStatuses->mapWithKeys(function (TaskStatus $record) {
-            return [$record->id => $record->name];
-        })
-            ->prepend(null, '')
-            ->all();
-        $labelsById = $labels->mapWithKeys(function (Label $record) {
-            return [$record->id => $record->name];
-        })->all();
+        $usersByIds = Utils::groupById($users, '');
+        $statusesByIds = Utils::groupById($taskStatuses, '');
+        $labelsById = Utils::groupById($labels);
 
         return view('tasks.create', compact('usersByIds', 'statusesByIds', 'labelsById'));
     }
@@ -105,18 +109,9 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
 
-        $usersByIds = $users->mapWithKeys(function (User $record) {
-            return [$record->id => $record->name];
-        })
-            ->prepend(null, '')
-            ->all();
-        $statusesByIds = $taskStatuses->mapWithKeys(function (TaskStatus $record) {
-            return [$record->id => $record->name];
-        })
-            ->all();
-        $labelsById = $labels->mapWithKeys(function (Label $record) {
-            return [$record->id => $record->name];
-        })->all();
+        $usersByIds = Utils::groupById($users, '');
+        $statusesByIds = Utils::groupById($taskStatuses, '');
+        $labelsById = Utils::groupById($labels);
 
         return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }
