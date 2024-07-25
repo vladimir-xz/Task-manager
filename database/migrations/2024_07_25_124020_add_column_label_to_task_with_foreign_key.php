@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('labels', function (Blueprint $table) {
-            $table->id();
-            $table->strign('name');
-            $table->text('description')->nullable();
-            $table->foreignId('task_id')->constrained('tasks');
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->foreignId('label_id')->constrained('labels');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('labels');
+        Schema::table('task_with_foreign_key', function (Blueprint $table) {
+            $table->dropColumn('label_id');
+        });
     }
 };

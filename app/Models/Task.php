@@ -31,4 +31,11 @@ class Task extends Model
     {
         return $this->belongsTo('App\Models\User', 'assigned_to_id');
     }
+
+    public function labels()
+    {
+        // У каждого пользователя много постов
+        // hasMany определяется у модели, имеющей внешние ключи в других таблицах
+        return $this->hasMany('App\Models\Label', 'task_id');
+    }
 }
