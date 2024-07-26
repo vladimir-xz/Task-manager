@@ -4,6 +4,9 @@
 
 
 @layer components {
+    .alert {
+        width: 100%;
+    }
     .alert.alert-success {
         background-color: #bbf7d0;
     }

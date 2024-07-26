@@ -153,6 +153,7 @@ class TaskController extends Controller
         //     abort(403);
         // }
         flash(__('flash.taskDeleted'))->success();
+        $task->labels()->detach();
         $task->delete();
         return redirect()
         ->route('tasks.index');
