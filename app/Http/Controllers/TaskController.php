@@ -41,7 +41,7 @@ class TaskController extends Controller
                 'name' => $record->name,
                 'author' => $record->author->name,
                 'assignedTo' => $record->assignedTo?->name ?? null,
-                'createdAt' => $record->created_at
+                'createdAt' => $record->created_at->format('d.m.Y')
             ];
         });
         $tasks = new Paginator($neededTasks, 15);
