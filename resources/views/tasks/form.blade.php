@@ -9,7 +9,7 @@
     {{  html()->label(__('Name'), 'name')->class($labelStyle) }}
 </div>
 <div {{ $divAttributes }}>
-    {{  html()->input('text', 'name')->class($inputStyle)}}
+    {{  html()->input('text', 'name')->class($inputStyle)   }}
 </div>
 <x-input-error :messages="$errors->get('name')" class="mt-2" />
 <div {{ $divAttributes }}>
@@ -23,14 +23,14 @@
     {{  html()->label(__('Status'), 'status_id')->class($labelStyle) }}
 </div>
 <div {{ $divAttributes }}>
-    {{  html()->select('status_id', $statusesByIds)->class($inputStyle)}}
+    {{  html()->select('status_id', $statusesByIds)->class($inputStyle)->placeholder('') }}
 </div>
 <x-input-error :messages="$errors->get('status_id')" class="mt-2" />
 <div {{ $divAttributes }}>
     {{  html()->label(__('Assigned to'), 'assigned_to_id')->class($labelStyle) }}
 </div>
 <div {{ $divAttributes }}>
-    {{  html()->select('assigned_to_id', $usersByIds)->class($inputStyle)}}
+    {{  html()->select('assigned_to_id', $usersByIds)->class($inputStyle)->placeholder('')   }}
 </div>
 <x-input-error :messages="$errors->get('assigned_to_id')" class="mt-2" />
 <div {{ $divAttributes }}>

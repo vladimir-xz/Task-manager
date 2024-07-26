@@ -28,11 +28,8 @@ class TaskController extends Controller
         $users = User::all();
         $taskStatuses = TaskStatus::all();
 
+        $statusesByIds = Utils::groupById($taskStatuses);
         $usersByIds = Utils::groupById($users);
-        $authorsByIds = $usersByIds;
-        $authors = collect($authorsByIds)->prepend(__('Author'), null)->all();
-        $executors = collect($usersByIds)->prepend(__('Executor'), null)->all();
-        $statusesByIds = Utils::groupById($taskStatuses, __('Status'));
 
         $neededTasks = $allTasks->map(function ($record) {
             return (object) [
@@ -45,7 +42,7 @@ class TaskController extends Controller
             ];
         });
         $tasks = new Paginator($neededTasks, 15);
-        return view('tasks.index', compact('tasks', 'statusesByIds', 'authors', 'executors', 'filter'));
+        return view('tasks.index', compact('tasks', 'usersByIds', 'statusesByIds', 'filter'));
     }
 
     /**
@@ -53,13 +50,12 @@ class TaskController extends Controller
      */
     public function create()
     {
-        Gate::authorize('create', Task::class);
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
 
-        $usersByIds = Utils::groupById($users, '');
-        $statusesByIds = Utils::groupById($taskStatuses, '');
+        $usersByIds = Utils::groupById($users);
+        $statusesByIds = Utils::groupById($taskStatuses);
         $labelsById = Utils::groupById($labels);
 
         return view('tasks.create', compact('usersByIds', 'statusesByIds', 'labelsById'));
@@ -70,7 +66,6 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('store', Task::class);
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
@@ -107,13 +102,12 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        Gate::authorize('edit', Task::class);
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
 
-        $usersByIds = Utils::groupById($users, '');
-        $statusesByIds = Utils::groupById($taskStatuses, '');
+        $usersByIds = Utils::groupById($users);
+        $statusesByIds = Utils::groupById($taskStatuses);
         $labelsById = Utils::groupById($labels);
 
         return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
@@ -124,7 +118,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        Gate::authorize('update', Task::class);
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
@@ -150,7 +143,6 @@ class TaskController extends Controller
      */
     public function destroy(Request $request, Task $task)
     {
-        Gate::authorize('destroy', Task::class);
         if ($request->user()->id !== $task->created_by_id) {
             return abort(403);
         }
