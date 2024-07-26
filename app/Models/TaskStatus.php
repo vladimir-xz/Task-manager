@@ -8,7 +8,6 @@ use App\Models\Task;
 
 class TaskStatus extends Model
 {
-    protected $dateFormat = 'd.m.Y';
     protected $fillable = [
         'name'
     ];

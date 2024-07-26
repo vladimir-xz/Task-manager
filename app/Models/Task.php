@@ -12,13 +12,6 @@ class Task extends Model
 {
     use HasFactory;
 
-    /**
-     * The storage format of the model's date columns.
-     *
-     * @var string
-     */
-    protected $dateFormat = 'd.m.Y';
-
     protected $fillable = [
         'name',
         'description',
