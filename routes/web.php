@@ -13,7 +13,7 @@ Route::get('/', function () {
 
 Route::get('task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
-Route::get('tasks/{task}/show', [TaskController::class, 'show'])->name('tasks.show');
+Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 // Route::resource('tasks', TaskController::class)->only(['index', 'show']);
 
 Route::get('/dashboard', function () {
