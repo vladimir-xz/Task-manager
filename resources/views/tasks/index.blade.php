@@ -12,11 +12,15 @@
                     {{ __('Accept') }}
                 </x-primary-button>
         {{ html()->form()->close()}}
+        
+        @auth
         <a href="{{ route('tasks.create') }}">
             <x-primary-button >
                 {{ __('Create task') }}
             </x-primary-button>
         </a>
+        @endauth
+
     </div>
 
     <table class="mt-4">

@@ -3,11 +3,13 @@
         <h1 class="mb-5 text-5xl">{{ __('Statuses')}}</h1>
     </x-slot>
 
+    @auth
     <a href="{{ route('task_statuses.create') }}">
         <x-primary-button >
             {{ __('Create status') }}
         </x-primary-button>
     </a>
+    @endauth
 
     <table class="mt-4">
         <thead class="border-b-2 border-solid border-black text-left">

@@ -3,11 +3,13 @@
         <h1 class="mb-5 text-5xl">{{ __('Labels')}}</h1>
     </x-slot>
 
+    @auth
     <a href="{{ route('labels.create') }}">
         <x-primary-button >
             {{ __('Create label') }}
         </x-primary-button>
     </a>
+    @endauth
 
     <table class="mt-4">
         <thead class="border-b-2 border-solid border-black text-left">
