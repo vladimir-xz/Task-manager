@@ -1,0 +1,33 @@
+<?php
+
+return [
+    "pressMe" => "Нажми меня",
+    "alreadyRegistered" => "Уже зарегистрированы?",
+    "register" => "Зарегистрировать",
+    "confirmPassword" => "Подтверждение",
+    "password" => "Пароль",
+    "name" => "Имя",
+    "login" => "Вход",
+    "signUp" => "Регистрация",
+    "logout" => "Выход",
+    "create" => "Создать",
+    "edit" => "Обновить",
+    "tasks" => "Задачи",
+    "statuses" => "Статусы",
+    "labels" => "Метки",
+    "delete" => "Удалить",
+    "change" => "Изменить",
+    "createStatus" => "Создать статус",
+    "changeStatus" => "Изменить статус",
+    "marsk" => "Метки",
+    "status" => "Статус",
+    "description" => "Описание",
+    "viewTask" => "Просмотр задачи",
+    "createTask" => "Создать задачу",
+    "createLabel" => "Создать метку",
+    "author"  => "Автор",
+    "executor"  => "Исполнитель",
+    "createdAt"  => "Дата создания",
+    "actions"  => "Действия",
+    "accept" => "Принять"
+];
