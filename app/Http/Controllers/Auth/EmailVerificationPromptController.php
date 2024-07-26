@@ -14,6 +14,6 @@ class EmailVerificationPromptController extends Controller
      */
     public function __invoke(Request $request): RedirectResponse|View
     {
-        return redirect()->intended(route('/'));
+        return redirect('/');
     }
 }
