@@ -4,11 +4,9 @@
     </x-slot>
 
     @auth
-    <a href="{{ route('task_statuses.create') }}">
-        <x-primary-button >
-            {{ __('Create status') }}
-        </x-primary-button>
-    </a>
+    <x-primary-link href="{{ route('task_statuses.create') }}">
+        {{ __('Create status') }}
+    </x-primary-link>
     @endauth
 
     <table class="mt-4">

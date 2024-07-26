@@ -38,16 +38,12 @@
                 @endauth
                 
                 @guest
-                <a href="{{ route('login') }}">
-                    <x-primary-button class="ms-4">
-                        {{ __('Login') }}
-                    </x-primary-button>
-                </a>
-                <a href="{{ route('register') }}">
-                    <x-primary-button class="ms-4">
-                        {{ __('Sign up') }}
-                    </x-primary-button>
-                </a>
+                <x-primary-link href="{{ route('login') }}">
+                    {{ __('Login') }}
+                </x-primary-link>
+                <x-primary-link href="{{ route('register') }}">
+                    {{ __('Sign up') }}
+                </x-primary-link>
                 @endguest
                 </div>
     </div>

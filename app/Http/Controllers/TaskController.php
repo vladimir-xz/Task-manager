@@ -53,6 +53,7 @@ class TaskController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Task::class);
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
@@ -69,6 +70,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('store', Task::class);
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
@@ -105,6 +107,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        Gate::authorize('edit', Task::class);
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
@@ -121,6 +124,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        Gate::authorize('update', Task::class);
         $data = $request->validate([
             'name' => 'required|string',
             'status_id' => 'required|integer',
@@ -146,6 +150,7 @@ class TaskController extends Controller
      */
     public function destroy(Request $request, Task $task)
     {
+        Gate::authorize('destroy', Task::class);
         if ($request->user()->id !== $task->created_by_id) {
             return abort(403);
         }

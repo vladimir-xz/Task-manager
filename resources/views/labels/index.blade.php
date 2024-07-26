@@ -4,11 +4,9 @@
     </x-slot>
 
     @auth
-    <a href="{{ route('labels.create') }}">
-        <x-primary-button >
-            {{ __('Create label') }}
-        </x-primary-button>
-    </a>
+    <x-primary-link href="{{ route('labels.create') }}">
+        {{ __('Create label') }}
+    </x-primary-link>
     @endauth
 
     <table class="mt-4">
