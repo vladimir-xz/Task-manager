@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('labels', LabelController::class);
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class)->except([
         'index', 'show'
     ]);
