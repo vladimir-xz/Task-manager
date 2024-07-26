@@ -4,6 +4,7 @@
             <x-short-inscription>
                 {{ $task->name }}
             </x-short-inscription>
+            <a href="{{  route('tasks.edit', $task) }}">⚙</a>
         </h1>
         <div class=""></div>
     </x-slot>
@@ -35,3 +36,4 @@
         </li>
     </ul>
 </x-app-layout>
+

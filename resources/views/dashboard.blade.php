@@ -1,1 +1,1 @@
-@require('index.blade.php');
+@require('index');
