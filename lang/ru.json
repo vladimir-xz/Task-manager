@@ -23,6 +23,8 @@
     "View task": "Просмотр задачи",
     "Create task": "Создать задачу",
     "Create label": "Создать метку",
+    "Hello from Hexlet!" : "Привет от Хекслета!",
+    "This is a simple task manager" : "Это простой менеджер задач на Laravel",
     "Author" : "Автор",
     "Executor" : "Исполнитель",
     "Created at" : "Дата создания",
