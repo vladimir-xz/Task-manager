@@ -28,13 +28,9 @@
                 </div>
                 <div class="flex items-center lg:order-2">
                 @auth
-                   {{ html()->form('POST', route('logout'))->open() }}
-
-                        <x-primary-button class="ms-4">
-                            {{ __('Logout') }}
-                        </x-primary-button>
-
-                    {{ html()->form()->close() }}
+                    <a data-method="post" class="text-red-600 hover:text-red-900" href="{{ route('logout')  }}">
+                        {{ __('Logout') }}
+                    </a>
                 @endauth
                 
                 @guest
