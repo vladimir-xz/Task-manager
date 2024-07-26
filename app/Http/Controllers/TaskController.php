@@ -74,7 +74,6 @@ class TaskController extends Controller
             'status_id' => 'required|integer',
             'assigned_to_id' => 'integer',
             'description' => 'string|nullable',
-            'created_by_id' => 'prohibited|integer',
             'labels' => 'array|nullable'
         ]);
 
@@ -126,7 +125,7 @@ class TaskController extends Controller
             'name' => 'required|string',
             'status_id' => 'required|integer',
             'description' => 'string|nullable',
-            'created_by_id' => 'prohibited|integer',
+            'assigned_to_id' => 'integer',
             'labels' => 'array|nullable'
         ]);
 
