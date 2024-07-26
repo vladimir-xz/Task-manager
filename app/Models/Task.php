@@ -17,7 +17,7 @@ class Task extends Model
      *
      * @var string
      */
-    protected $dateFormat = 'd-m-Y';
+    protected $dateFormat = 'd.m.Y';
 
     protected $fillable = [
         'name',

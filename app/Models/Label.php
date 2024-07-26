@@ -8,7 +8,7 @@ use App\Models\Task;
 
 class Label extends Model
 {
-    protected $dateFormat = 'd/m/Y';
+    protected $dateFormat = 'd.m.Y';
     protected $fillable = [
         'name',
         'description'
