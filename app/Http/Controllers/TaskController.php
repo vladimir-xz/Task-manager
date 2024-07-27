@@ -50,7 +50,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $users = User::select('id', 'name')->get();
+        $users = User::all();
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
 

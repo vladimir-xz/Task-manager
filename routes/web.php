@@ -13,6 +13,7 @@ Route::get('/', function () {
 
 Route::get('task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
 Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
+Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 // Route::resource('tasks', TaskController::class)->only(['index', 'show']);
 
@@ -21,7 +22,7 @@ Route::resource('labels', LabelController::class);
 
 Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class)->except([
-        'index', 'show'
+        'index', 'show', 'create'
     ]);
     Route::resource('task_statuses', TaskStatusController::class)->except([
         'index', 'show'
