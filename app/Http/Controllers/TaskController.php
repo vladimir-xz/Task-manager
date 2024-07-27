@@ -30,6 +30,8 @@ class TaskController extends Controller
                 AllowedFilter::exact('assigned_to_id'),
             ])
             ->get();
+        } else {
+            $allTasks = Task::all();
         }
 
         $users = User::all();
