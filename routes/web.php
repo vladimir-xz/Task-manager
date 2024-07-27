@@ -16,6 +16,7 @@ Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
 Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 // Route::resource('tasks', TaskController::class)->only(['index', 'show']);
 
+
 Route::resource('labels', LabelController::class);
 
 Route::middleware('auth')->group(function () {
