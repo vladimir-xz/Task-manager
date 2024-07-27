@@ -122,7 +122,7 @@ class TaskController extends Controller
             'name' => 'required|string',
             'status_id' => 'required|integer',
             'description' => 'string|nullable',
-            'assigned_to_id' => 'integer',
+            'assigned_to_id' => 'integer|nullable',
             'labels' => 'array|nullable'
         ]);
 
