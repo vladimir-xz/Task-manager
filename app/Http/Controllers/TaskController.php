@@ -20,6 +20,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        var_dump(csrf_token());
         $filter = $request->query('filter', []);
         $allTasks = QueryBuilder::for(Task::class)
             ->allowedFilters(array_keys($filter))
