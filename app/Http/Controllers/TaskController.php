@@ -10,6 +10,7 @@ use App\Helpers\Utils;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
@@ -20,10 +21,16 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->query('filter', []);
-        $allTasks = QueryBuilder::for(Task::class)
-            ->allowedFilters(array_keys($filter))
+        $filter = $request->query('filter', null);
+        if ($filter) {
+            $allTasks = QueryBuilder::for(Task::class)
+            ->allowedFilters([
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('created_by_id'),
+                AllowedFilter::exact('assigned_to_id'),
+            ])
             ->get();
+        }
 
         $users = User::all();
         $taskStatuses = TaskStatus::all();
