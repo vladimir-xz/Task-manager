@@ -12,6 +12,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
+RUN pecl install excimer
 
 WORKDIR /app
 
@@ -24,4 +25,4 @@ RUN composer install
 RUN npm ci
 RUN npm run build
 
-CMD ["bash", "-c", "php artisan migrate:refresh --force --seed && php artisan serve --host=0.0.0.0 --port=$PORT"]
+CMD ["bash", "-c", "php artisan sentry:publish --dsn=https://1cf61a24ff4eb3c6c6eb523621446a6b@o4507619336388608.ingest.de.sentry.io/4507676053274704", "php artisan migrate:refresh --force --seed && php artisan serve --host=0.0.0.0 --port=$PORT"]
