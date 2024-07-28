@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class TaskRequest extends FormRequest
@@ -17,7 +18,8 @@ class TaskRequest extends FormRequest
         return [
             'status_id' => 'required|integer',
             'description' => 'string|nullable',
-            'assigned_to_id' => 'integer|nullable'
+            'assigned_to_id' => 'integer|nullable',
+            'name' => Rule::unique('tasks')->ignore($this->route()->parameter('task')),
         ];
     }
 
