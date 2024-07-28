@@ -28,7 +28,7 @@
                 </div>
                 <div class="flex items-center lg:order-2">
                 @auth
-                    <x-primary-link data-method="post" class="text-red-600 hover:text-red-900" href="{{ route('logout')  }}">
+                    <x-primary-link data-method="post" href="{{ route('logout')  }}">
                         {{ __('Logout') }}
                     </x-primary-link>
                 @endauth
