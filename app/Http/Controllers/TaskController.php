@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -127,12 +128,9 @@ class TaskController extends Controller
      */
     public function destroy(Request $request, Task $task)
     {
-        if ($request->user()->id !== $task->created_by_id) {
-            return abort(403);
+        if (Gate::denies('delete-task', $task)) {
+            abort(403);
         }
-        // if (Gate::denies('delete-post', $task)) {
-        //     abort(403);
-        // }
         flash(__('flash.taskDeleted'))->success();
         $task->labels()->detach();
         $task->delete();
