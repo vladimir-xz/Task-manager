@@ -28,18 +28,18 @@
                 </div>
                 <div class="flex items-center lg:order-2">
                 @auth
-                    <a data-method="post" class="text-red-600 hover:text-red-900" href="{{ route('logout')  }}">
+                    <x-primary-link data-method="post" class="text-red-600 hover:text-red-900" href="{{ route('logout')  }}">
                         {{ __('Logout') }}
-                    </a>
+                    </x-primary-link>
                 @endauth
                 
                 @guest
-                <x-primary-link href="{{ route('login') }}">
-                    {{ __('Login') }}
-                </x-primary-link>
-                <x-primary-link href="{{ route('register') }}">
-                    {{ __('Sign up') }}
-                </x-primary-link>
+                    <x-primary-link href="{{ route('login') }}">
+                        {{ __('Login') }}
+                    </x-primary-link>
+                    <x-primary-link href="{{ route('register') }}" class="ml-2">
+                        {{ __('Sign up') }}
+                    </x-primary-link>
                 @endguest
                 </div>
     </div>

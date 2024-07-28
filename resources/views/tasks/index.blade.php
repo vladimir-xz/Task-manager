@@ -14,9 +14,11 @@
         {{ html()->form()->close()}}
         
         @auth
-        <x-primary-link href="{{ route('tasks.create') }}">
-            {{ __('Create task') }}
-        </x-primary-link>
+        <div>
+            <x-primary-link href="{{ route('tasks.create') }}">
+                {{ __('Create task') }}
+            </x-primary-link>
+        </div>
         @endauth
 
     </div>
