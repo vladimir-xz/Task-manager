@@ -66,7 +66,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $data = $request->validated();
-
+        $data['name'] = $request->validate(['name' => 'required|string|unique:tasks']);
         $data['created_by_id'] = $request->user()->id;
 
         $labels = $request->input('labels');
@@ -112,7 +112,7 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         $data = $request->validated();
-
+        $data['name'] = $request->validate(['name' => 'required|string|unique:tasks,name,' . $task->id]);
         $labels = $request->input('labels');
 
         $task->fill($data);
