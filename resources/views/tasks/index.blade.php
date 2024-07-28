@@ -23,7 +23,7 @@
 
     </div>
 
-    <table class="mt-4 dark:text-neutral-400">
+    <table class="mt-4 dark:text-neutral-200">
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
                 <th>ID</th>
