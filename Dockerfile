@@ -18,9 +18,6 @@ WORKDIR /app
 
 COPY . .
 
-ENV ASSET_URL https://your-app.herokuapp.com
-
-
 RUN composer install
 RUN npm ci
 RUN npm run build
