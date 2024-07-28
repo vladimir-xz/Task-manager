@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Utils
 {
-    public static function groupById(Collection $collection): array
+    public static function groupByIdWithName(Collection $collection): array
     {
-        return $collection->mapWithKeys(function ($record) {
+        return $collection->mapWithKeys(function (object $record) {
             return [$record->id => $record->name];
         })->all();
     }

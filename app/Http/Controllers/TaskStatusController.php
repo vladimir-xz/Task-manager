@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskStatusRequest;
 
 class TaskStatusController extends Controller
 {
@@ -28,11 +29,9 @@ class TaskStatusController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskStatusRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|unique:task_statuses'
-        ]);
+        $data = $request->validated();
 
         $taskStatus = new TaskStatus();
         $taskStatus->fill($data);
@@ -63,11 +62,9 @@ class TaskStatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TaskStatus $taskStatus)
+    public function update(TaskStatusRequest $request, TaskStatus $taskStatus)
     {
-        $data = $request->validate([
-            'name' => 'required|string|unique:task_statuses,name,' . $taskStatus->id,
-        ]);
+        $data = $request->validated();
 
         $taskStatus->fill($data);
         $taskStatus->save();

@@ -7,6 +7,7 @@ use App\Models\TaskStatus;
 use App\Models\Task;
 use App\Models\Label;
 use App\Helpers\Utils;
+use App\Http\Requests\TaskRequest;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -22,23 +23,16 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $filter = $request->query('filter', null);
-        if ($filter) {
-            $allTasks = QueryBuilder::for(Task::class)
+        $allTasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
                 AllowedFilter::exact('status_id'),
                 AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             ])
             ->get();
-        } else {
-            $allTasks = Task::all();
-        }
 
-        $users = User::all();
-        $taskStatuses = TaskStatus::all();
-
-        $statusesByIds = Utils::groupById($taskStatuses);
-        $usersByIds = Utils::groupById($users);
+        $statusesByIds = Utils::groupByIdWithName(User::all());
+        $usersByIds = Utils::groupByIdWithName(TaskStatus::all());
 
         $neededTasks = $allTasks->map(function ($record) {
             return (object) [
@@ -59,13 +53,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $taskStatuses = TaskStatus::all();
-        $labels = Label::all();
-
-        $usersByIds = Utils::groupById($users);
-        $statusesByIds = Utils::groupById($taskStatuses);
-        $labelsById = Utils::groupById($labels);
+        $usersByIds = Utils::groupByIdWithName(User::all());
+        $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
+        $labelsById = Utils::groupByIdWithName(Label::all());
 
         return view('tasks.create', compact('usersByIds', 'statusesByIds', 'labelsById'));
     }
@@ -73,15 +63,9 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'status_id' => 'required|integer',
-            'assigned_to_id' => 'integer|nullable',
-            'description' => 'string|nullable',
-            'labels' => 'array|nullable'
-        ]);
+        $data = $request->validated();
 
         $data['created_by_id'] = $request->user()->id;
 
@@ -115,9 +99,9 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
         $labels = Label::all();
 
-        $usersByIds = Utils::groupById($users);
-        $statusesByIds = Utils::groupById($taskStatuses);
-        $labelsById = Utils::groupById($labels);
+        $usersByIds = Utils::groupByIdWithName($users);
+        $statusesByIds = Utils::groupByIdWithName($taskStatuses);
+        $labelsById = Utils::groupByIdWithName($labels);
 
         return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }
@@ -125,15 +109,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'status_id' => 'required|integer',
-            'description' => 'string|nullable',
-            'assigned_to_id' => 'integer|nullable',
-            'labels' => 'array|nullable'
-        ]);
+        $data = $request->validated();
 
         $labels = $request->input('labels');
 
