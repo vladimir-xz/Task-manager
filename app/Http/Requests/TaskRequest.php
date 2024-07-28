@@ -17,8 +17,7 @@ class TaskRequest extends FormRequest
         return [
             'status_id' => 'required|integer',
             'description' => 'string|nullable',
-            'assigned_to_id' => 'integer|nullable',
-            'labels' => 'array|nullable'
+            'assigned_to_id' => 'integer|nullable'
         ];
     }
 

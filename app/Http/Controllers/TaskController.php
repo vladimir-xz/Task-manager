@@ -66,13 +66,15 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $data = $request->validated();
-        $data['name'] = $request->validate(['name' => 'required|string|unique:tasks']);
+        $name = $request->validate(['name' => 'required|string|unique:tasks']);
         $data['created_by_id'] = $request->user()->id;
+
+        var_dump($data);
 
         $labels = $request->input('labels');
 
         $task = new Task();
-        $task->fill($data);
+        $task->fill(array_merge($data, $name));
         $task->save();
         $task->labels()->attach($labels);
 
@@ -112,10 +114,10 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         $data = $request->validated();
-        $data['name'] = $request->validate(['name' => 'required|string|unique:tasks,name,' . $task->id]);
+        $name = $request->validate(['name' => 'required|string|unique:tasks,name,' . $task->id]);
         $labels = $request->input('labels');
 
-        $task->fill($data);
+        $task->fill(array_merge($data, $name));
         $task->labels()->sync($labels);
         $task->save();
 
