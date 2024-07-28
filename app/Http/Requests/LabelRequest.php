@@ -35,7 +35,7 @@ class LabelRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'name' => (string) Str::of($this->name)->lower(),
+            'name' => (string) Str::of($this->name)->trim()->lower(),
         ]);
     }
 }

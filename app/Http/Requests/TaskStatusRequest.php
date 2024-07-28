@@ -34,7 +34,7 @@ class TaskStatusRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'name' => (string) Str::of($this->name)->lower()->ucfirst(),
+            'name' => (string) Str::of($this->name)->trim()->lower()->ucfirst(),
         ]);
     }
 }
