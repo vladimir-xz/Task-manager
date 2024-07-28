@@ -18,7 +18,12 @@ class TaskStatusTest extends TestCase
     protected TaskStatus $taskStatus;
     protected User $user;
     protected array $body = [
-        'name' => 'test'
+        'store' => [
+            'name' => 'Test',
+        ],
+        'update' => [
+            'name' => 'Test2'
+        ],
     ];
 
     protected function setUp(): void
@@ -53,12 +58,12 @@ class TaskStatusTest extends TestCase
 
     public function testStore(): void
     {
-        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $this->body);
+        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $this->body['store']);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('task_statuses', $this->body);
+        $this->assertDatabaseHas('task_statuses', $this->body['store']);
     }
 
 
@@ -66,14 +71,14 @@ class TaskStatusTest extends TestCase
     {
         $response = $this
             ->actingAs($this->user)
-            ->patch(route('task_statuses.update', $this->taskStatus), $this->body);
+            ->patch(route('task_statuses.update', $this->taskStatus), $this->body['update']);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
         $this->assertDatabaseHas('task_statuses', [
             'id' => $this->taskStatus->id,
-            ...$this->body
+            ...$this->body['update']
         ]);
     }
 

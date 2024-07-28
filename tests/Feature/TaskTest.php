@@ -23,9 +23,16 @@ class TaskTest extends TestCase
         $this->task = Task::all()->first();
         $this->user = User::all()->first();
         $this->body = [
-            'name' => 'test',
-            'description' => 'test',
-            'status_id' => $this->task->status->id
+            'store' => [
+                'name' => 'Test',
+                'description' => 'test',
+                'status_id' => $this->task->status->id
+            ],
+            'update' => [
+                'name' => 'Test2',
+                'description' => 'test2',
+                'status_id' => $this->task->status->id
+            ]
         ];
     }
 
@@ -60,26 +67,26 @@ class TaskTest extends TestCase
 
     public function testStore(): void
     {
-        $response = $this->actingAs($this->user)->post(route('tasks.store'), $this->body);
+        $response = $this->actingAs($this->user)->post(route('tasks.store'), $this->body['store']);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('tasks', $this->body);
+        $this->assertDatabaseHas('tasks', $this->body['store']);
     }
 
     public function testUpdate(): void
     {
         $response = $this
             ->actingAs($this->user)
-            ->patch(route('tasks.update', $this->task), $this->body);
+            ->patch(route('tasks.update', $this->task), $this->body['update']);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
         $this->assertDatabaseHas('tasks', [
             'id' => $this->task->id,
-            ...$this->body
+            ...$this->body['update']
         ]);
     }
 
