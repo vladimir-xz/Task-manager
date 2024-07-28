@@ -16,10 +16,14 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status_id' => 'required|integer',
-            'description' => 'string|nullable',
-            'assigned_to_id' => 'integer|nullable',
-            'name' => Rule::unique('tasks')->ignore($this->route()->parameter('task')),
+            'status_id' => ['required', 'integer'],
+            'description' => ['string', 'nullable'],
+            'assigned_to_id' => ['integer', 'nullable'],
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('tasks')->ignore($this->route()->parameter('task')),
+            ]
         ];
     }
 

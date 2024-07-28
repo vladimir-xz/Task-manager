@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -111,9 +110,6 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         $data = $request->validated();
-        // $data = $request->validationRules();
-        // $allRules = array_merge($data, ['name' => 'required|string|unique:tasks,name,' . $task->id]);
-        // $name = $request->validate($allRules);
         $labels = $request->input('labels');
 
         $task->fill($data);

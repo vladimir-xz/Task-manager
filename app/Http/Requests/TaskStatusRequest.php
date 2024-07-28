@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TaskStatusRequest extends FormRequest
 {
@@ -15,7 +16,11 @@ class TaskStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:task_statuses,name,' . $this->id,
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('task_statuses')->ignore($this->route()->parameter('task_status')),
+            ]
         ];
     }
 

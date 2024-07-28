@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class LabelRequest extends FormRequest
 {
@@ -15,8 +16,12 @@ class LabelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:labels,name,' . $this->id,
-            'description' => 'string|nullable',
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('labels')->ignore($this->route()->parameter('label'))
+            ],
+            'description' => ['string', 'nullable'],
         ];
     }
 
