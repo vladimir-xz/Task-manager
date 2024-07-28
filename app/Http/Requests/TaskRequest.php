@@ -15,6 +15,7 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => 'integer',
             'name' => 'required|string|unique:tasks,name,' . $this->id,
             'status_id' => 'required|integer',
             'description' => 'string|nullable',
