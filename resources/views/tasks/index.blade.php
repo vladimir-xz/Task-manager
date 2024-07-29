@@ -39,7 +39,7 @@
             @foreach ($tasks as $task)
                 <tr class="border-b border-dashed text-left">
                     <td>{{  $task->id }}</td>
-                    <td>{{  $task->statusName   }}</td>
+                    <td>{{  $task->status->name   }}</td>
                     <td>
                         <a href="{{ route('tasks.show', $task->id)}}" class="text-blue-700 hover:text-indigo-400">
                             <x-short-inscription>
