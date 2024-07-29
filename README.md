@@ -2,6 +2,7 @@
 [![Actions Status](https://github.com/vladimir-xz/php-project-57/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/vladimir-xz/php-project-57/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8c9b4a9ed818f616e4c2/maintainability)](https://codeclimate.com/github/vladimir-xz/php-project-57/maintainability)
 [![Laravel](https://github.com/vladimir-xz/php-project-57/actions/workflows/laravel.yml/badge.svg)](https://github.com/vladimir-xz/php-project-57/actions/workflows/laravel.yml)
+[![Code Coverage](https://github.com/vladimir-xz/php-project-57/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/vladimir-xz/php-project-57/actions/workflows/code-coverage.yml)
 
 <h1>Task manager</h1>
 <h3>by Vovan</h3>
