@@ -46,16 +46,16 @@
                                 {{  $task->name }}
                             </x-short-inscription>
                         </a></td>
-                    <td>{{  $task->author }}</td>
-                    <td>{{  $task->assignedTo }}</td>
-                    <td>{{  $task->createdAt }}</td>
+                    <td>{{  $task->author->name }}</td>
+                    <td>{{  $task->assignedTo?->name }}</td>
+                    <td>{{  $task->created_at->format('d.m.Y') }}</td>
                     <td>                        
                         @auth
-                            @if (Auth::user()->name === $task->author)
+                            @can('delete', $task)
                                 <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task->id)  }}">
                                     {{ __('Delete') }}
                                 </a>
-                            @endif
+                            @endcan
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task->id)  }}">
                                 {{ __('Change') }}
                             </a>

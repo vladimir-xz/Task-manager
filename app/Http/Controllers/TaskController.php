@@ -42,17 +42,17 @@ class TaskController extends Controller implements HasMiddleware
         $statusesByIds = Utils::groupByIdWithName(User::all());
         $usersByIds = Utils::groupByIdWithName(TaskStatus::all());
 
-        $neededTasks = $allTasks->map(function ($record) {
-            return (object) [
-                'id' => $record->id,
-                'statusName' => $record->status->name,
-                'name' => $record->name,
-                'author' => $record->author->name,
-                'assignedTo' => $record->assignedTo?->name ?? null,
-                'createdAt' => $record->created_at->format('d.m.Y')
-            ];
-        });
-        $tasks = new Paginator($neededTasks, 15);
+        // $neededTasks = $allTasks->map(function ($record) {
+        //     return (object) [
+        //         'id' => $record->id,
+        //         'status' => $record->status->name,
+        //         'name' => $record->name,
+        //         'created_by_id' => $record->author->name,
+        //         'assignedTo' => $record->assignedTo?->name ?? null,
+        //         'created_at' => $record->created_at->format('d.m.Y')
+        //     ];
+        // });
+        $tasks = new Paginator($allTasks, 15);
         return view('tasks.index', compact('tasks', 'usersByIds', 'statusesByIds', 'filter'));
     }
 
@@ -136,7 +136,7 @@ class TaskController extends Controller implements HasMiddleware
      */
     public function destroy(Request $request, Task $task)
     {
-        if (Gate::denies('delete-task', $task)) {
+        if ($request->user()->cannot('delete', $task)) {
             abort(403);
         }
         flash(__('flash.taskDeleted'))->success();
