@@ -20,19 +20,11 @@ class ProfileController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index(Request $request): RedirectResponse
+    public function show(Request $request): View
     {
-        return Redirect::route('profile.edit', $request->user());
-    }
-
-    public function show(Request $request): RedirectResponse
-    {
-        return Redirect::route('profile.edit', $request->user());
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        return Redirect::route('profile.edit', $request->user());
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
     }
     /**
      * Display the user's profile form.
@@ -57,7 +49,7 @@ class ProfileController extends Controller implements HasMiddleware
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.show')->with('status', 'profile-updated');
     }
 
     /**

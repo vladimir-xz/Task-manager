@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('index');
 })->name('dashboard');
 
-Route::resource('profile', ProfileController::class);
+Route::singleton('profile', ProfileController::class)->destroyable();
 
 Route::resource('tasks', TaskController::class);
 Route::resource('task_statuses', TaskStatusController::class);
