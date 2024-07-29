@@ -1,0 +1,29 @@
+name: Code Coverage
+on: [push]
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: 4d94c1047d07fb9751f12c2ac6aa28b4f1250114f68c85d7bb5b21d67af9a058
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: xdebug
+      - name: Prepare The Environment
+        run: cp .env.example .env
+      - name: Install Composer Dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+      - name: Generate Application Key
+        run: php artisan key:generate
+      - name: Code Climate Setup
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: Run Tests
+        run: |
+          php vendor/bin/phpunit --coverage-clover clover.xml --configuration phpunit.xml tests/Feature
+          ./cc-test-reporter after-build -t clover --exit-code $?
