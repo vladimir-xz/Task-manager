@@ -7,8 +7,6 @@
 <h1>Task manager</h1>
 <h3>by Vovan</h3>
 
-[Duck Duck Go](https://duckduckgo.com)
-
 [Web Page](https://php-project-57-qers.onrender.com)
 
 <h2>Description:</h2>
