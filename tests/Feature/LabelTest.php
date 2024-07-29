@@ -15,18 +15,19 @@ class LabelTest extends TestCase
 
     protected Label $label;
     protected User $user;
-    protected array $body = [
-        'name' => 'test',
-        'description' => 'test'
-    ];
+    protected array $body;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->seed(LabelSeeder::class);
-        $this->label = Label::all()->first();
+        $this->label = Label::first();
         $this->user = User::factory()->create();
+        $this->body = [
+            'name' => 'test2',
+            'description' => 'test2'
+        ];
     }
 
     public function testIndex(): void
@@ -51,12 +52,16 @@ class LabelTest extends TestCase
 
     public function testStore(): void
     {
-        $response = $this->actingAs($this->user)->post(route('labels.store'), $this->body);
+        $body = [
+            'name' => 'test',
+            'description' => 'test'
+        ];
+        $response = $this->actingAs($this->user)->post(route('labels.store'), $body);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('labels', $this->body);
+        $this->assertDatabaseHas('labels', $body);
     }
 
 

@@ -17,14 +17,7 @@ class TaskStatusTest extends TestCase
 
     protected TaskStatus $taskStatus;
     protected User $user;
-    protected array $body = [
-        'store' => [
-            'name' => 'Test',
-        ],
-        'update' => [
-            'name' => 'Test2'
-        ],
-    ];
+    protected array $body;
 
     protected function setUp(): void
     {
@@ -32,8 +25,9 @@ class TaskStatusTest extends TestCase
 
         $this->seed(TaskStatusSeeder::class);
         $this->seed(LabelSeeder::class);
-        $this->taskStatus = TaskStatus::all()->first();
+        $this->taskStatus = TaskStatus::first();
         $this->user = User::factory()->create();
+        $this->body = [ 'name' => 'test2'];
     }
 
     public function testIndex(): void
@@ -58,12 +52,13 @@ class TaskStatusTest extends TestCase
 
     public function testStore(): void
     {
-        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $this->body['store']);
+        $body = ['name' => 'test'];
+        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $body);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('task_statuses', $this->body['store']);
+        $this->assertDatabaseHas('task_statuses', $body);
     }
 
 
@@ -71,14 +66,14 @@ class TaskStatusTest extends TestCase
     {
         $response = $this
             ->actingAs($this->user)
-            ->patch(route('task_statuses.update', $this->taskStatus), $this->body['update']);
+            ->patch(route('task_statuses.update', $this->taskStatus), $this->body);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
         $this->assertDatabaseHas('task_statuses', [
             'id' => $this->taskStatus->id,
-            ...$this->body['update']
+            ...$this->body
         ]);
     }
 
