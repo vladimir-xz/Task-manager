@@ -2,19 +2,15 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use Database\Seeders\TaskStatusSeeder;
 use App\Models\TaskStatus;
+use App\Models\Task;
 use Database\Seeders\LabelSeeder;
-use Illuminate\Database\Eloquent\Collection;
 
 class TaskStatusTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected TaskStatus $taskStatus;
     protected User $user;
     protected array $body;
@@ -24,10 +20,9 @@ class TaskStatusTest extends TestCase
         parent::setUp();
 
         $this->seed(TaskStatusSeeder::class);
-        $this->seed(LabelSeeder::class);
         $this->taskStatus = TaskStatus::first();
         $this->user = User::factory()->create();
-        $this->body = [ 'name' => 'test2'];
+        $this->body = [ 'name' => 'test'];
     }
 
     public function testIndex(): void
@@ -52,13 +47,12 @@ class TaskStatusTest extends TestCase
 
     public function testStore(): void
     {
-        $body = ['name' => 'test'];
-        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $body);
+        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), $this->body);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('task_statuses', $body);
+        $this->assertDatabaseHas('task_statuses', $this->body);
     }
 
 
@@ -71,21 +65,38 @@ class TaskStatusTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
+        $this->taskStatus->refresh();
+
+        $this->assertEquals($this->taskStatus->name, $this->body['name']);
         $this->assertDatabaseHas('task_statuses', [
             'id' => $this->taskStatus->id,
             ...$this->body
         ]);
     }
 
-    public function testDestroy(): void
+    public function testCantDestroyWhenAssignedToTask(): void
     {
+        $newStatus = TaskStatus::firstOrCreate(['name' => 'test']);
+        Task::factory()->for($newStatus, 'status')->create();
         $response = $this
             ->actingAs($this->user)
-            ->delete(route('task_statuses.destroy', $this->taskStatus));
+            ->delete(route('task_statuses.destroy', $newStatus));
+
+        $this->assertModelExists($newStatus);
+        $this->assertDatabaseHas('task_statuses', $newStatus->getAttributes());
+    }
+
+    public function testDestroy(): void
+    {
+        $newStatus = TaskStatus::firstOrCreate(['name' => 'test2']);
+        $response = $this
+            ->actingAs($this->user)
+            ->delete(route('task_statuses.destroy', $newStatus));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseMissing('task_statuses', $this->body);
+        $this->assertModelMissing($newStatus);
+        $this->assertDatabaseMissing('task_statuses', $newStatus->getAttributes());
     }
 }

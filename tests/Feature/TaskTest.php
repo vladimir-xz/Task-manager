@@ -4,13 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TaskTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected Task $task;
     protected User $user;
     protected array $body;
@@ -20,12 +17,12 @@ class TaskTest extends TestCase
         parent::setUp();
 
         $this->seed();
-        $this->task = Task::all()->first();
-        $this->user = User::all()->first();
+        $this->task = Task::first();
+        $this->user = User::first();
         $this->body = [
             'name' => 'test2',
             'description' => 'test2',
-            'status_id' => $this->task->status->id
+            'status_id' => $this->task->status->id,
         ];
     }
 
@@ -87,6 +84,19 @@ class TaskTest extends TestCase
             ...$this->body
         ]);
     }
+
+    // public function testDestroyNotAuthor(): void
+    // {
+    //     $task = Task::factory()->for($this->user, 'author')->create();
+    //     $response = $this
+    //         ->actingAs($this->user)
+    //         ->delete(route('tasks.destroy', $task));
+
+    //     $response->assertSessionHasNoErrors();
+    //     $response->assertRedirect();
+
+    //     $this->assertDatabaseMissing('tasks', $this->body);
+    // }
 
     public function testDestroy(): void
     {

@@ -2,17 +2,15 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Label;
 use App\Models\User;
+use App\Models\Task;
+use Database\Seeders\TaskStatusSeeder;
 use Database\Seeders\LabelSeeder;
 
 class LabelTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected Label $label;
     protected User $user;
     protected array $body;
@@ -21,12 +19,13 @@ class LabelTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed(TaskStatusSeeder::class);
         $this->seed(LabelSeeder::class);
         $this->label = Label::first();
         $this->user = User::factory()->create();
         $this->body = [
-            'name' => 'test2',
-            'description' => 'test2'
+            'name' => 'test',
+            'description' => 'test'
         ];
     }
 
@@ -52,16 +51,12 @@ class LabelTest extends TestCase
 
     public function testStore(): void
     {
-        $body = [
-            'name' => 'test',
-            'description' => 'test'
-        ];
-        $response = $this->actingAs($this->user)->post(route('labels.store'), $body);
+        $response = $this->actingAs($this->user)->post(route('labels.store'), $this->body);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('labels', $body);
+        $this->assertDatabaseHas('labels', $this->body);
     }
 
 
@@ -74,21 +69,42 @@ class LabelTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
+        $this->label->refresh();
+
+        $this->assertEquals($this->label->name, $this->body['name']);
+
         $this->assertDatabaseHas('labels', [
             'id' => $this->label->id,
             ...$this->body
         ]);
     }
 
-    public function testDestroy(): void
+    public function testCantDestroyWhenAssignedToTask(): void
     {
+        $newlabel = Label::firstOrCreate(['name' => 'test']);
+        Task::factory()->create()->labels()->sync($newlabel);
         $response = $this
             ->actingAs($this->user)
-            ->delete(route('labels.destroy', $this->label));
+            ->delete(route('labels.destroy', $newlabel));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseMissing('labels', $this->body);
+        $this->assertModelExists($newlabel);
+        $this->assertDatabaseHas('labels', $newlabel->getAttributes());
+    }
+
+    public function testDestroy(): void
+    {
+        $newlabel = Label::firstOrCreate(['name' => 'test']);
+        $response = $this
+            ->actingAs($this->user)
+            ->delete(route('labels.destroy', $newlabel));
+
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
+
+        $this->assertModelMissing($newlabel);
+        $this->assertDatabaseMissing('labels', $newlabel->getAttributes());
     }
 }
