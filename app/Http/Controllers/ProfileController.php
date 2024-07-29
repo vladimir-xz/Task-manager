@@ -20,19 +20,19 @@ class ProfileController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index(): RedirectResponse
+    public function index(Request $request): RedirectResponse
     {
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit', $request->user());
     }
 
-    public function show(): RedirectResponse
+    public function show(Request $request): RedirectResponse
     {
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit', $request->user());
     }
 
-    public function store()
+    public function store(Request $request): RedirectResponse
     {
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit', $request->user());
     }
     /**
      * Display the user's profile form.
