@@ -85,20 +85,22 @@ class TaskTest extends TestCase
         ]);
     }
 
-    // public function testDestroyNotAuthor(): void
-    // {
-    //     $task = Task::factory()->for($this->user, 'author')->create();
-    //     $response = $this
-    //         ->actingAs($this->user)
-    //         ->delete(route('tasks.destroy', $task));
+    public function testDestroyNotAuthor(): void
+    {
+        $anotherUser = User::factory()->create();
+        $task = Task::factory()->for($anotherUser, 'author')->create();
+        $response = $this
+            ->actingAs($this->user)
+            ->delete(route('tasks.destroy', $task));
 
-    //     $response->assertSessionHasNoErrors();
-    //     $response->assertRedirect();
+        $response->assertSessionHasNoErrors();
+        $response->assertForbidden();
 
-    //     $this->assertDatabaseMissing('tasks', $this->body);
-    // }
+        $this->assertModelExists($task);
+        $this->assertDatabaseHas('tasks', $task->getAttributes());
+    }
 
-    public function testDestroy(): void
+    public function testDestroyAuthor(): void
     {
         $task = Task::factory()->for($this->user, 'author')->create();
         $response = $this
@@ -108,6 +110,7 @@ class TaskTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
+        $this->assertModelMissing($task);
         $this->assertDatabaseMissing('tasks', $this->body);
     }
 }
