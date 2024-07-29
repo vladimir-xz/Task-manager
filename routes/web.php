@@ -10,25 +10,10 @@ Route::get('/', function () {
     return view('index');
 })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::resource('tasks', TaskController::class)->except([
-        'index', 'show',
-    ]);
-    Route::resource('task_statuses', TaskStatusController::class)->except([
-        'index', 'show'
-    ]);
-    Route::resource('labels', LabelController::class)->except([
-        'index', 'show'
-    ]);
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::resource('profile', ProfileController::class);
 
-Route::get('task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
-Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
-Route::get('tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
-Route::get('labels', [LabelController::class, 'index'])->name('labels.index');
-Route::get('labels/{label}', [LabelController::class, 'show'])->name('labels.show');
+Route::resource('tasks', TaskController::class);
+Route::resource('task_statuses', TaskStatusController::class);
+Route::resource('labels', LabelController::class);
 
 require __DIR__ . '/auth.php';

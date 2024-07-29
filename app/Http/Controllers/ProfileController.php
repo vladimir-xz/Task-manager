@@ -8,9 +8,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProfileController extends Controller
+class ProfileController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'auth'
+        ];
+    }
+
+    public function index(): RedirectResponse
+    {
+        return Redirect::route('profile.edit');
+    }
+
+    public function show(): RedirectResponse
+    {
+        return Redirect::route('profile.edit');
+    }
+
+    public function store()
+    {
+        return Redirect::route('profile.edit');
+    }
     /**
      * Display the user's profile form.
      */
