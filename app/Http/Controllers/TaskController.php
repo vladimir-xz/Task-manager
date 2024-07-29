@@ -39,8 +39,8 @@ class TaskController extends Controller implements HasMiddleware
             ])
             ->get();
 
-        $statusesByIds = Utils::groupByIdWithName(User::all());
-        $usersByIds = Utils::groupByIdWithName(TaskStatus::all());
+        $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
+        $usersByIds = Utils::groupByIdWithName(User::all());
 
         // $neededTasks = $allTasks->map(function ($record) {
         //     return (object) [
