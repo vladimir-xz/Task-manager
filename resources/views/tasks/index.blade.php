@@ -32,7 +32,9 @@
                 <th>{{ __('Author') }}</th>
                 <th>{{ __('Executor') }}</th>
                 <th>{{ __('Created at') }}</th>
-                <th>{{ __('Actions')}} </th>
+                @auth
+                    <th>{{ __('Actions')}} </th>
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -48,9 +50,9 @@
                         </a></td>
                     <td>{{  $task->author->name }}</td>
                     <td>{{  $task->assignedTo?->name }}</td>
-                    <td>{{  $task->created_at->format('d.m.Y') }}</td>
-                    <td>                        
-                        @auth
+                    <td>{{  $task->created_at->format('d.m.Y') }}</td>                        
+                    @auth
+                        <td>
                             @can('delete', $task)
                                 <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task->id)  }}">
                                     {{ __('Delete') }}
@@ -59,8 +61,8 @@
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task->id)  }}">
                                 {{ __('Change') }}
                             </a>
-                        @endauth
-                    </td>
+                        </td>
+                    @endauth
                 </tr>
             @endforeach
         </tbody>
