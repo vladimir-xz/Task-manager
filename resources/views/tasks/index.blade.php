@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-5xl">{{ __('Tasks')}}</h1>
-    </x-slot>
+    <x-header>
+        {{ __('Tasks')}}
+    </x-header>
 
     <div class="flex w-full items-center justify-between">
         {{  html()->form('GET', route('tasks.index'))->open() }}

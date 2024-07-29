@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-5xl">{{ __('Create label') }}</h1>
-    </x-slot>
+    <x-header>
+        {{ __('Create label') }}
+    </x-header>
 
     {{  html()->form('POST', route('labels.store'))->class('flex flex-col w-50')->open() }}
         @include('labels.form')

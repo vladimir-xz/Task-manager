@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-5xl">{{ __('Change status')}}</h1>
-    </x-slot>
+    <x-header>
+        {{ __('Change status')}}
+    </x-header>
 
     {{  html()->modelForm($taskStatus, "PATCH", route('task_statuses.update', $taskStatus))->class('flex flex-col')->open() }}
         @include('taskStatuses.form')

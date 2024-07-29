@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-5xl">{{ __('Edit label')}}</h1>
-    </x-slot>
+    <x-header>
+        {{ __('Edit label')}}
+    </x-header>
 
     {{  html()->modelForm($label, "PATCH", route('labels.update', $label))->class('flex flex-col')->open() }}
         @include('labels.form')

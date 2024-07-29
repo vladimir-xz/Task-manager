@@ -1,13 +1,10 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-4xl">{{ __('View task')}}: 
-            <x-short-inscription>
-                {{ $task->name }}
-            </x-short-inscription>
-            <a href="{{  route('tasks.edit', $task) }}">⚙</a>
-        </h1>
-        <div class=""></div>
-    </x-slot>
+    <x-header>
+        <x-short-inscription>
+            {{ $task->name }}
+        </x-short-inscription>
+        <a href="{{  route('tasks.edit', $task) }}">⚙</a>
+    </x-header>
 
     <ul>
         <li>

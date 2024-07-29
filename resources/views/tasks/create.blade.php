@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-5xl">{{ __('Create task') }}</h1>
-    </x-slot>
+    <x-header>
+        {{ __('Create task') }}
+    </x-header>
 
     {{  html()->form('POST', route('tasks.store'))->class('flex flex-col w-50')->open() }}
         @include('tasks.form')

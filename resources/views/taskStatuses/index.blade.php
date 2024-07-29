@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="mb-5 text-5xl">{{ __('Statuses')}}</h1>
-    </x-slot>
+    <x-header>
+        {{ __('Statuses')}}
+    </x-header>
 
     @auth
     <div>
