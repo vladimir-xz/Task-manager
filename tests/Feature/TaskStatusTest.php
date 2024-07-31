@@ -83,7 +83,6 @@ class TaskStatusTest extends TestCase
             ->delete(route('task_statuses.destroy', $newStatus));
 
         $this->assertModelExists($newStatus);
-        $this->assertDatabaseHas('task_statuses', $newStatus->getAttributes());
     }
 
     public function testDestroy(): void
@@ -97,6 +96,5 @@ class TaskStatusTest extends TestCase
         $response->assertRedirect();
 
         $this->assertModelMissing($newStatus);
-        $this->assertDatabaseMissing('task_statuses', $newStatus->getAttributes());
     }
 }

@@ -3,13 +3,13 @@
         {{ __('Labels')}}
     </x-header>
 
-    @auth
-    <div>
-        <x-primary-link href="{{ route('labels.create') }}">
-            {{ __('Create label') }}
-        </x-primary-link>
-    </div>
-    @endauth
+    @can('create', App\Models\Label::class)
+        <div>
+            <x-primary-link href="{{ route('labels.create') }}">
+                {{ __('Create label') }}
+            </x-primary-link>
+        </div>
+    @endcan
 
     <table class="mt-4 dark:text-neutral-200">
         <thead class="border-b-2 border-solid border-black text-left">
@@ -18,9 +18,9 @@
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Created at') }}</th>
                 <th>{{ __('Description') }}</th>
-                @auth
+                @can('update', $labels[0] ?? null)
                     <th>{{ __('Actions') }}</th>
-                @endauth
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                     <td>{{  $label->name   }}</td>
                     <td>{{  $label->description   }}</td>
                     <td>{{  $label->created_at->format('d.m.Y') }}</td>
-                    @auth
+                    @can('update', $label)
                         <td>
                             <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('labels.destroy', $label)  }}">
                                 {{ __('Delete') }}
@@ -39,7 +39,7 @@
                                 {{ __('Change') }}
                             </a>
                         </td>
-                    @endauth
+                    @endcan
                 </tr>
             @endforeach
         </tbody>

@@ -3,13 +3,13 @@
         {{ __('Statuses')}}
     </x-header>
 
-    @auth
-    <div>
-        <x-primary-link href="{{ route('task_statuses.create') }}">
-            {{ __('Create status') }}
-        </x-primary-link>
-    </div>
-    @endauth
+    @can('create', App\Models\TaskStatus::class)
+        <div>
+            <x-primary-link href="{{ route('task_statuses.create') }}">
+                {{ __('Create status') }}
+            </x-primary-link>
+        </div>
+    @endcan
 
     <table class="mt-4 dark:text-neutral-200">
         <thead class="border-b-2 border-solid border-black text-left">
@@ -17,9 +17,9 @@
                 <th>ID</th>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Created at') }}</th>
-                @auth
+                @can('update', $taskStatuses[0] ?? null)
                     <th>{{ __('Actions') }}</th>
-                @endauth
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
                     <td>{{  $taskStatus->id }}</td>
                     <td>{{  $taskStatus->name   }}</td>
                     <td>{{  $taskStatus->created_at->format('d.m.Y') }}</td>
-                    @auth
+                    @can('update', $taskStatus)
                         <td>
                             <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('task_statuses.destroy', $taskStatus)  }}">
                                 {{ __('Delete') }}
@@ -37,7 +37,7 @@
                                 {{ __('Change') }}
                             </a>
                         </td>
-                    @endauth
+                    @endcan
                 </tr>
             @endforeach
         </tbody>

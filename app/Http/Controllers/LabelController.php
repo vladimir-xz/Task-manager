@@ -47,8 +47,7 @@ class LabelController extends Controller implements HasMiddleware
 
         flash(__('flash.labelCreated'))->success();
 
-        return redirect()
-        ->route('labels.index');
+        return to_route('labels.index');
     }
 
     /**
@@ -79,8 +78,7 @@ class LabelController extends Controller implements HasMiddleware
 
         flash(__('flash.labelChanged'))->success();
 
-        return redirect()
-        ->route('labels.index');
+        return to_route('labels.index');
     }
 
     /**
@@ -88,13 +86,14 @@ class LabelController extends Controller implements HasMiddleware
      */
     public function destroy(Label $label)
     {
-        if (count($label->tasks) !== 0) {
+        if ($label->tasks()->exists()) {
             flash(__('flash.labelNotDeleted'))->warning();
             return back();
         }
+
         $label->delete();
         flash(__('flash.labelDeleted'))->success();
-        return redirect()
-        ->route('labels.index');
+
+        return to_route('labels.index');
     }
 }

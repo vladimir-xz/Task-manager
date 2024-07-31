@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Task;
+use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\Response;
 
-class TaskPolicy
+class TaskStatusPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -20,7 +20,7 @@ class TaskPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Task $task): bool
+    public function view(User $user, TaskStatus $taskStatus): bool
     {
         return true;
     }
@@ -36,18 +36,19 @@ class TaskPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, ?Task $task): bool
+    public function update(User $user, ?TaskStatus $taskStatus): bool
     {
-        if (!$task) {
+        if (!$taskStatus) {
             return false;
         }
         return Auth::check();
     }
+
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Task $task): bool
+    public function delete(User $user, TaskStatus $taskStatus): bool
     {
-        return $user->id === $task->created_by_id;
+        return Auth::check();
     }
 }

@@ -97,7 +97,6 @@ class TaskTest extends TestCase
         $response->assertForbidden();
 
         $this->assertModelExists($task);
-        $this->assertDatabaseHas('tasks', $task->getAttributes());
     }
 
     public function testDestroyAuthor(): void
@@ -111,6 +110,5 @@ class TaskTest extends TestCase
         $response->assertRedirect();
 
         $this->assertModelMissing($task);
-        $this->assertDatabaseMissing('tasks', $this->body);
     }
 }

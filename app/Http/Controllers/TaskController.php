@@ -31,28 +31,17 @@ class TaskController extends Controller implements HasMiddleware
     public function index(Request $request)
     {
         $filter = $request->query('filter', null);
-        $allTasks = QueryBuilder::for(Task::class)
+        $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
                 AllowedFilter::exact('status_id'),
                 AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             ])
-            ->get();
+            ->paginate(15);
 
         $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
         $usersByIds = Utils::groupByIdWithName(User::all());
 
-        // $neededTasks = $allTasks->map(function ($record) {
-        //     return (object) [
-        //         'id' => $record->id,
-        //         'status' => $record->status->name,
-        //         'name' => $record->name,
-        //         'created_by_id' => $record->author->name,
-        //         'assignedTo' => $record->assignedTo?->name ?? null,
-        //         'created_at' => $record->created_at->format('d.m.Y')
-        //     ];
-        // });
-        $tasks = new Paginator($allTasks, 15);
         return view('tasks.index', compact('tasks', 'usersByIds', 'statusesByIds', 'filter'));
     }
 
@@ -74,19 +63,18 @@ class TaskController extends Controller implements HasMiddleware
     public function store(TaskRequest $request)
     {
         $data = $request->validated();
-        $data['created_by_id'] = $request->user()->id;
 
         $labels = $request->input('labels');
 
         $task = new Task();
+        $task->author()->associate($request->user());
         $task->fill($data);
         $task->save();
         $task->labels()->attach($labels);
 
         flash(__('flash.taskCreated'))->success();
 
-        return redirect()
-        ->route('tasks.index');
+        return to_route('tasks.index');
     }
 
     /**
@@ -127,8 +115,7 @@ class TaskController extends Controller implements HasMiddleware
 
         flash(__('flash.taskUpdated'))->success();
 
-        return redirect()
-        ->route('tasks.index');
+        return to_route('tasks.index');
     }
 
     /**
@@ -139,10 +126,11 @@ class TaskController extends Controller implements HasMiddleware
         if ($request->user()->cannot('delete', $task)) {
             abort(403);
         }
+
         flash(__('flash.taskDeleted'))->success();
         $task->labels()->detach();
         $task->delete();
-        return redirect()
-        ->route('tasks.index');
+
+        return to_route('tasks.index');
     }
 }

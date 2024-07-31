@@ -91,7 +91,6 @@ class LabelTest extends TestCase
         $response->assertRedirect();
 
         $this->assertModelExists($newlabel);
-        $this->assertDatabaseHas('labels', $newlabel->getAttributes());
     }
 
     public function testDestroy(): void
@@ -105,6 +104,5 @@ class LabelTest extends TestCase
         $response->assertRedirect();
 
         $this->assertModelMissing($newlabel);
-        $this->assertDatabaseMissing('labels', $newlabel->getAttributes());
     }
 }

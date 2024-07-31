@@ -45,8 +45,7 @@ class TaskStatusController extends Controller implements HasMiddleware
 
         flash(__('flash.statusCreated'))->success();
 
-        return redirect()
-        ->route('task_statuses.index');
+        return to_route('task_statuses.index');
     }
 
     /**
@@ -77,8 +76,7 @@ class TaskStatusController extends Controller implements HasMiddleware
 
         flash(__('flash.statusChanged'))->success();
 
-        return redirect()
-        ->route('task_statuses.index');
+        return to_route('task_statuses.index');
     }
 
     /**
@@ -86,13 +84,14 @@ class TaskStatusController extends Controller implements HasMiddleware
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if (count($taskStatus->tasks) !== 0) {
+        if ($taskStatus->tasks()->exists()) {
             flash(__('flash.statusNotDeleted'))->warning();
             return back();
         }
+
         flash(__('flash.statusDeleted'))->success();
         $taskStatus->delete();
-        return redirect()
-        ->route('task_statuses.index');
+
+        return to_route('task_statuses.index');
     }
 }
