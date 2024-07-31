@@ -14,8 +14,6 @@ class TaskStatus extends Model
 
     public function tasks()
     {
-        // У каждого пользователя много постов
-        // hasMany определяется у модели, имеющей внешние ключи в других таблицах
         return $this->hasMany(Task::class, 'status_id');
     }
 }
