@@ -69,12 +69,12 @@ class LabelTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->label->refresh();
+        $this->label?->refresh();
 
-        $this->assertEquals($this->label->name, $this->body['name']);
+        $this->assertEquals($this->label?->name, $this->body['name']);
 
         $this->assertDatabaseHas('labels', [
-            'id' => $this->label->id,
+            'id' => $this->label?->id,
             ...$this->body
         ]);
     }

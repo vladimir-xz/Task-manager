@@ -65,11 +65,11 @@ class TaskStatusTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->taskStatus->refresh();
+        $this->taskStatus?->refresh();
 
-        $this->assertEquals($this->taskStatus->name, $this->body['name']);
+        $this->assertEquals($this->taskStatus?->name, $this->body['name']);
         $this->assertDatabaseHas('task_statuses', [
-            'id' => $this->taskStatus->id,
+            'id' => $this->taskStatus?->id,
             ...$this->body
         ]);
     }

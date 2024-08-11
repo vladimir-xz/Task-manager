@@ -80,7 +80,7 @@ class TaskTest extends TestCase
         $response->assertRedirect();
 
         $this->assertDatabaseHas('tasks', [
-            'id' => $this->task->id,
+            'id' => $this->task?->id,
             ...$this->body
         ]);
     }
