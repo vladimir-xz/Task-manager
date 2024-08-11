@@ -33,7 +33,7 @@ class LabelController extends Controller implements HasMiddleware
     {
         $label = new Label();
 
-        return view('labels.create', compact($label));
+        return view('labels.create', compact('label'));
     }
 
     /**
@@ -50,14 +50,6 @@ class LabelController extends Controller implements HasMiddleware
         flash(__('flash.labelCreated'))->success();
 
         return to_route('labels.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Label $label)
-    {
-        abort(403);
     }
 
     /**

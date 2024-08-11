@@ -51,14 +51,6 @@ class TaskStatusController extends Controller implements HasMiddleware
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(TaskStatus $taskStatus)
-    {
-        abort(403);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(TaskStatus $taskStatus)
