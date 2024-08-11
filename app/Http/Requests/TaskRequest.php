@@ -22,7 +22,7 @@ class TaskRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                Rule::unique('tasks')->ignore($this->route()->parameter('task')),
+                Rule::unique('tasks')->ignore($this->route()?->parameter('task')),
             ]
         ];
     }

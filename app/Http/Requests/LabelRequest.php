@@ -19,7 +19,7 @@ class LabelRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                Rule::unique('labels')->ignore($this->route()->parameter('label'))
+                Rule::unique('labels')->ignore($this->route()?->parameter('label'))
             ],
             'description' => ['string', 'nullable'],
         ];

@@ -19,7 +19,7 @@ class TaskStatusRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                Rule::unique('task_statuses')->ignore($this->route()->parameter('task_status')),
+                Rule::unique('task_statuses')->ignore($this->route()?->parameter('task_status')),
             ]
         ];
     }
