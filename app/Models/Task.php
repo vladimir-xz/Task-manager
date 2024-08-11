@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\Label;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
 {
@@ -19,22 +21,22 @@ class Task extends Model
         'assigned_to_id'
     ];
 
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo(TaskStatus::class);
     }
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
-    public function assignedTo()
+    public function assignedTo(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
     }
 
-    public function labels()
+    public function labels(): BelongsToMany
     {
         return $this->belongsToMany(Label::class);
     }
