@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class TaskTest extends TestCase
 {
-    protected Task $task;
+    protected ?Task $task;
     protected User $user;
     protected array $body;
 
@@ -22,7 +22,7 @@ class TaskTest extends TestCase
         $this->body = [
             'name' => 'test2',
             'description' => 'test2',
-            'status_id' => $this->task->status->id,
+            'status_id' => $this->task?->status?->id,
         ];
     }
 
@@ -60,7 +60,7 @@ class TaskTest extends TestCase
         $body = [
             'name' => 'test',
             'description' => 'test',
-            'status_id' => $this->task->status->id
+            'status_id' => $this->task?->status?->id
         ];
         $response = $this->actingAs($this->user)->post(route('tasks.store'), $body);
 

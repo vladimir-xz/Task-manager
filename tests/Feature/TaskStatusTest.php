@@ -11,7 +11,7 @@ use Database\Seeders\LabelSeeder;
 
 class TaskStatusTest extends TestCase
 {
-    protected TaskStatus $taskStatus;
+    protected ?TaskStatus $taskStatus;
     protected User $user;
     protected array $body;
 

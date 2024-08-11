@@ -11,7 +11,7 @@ use Database\Seeders\LabelSeeder;
 
 class LabelTest extends TestCase
 {
-    protected Label $label;
+    protected ?Label $label;
     protected User $user;
     protected array $body;
 
