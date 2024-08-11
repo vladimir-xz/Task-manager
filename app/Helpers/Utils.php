@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Collection;
 class Utils
 {
     /**
-     * @template T
+     * @template T of Illuminate\Database\Eloquent\Collection
      * @param T $collection
-     * @return T
+     * @return T array
      */
     public static function groupByIdWithName(Collection $collection): array
     {
