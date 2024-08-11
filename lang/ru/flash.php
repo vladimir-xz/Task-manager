@@ -3,7 +3,7 @@
 return [
     "statusChanged" => "Статус успешно изменён",
     "statusCreated" => "Статус успешно создан",
-    "statusDeleted" => "Статус успешно удален",
+    "statusDeleted" => "Статус успешно удалён",
     "statusNotDeleted" => "Не удалось удалить статус",
     "taskCreated" => "Задача успешно создана",
     "taskDeleted" => "Задача успешно удалена",

@@ -12,10 +12,16 @@ Route::get('/', function () {
 
 Route::singleton('profile', ProfileController::class)->destroyable();
 
-Route::resources([
-    'tasks' => TaskController::class,
-    'task_statuses' => TaskStatusController::class,
-    'labels' => LabelController::class
-]);
+
+Route::resource('tasks', TaskController::class);
+
+Route::resource('task_statuses', TaskStatusController::class)
+    ->except('show');
+Route::resource('labels', LabelController::class)
+    ->except('show');
+// Route::resources([
+//     'task_statuses' => TaskStatusController::class,
+//     'labels' => LabelController::class
+// ]);
 
 require __DIR__ . '/auth.php';
