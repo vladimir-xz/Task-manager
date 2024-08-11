@@ -10,6 +10,13 @@ use App\Models\Label;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property User::class $assigned_to_id
+ */
+
 class Task extends Model
 {
     use HasFactory;

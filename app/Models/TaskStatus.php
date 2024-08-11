@@ -8,6 +8,11 @@ use App\Models\Task;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Termwind\Components\Hr;
 
+/**
+ * @property int $id
+ * @property string $name
+ */
+
 class TaskStatus extends Model
 {
     protected $fillable = [
