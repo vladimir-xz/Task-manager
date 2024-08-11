@@ -7,7 +7,7 @@ return [
     "statusNotDeleted" => "Не удалось удалить статус",
     "taskCreated" => "Задача успешно создана",
     "taskDeleted" => "Задача успешно удалена",
-    "taskUpdated" => "Задача успешно обновлена",
+    "taskUpdated" => "Задача успешно изменена",
     "labelChanged" => "Метка успешно изменена",
     "labelCreated" => "Метка успешно создана",
     "labelDeleted" => "Метка успешно удалена",
