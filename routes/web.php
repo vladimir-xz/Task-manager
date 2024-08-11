@@ -19,9 +19,5 @@ Route::resource('task_statuses', TaskStatusController::class)
     ->except('show');
 Route::resource('labels', LabelController::class)
     ->except('show');
-// Route::resources([
-//     'task_statuses' => TaskStatusController::class,
-//     'labels' => LabelController::class
-// ]);
 
 require __DIR__ . '/auth.php';
