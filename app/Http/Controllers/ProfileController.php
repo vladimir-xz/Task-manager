@@ -44,7 +44,7 @@ class ProfileController extends Controller implements HasMiddleware
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
-            if ($request->user()?->email_verified_at) {
+            if (!is_null($request->user()?->email_verified_at)) {
                 $request->user()->email_verified_at = null;
             }
         }
