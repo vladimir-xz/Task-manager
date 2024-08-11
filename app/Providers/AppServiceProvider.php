@@ -2,13 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Task;
-use App\Models\User;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
-use App\Policies\TaskPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url): void
     {
-        if (env('APP_ENV') == 'production') {
+        if (app()->environment('production')) {
             $url->forceScheme('https');
         }
     }

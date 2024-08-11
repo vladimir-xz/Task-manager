@@ -32,9 +32,9 @@
                 <th>{{ __('Author') }}</th>
                 <th>{{ __('Executor') }}</th>
                 <th>{{ __('Created at') }}</th>
-                @can('update', $tasks[0] ?? null)
+                @auth
                     <th>{{ __('Actions')}} </th>
-                @endcan
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -50,19 +50,20 @@
                         </a></td>
                     <td>{{  $task->author->name }}</td>
                     <td>{{  $task->assignedTo?->name }}</td>
-                    <td>{{  $task->created_at->format('d.m.Y') }}</td>                        
-                    @can('update', $task)
-                        <td>
-                            @can('delete', $task)
-                                <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task->id)  }}">
-                                    {{ __('Delete') }}
-                                </a>
-                            @endcan
+                    <td>{{  $task->created_at->format('d.m.Y') }}</td>       
+                    <td>                 
+                        @can('delete', $task)
+                            <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task->id)  }}">
+                                {{ __('Delete') }}
+                            </a>
+                        @endcan
+                        
+                        @can('update', $task)
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.edit', $task->id)  }}">
                                 {{ __('Change') }}
                             </a>
-                        </td>
-                    @endcan
+                        @endcan
+                    </td>
                 </tr>
             @endforeach
         </tbody>

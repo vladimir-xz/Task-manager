@@ -31,7 +31,9 @@ class LabelController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        return view('labels.create');
+        $label = new Label();
+
+        return view('labels.create', compact($label));
     }
 
     /**

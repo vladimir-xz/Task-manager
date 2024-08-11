@@ -18,9 +18,9 @@
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Created at') }}</th>
                 <th>{{ __('Description') }}</th>
-                @can('update', $labels[0] ?? null)
+                @auth
                     <th>{{ __('Actions') }}</th>
-                @endcan
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -30,16 +30,19 @@
                     <td>{{  $label->name   }}</td>
                     <td>{{  $label->description   }}</td>
                     <td>{{  $label->created_at->format('d.m.Y') }}</td>
-                    @can('update', $label)
-                        <td>
+                    <td>
+                        @can('delete', $label)
                             <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('labels.destroy', $label)  }}">
                                 {{ __('Delete') }}
                             </a>
+                        @endcan
+                        
+                        @can('update', $label)
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('labels.edit', $label)  }}">
                                 {{ __('Change') }}
                             </a>
-                        </td>
-                    @endcan
+                        @endcan
+                    </td>
                 </tr>
             @endforeach
         </tbody>

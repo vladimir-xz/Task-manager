@@ -1,4 +1,6 @@
 <x-app-layout>
+
+{{  var_dump($decryptedData)  }}
     <x-header>
         <x-short-inscription>
             {{ $task->name }}

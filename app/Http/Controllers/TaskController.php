@@ -8,14 +8,11 @@ use App\Models\Task;
 use App\Models\Label;
 use App\Helpers\Utils;
 use App\Http\Requests\TaskRequest;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller implements HasMiddleware
 {
@@ -50,11 +47,12 @@ class TaskController extends Controller implements HasMiddleware
      */
     public function create()
     {
+        $task = new Task();
         $usersByIds = Utils::groupByIdWithName(User::all());
         $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
         $labelsById = Utils::groupByIdWithName(Label::all());
 
-        return view('tasks.create', compact('usersByIds', 'statusesByIds', 'labelsById'));
+        return view('tasks.create', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }
 
     /**

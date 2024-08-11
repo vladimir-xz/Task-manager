@@ -36,11 +36,8 @@ class TaskPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, ?Task $task): bool
+    public function update(User $user, Task $task): bool
     {
-        if (!$task) {
-            return false;
-        }
         return Auth::check();
     }
     /**

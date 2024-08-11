@@ -17,9 +17,9 @@
                 <th>ID</th>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Created at') }}</th>
-                @can('update', $taskStatuses[0] ?? null)
+                @auth
                     <th>{{ __('Actions') }}</th>
-                @endcan
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -28,16 +28,19 @@
                     <td>{{  $taskStatus->id }}</td>
                     <td>{{  $taskStatus->name   }}</td>
                     <td>{{  $taskStatus->created_at->format('d.m.Y') }}</td>
-                    @can('update', $taskStatus)
-                        <td>
+                    <td>
+                        @can('update', $taskStatus)
                             <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('task_statuses.destroy', $taskStatus)  }}">
                                 {{ __('Delete') }}
                             </a>
+                        @endcan
+                        
+                        @can('update', $taskStatus)
                             <a class="text-blue-600 hover:text-blue-900" href="{{ route('task_statuses.edit', $taskStatus)  }}">
                                 {{ __('Change') }}
                             </a>
-                        </td>
-                    @endcan
+                        @endcan
+                    </td>
                 </tr>
             @endforeach
         </tbody>
