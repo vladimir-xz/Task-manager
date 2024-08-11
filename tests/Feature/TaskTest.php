@@ -22,7 +22,7 @@ class TaskTest extends TestCase
         $this->body = [
             'name' => 'test2',
             'description' => 'test2',
-            'status_id' => $this->task?->status()->id,
+            'status_id' => $this->task?->status?->id,
         ];
     }
 
