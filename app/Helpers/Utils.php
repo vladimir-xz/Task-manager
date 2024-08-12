@@ -11,6 +11,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Utils
 {
+    /**
+     * @template TKey of array-key
+     * @template TModel of \Illuminate\Database\Eloquent\Model
+     *
+     * @extends \Illuminate\Support\Collection<TKey, TModel>
+     * @param callable(Model $model): array<TKey, TValue> $callback
+     * @return array<TKey, TValue>
+     */
     public static function groupByIdWithName(Collection $collection): array
     {
         return $collection->mapWithKeys(function (Model $record) {

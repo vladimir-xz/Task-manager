@@ -29,9 +29,9 @@ class TaskStatusController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        $status = new TaskStatus();
+        $taskStatus = new TaskStatus();
 
-        return view('taskStatuses.create', compact('status'));
+        return view('taskStatuses.create', compact('taskStatus'));
     }
 
     /**
