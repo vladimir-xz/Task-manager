@@ -12,10 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 class Utils
 {
     /**
-     * @template TKey of array-key
-     * @template TModel of \Illuminate\Database\Eloquent\Model
-     *
-     * @extends \Illuminate\Support\Collection<TKey, TModel>
      * @param Collection<int, Model> $collection
      * @return array<int, string>
      */
