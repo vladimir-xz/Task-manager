@@ -16,8 +16,8 @@ class Utils
      * @template TModel of \Illuminate\Database\Eloquent\Model
      *
      * @extends \Illuminate\Support\Collection<TKey, TModel>
-     * @param callable(Model $model): array<TKey, TValue> $callback
-     * @return array<TKey, TValue>
+     * @param Collection<int, Model> $collection
+     * @return array<int, string>
      */
     public static function groupByIdWithName(Collection $collection): array
     {
