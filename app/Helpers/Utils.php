@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Utils
 {
     /**
-     * @param Collection<int, Model> $collection
+     * @param Collection<int, Type> $collection
      * @return array<int, string>
      */
     public static function groupByIdWithName(Collection $collection): array
