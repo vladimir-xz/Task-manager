@@ -18,7 +18,7 @@ class Utils
     public static function groupByIdWithName(Collection $collection): array
     {
         /** @var \Illuminate\Support\Collection $collection */
-        return $collection->mapWithKeys(function (Label|Task|TaskStatus|User $record) {
+        return $collection->mapWithKeys(function (Label|Task|TaskStatus|User|null $record) {
             return [$record?->id => $record?->name];
         })->all();
     }
