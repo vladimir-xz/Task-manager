@@ -10,14 +10,26 @@ Route::get('/', function () {
     return view('index');
 })->name('dashboard');
 
-Route::singleton('profile', ProfileController::class)->destroyable();
+Route::middleware('auth')->group(function () {
+    Route::singleton('profile', ProfileController::class)->destroyable();
+    Route::resource('tasks', TaskController::class)->except([
+        'index', 'show'
+    ]);
+    Route::resource('task_statuses', TaskStatusController::class)
+        ->except(['index', 'show']);
+    Route::resource('labels', LabelController::class)
+        ->except(['index', 'show']);
+});
 
 
-Route::resource('tasks', TaskController::class);
-
-Route::resource('task_statuses', TaskStatusController::class)
-    ->except('show');
-Route::resource('labels', LabelController::class)
-    ->except('show');
+Route::resource('tasks', TaskController::class)->only([
+    'index', 'show'
+]);
+Route::resource('task_statuses', TaskStatusController::class)->only([
+    'index'
+]);
+Route::resource('labels', LabelController::class)->only([
+    'index'
+]);
 
 require __DIR__ . '/auth.php';
