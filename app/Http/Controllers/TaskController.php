@@ -9,19 +9,11 @@ use App\Models\Label;
 use App\Helpers\Utils;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class TaskController extends Controller implements HasMiddleware
+class TaskController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('auth', except: ['index', 'show']),
-        ];
-    }
     /**
      * Display a listing of the resource.
      */

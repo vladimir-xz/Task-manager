@@ -8,18 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
 
-class ProfileController extends Controller implements HasMiddleware
+class ProfileController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            'auth'
-        ];
-    }
-
     public function show(Request $request): View
     {
         return view('profile.edit', [
