@@ -26,7 +26,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="flex items-center lg:order-2">
+                <div class="flex items-center lg:order-2 sm:ms-5">
                 @auth
                     <x-primary-link data-method="post" href="{{ route('logout')  }}">
                         {{ __('Logout') }}
