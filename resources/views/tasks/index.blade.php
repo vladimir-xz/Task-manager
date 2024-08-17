@@ -5,9 +5,9 @@
 
     <div class="flex w-full items-center justify-between">
         {{  html()->form('GET', route('tasks.index'))->open() }}
-                {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)->class('rounded border-gray-300')->placeholder('Статус')    }}
-                {{  html()->select('filter[created_by_id]', $usersByIds, $filter['created_by_id'] ?? 0)->class('rounded border-gray-300')->placeholder('Автор')    }}
-                {{  html()->select('filter[assigned_to_id]', $usersByIds, $filter['assigned_to_id'] ?? 0)->class('rounded border-gray-300')->placeholder('Исполнитель')    }}
+                {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)->class('rounded border-gray-300')->placeholder(__('Status'))    }}
+                {{  html()->select('filter[created_by_id]', $usersByIds, $filter['created_by_id'] ?? 0)->class('rounded border-gray-300')->placeholder(__('Author'))    }}
+                {{  html()->select('filter[assigned_to_id]', $usersByIds, $filter['assigned_to_id'] ?? 0)->class('rounded border-gray-300')->placeholder(__('Executor'))    }}
                 <x-primary-button>
                     {{ __('Accept') }}
                 </x-primary-button>
