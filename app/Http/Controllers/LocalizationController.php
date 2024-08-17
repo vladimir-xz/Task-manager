@@ -13,7 +13,7 @@ class LocalizationController extends Controller
         // }
          // Save selected Locale to current "Session"
         //  $locale = $request->locale ?? 'en';
-        // App::setLocale($locale); --> There is no need for this here, as the middleware will run after the redirect() 
+        // App::setLocale($locale); --> There is no need for this here, as the middleware will run after the redirect()
         // where it has already been set.
 
         $request->session()->put('local', $local);
