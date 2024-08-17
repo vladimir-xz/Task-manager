@@ -12,9 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 class Utils
 {
     /**
-     * Группирует коллекцию по идентификаторам и именам моделей.
-     *
-     * @param Collection<int, Label|Task|TaskStatus|User|null> $collection Коллекция моделей Eloquent или null
      * @return array<int|null, string|null> Ассоциативный массив, где ключи — ID или null, а значения — имена или null
      */
     public static function groupByIdWithName(Collection $collection): ?array
