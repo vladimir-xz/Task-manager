@@ -16,7 +16,7 @@ class DefineTheLanguage
     public function handle(Request $request, Closure $next): Response
     {
         // Set Locale in this "Request"
-        $locale = $request->session()->get('local') ?? 'ru';
+        $locale = $request->session()->get('locale') ?? 'ru';
         app()->setLocale($locale);
 
         return $next($request);
