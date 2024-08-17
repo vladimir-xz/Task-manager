@@ -40,12 +40,12 @@
                         <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
                             <li>
-                                <x-lang-link :href="route('local', 'eng')" :active="request()->routeIs('task_statuses.index')">
+                                <x-lang-link :href="route('local', 'eng')" :active="App::isLocale('eng')">
                                     {{ __('English') }}
                                 </x-lang-link>
                             </li>
                             <li>
-                                <x-lang-link :href="route('local', 'ru')" :active="request()->routeIs('task_statuses.index')">
+                                <x-lang-link :href="route('local', 'ru')" :active="App::isLocale('ru')">
                                     {{ __('Russian') }}
                                 </x-lang-link>
                             </li>
