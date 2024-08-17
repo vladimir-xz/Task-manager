@@ -37,12 +37,12 @@
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
                             <li>
                                 <x-lang-link :href="route('local', 'eng')" :active="App::isLocale('eng')">
-                                    {{ __('English') }}
+                                    English
                                 </x-lang-link>
                             </li>
                             <li>
                                 <x-lang-link :href="route('local', 'ru')" :active="App::isLocale('ru')">
-                                    {{ __('Russian') }}
+                                    Русский
                                 </x-lang-link>
                             </li>
                             </ul>
