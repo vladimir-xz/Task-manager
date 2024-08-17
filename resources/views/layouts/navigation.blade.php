@@ -7,24 +7,26 @@
                 </a>
 
                 <!-- Navigation Links -->
-                <div class="items-center justify-between w-full flex flex-initial lg:w-auto space-x-8 -my-px ms-10 ">
-                    <ul class="flex flex-row ms-4 font-medium space-x-8">
-                        <li>
-                            <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
-                                {{ __('Tasks') }}
-                            </x-nav-link>
-                        </li>
-                        <li>
-                            <x-nav-link :href="route('task_statuses.index')" :active="request()->routeIs('task_statuses.index')">
-                                {{ __('Statuses') }}
-                            </x-nav-link>
-                        </li>
-                        <li>
-                            <x-nav-link :href="route('labels.index')" :active="request()->routeIs('labels.index')">
-                                {{ __('Labels') }}
-                            </x-nav-link>
-                        </li>
-                    </ul>
+                <div class="flex justify-between">
+                    <div class="items-center justify-between w-full flex flex-initial lg:w-auto space-x-8 -my-px ms-10 ">
+                        <ul class="flex flex-col md:flex-row ms-4 font-medium space-x-8">
+                            <li>
+                                <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
+                                    {{ __('Tasks') }}
+                                </x-nav-link>
+                            </li>
+                            <li>
+                                <x-nav-link :href="route('task_statuses.index')" :active="request()->routeIs('task_statuses.index')">
+                                    {{ __('Statuses') }}
+                                </x-nav-link>
+                            </li>
+                            <li>
+                                <x-nav-link :href="route('labels.index')" :active="request()->routeIs('labels.index')">
+                                    {{ __('Labels') }}
+                                </x-nav-link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
 
