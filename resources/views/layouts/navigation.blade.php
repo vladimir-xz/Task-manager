@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 py-2.5 shadow-md">
     <!-- Primary Navigation Menu -->
-    <div class="flex items-center justify-between max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between max-w-screen-xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
                 <!-- Logo -->
                 <a class="flex items-center" href="{{ route('dashboard') }}">
                     <x-application-logo class="text-xl text-gray-800 dark:text-gray-200" />
@@ -29,9 +29,9 @@
 
 
                 <div class="flex flex-inline items-center justify-between">
-                    <div class="flex flex-inline p-5">
+                    <div class="flex flex-inline">
 
-                        <x-lang-button></x-lang-button>
+                        <x-lang-button/>
                         <!-- Dropdown menu -->
                         <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
