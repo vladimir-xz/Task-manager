@@ -1,1 +1,1 @@
-<span {{ $attributes->merge(['class' => 'self-center font-semibold whitespace-nowrap' ]) }}>Менеджер задач</span>
+<span {{ $attributes->merge(['class' => 'self-center font-semibold whitespace-nowrap' ]) }}>    {{ __('Task manager') }}</span>

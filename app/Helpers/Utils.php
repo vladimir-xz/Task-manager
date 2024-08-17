@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 class Utils
 {
     /**
-     * @param Collection $collection
-     * @return array<int, string>
+     * Группирует коллекцию по идентификаторам и именам моделей.
+     *
+     * @param Collection<int, Label|Task|TaskStatus|User|null> $collection Коллекция моделей Eloquent или null
+     * @return array<int|null, string|null> Ассоциативный массив, где ключи — ID или null, а значения — имена или null
      */
-    public static function groupByIdWithName(Collection $collection): array
+    public static function groupByIdWithName(Collection $collection): ?array
     {
         /** @var \Illuminate\Support\Collection $collection */
         return $collection->mapWithKeys(function (Label|Task|TaskStatus|User|null $record) {
