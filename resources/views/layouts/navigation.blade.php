@@ -7,7 +7,7 @@
                 </a>
 
                 <!-- Navigation Links -->
-                <div class="items-center justify-between w-full flex lg:w-auto lg:order-1 space-x-8 -my-px ms-10 ">
+                <div class="items-center justify-between w-full flex flex-initial lg:w-auto space-x-8 -my-px ms-10 ">
                     <ul class="flex flex-row ms-4 font-medium space-x-8">
                         <li>
                             <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
@@ -31,7 +31,7 @@
                 <div class="flex flex-inline items-center justify-between">
                     <div class="flex flex-inline p-5">
                         
-                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">{{ __('Language')}} <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center inline-flex items-center dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">{{ __('Language')}} <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                         </svg>
                         </button>
@@ -40,10 +40,14 @@
                         <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
                             <li>
-                                <a href="{{ route('local', 'en')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('English') }}</a>
+                                <x-lang-link :href="route('local', 'eng')" :active="request()->routeIs('task_statuses.index')">
+                                    {{ __('English') }}
+                                </x-lang-link>
                             </li>
                             <li>
-                                <a href="{{ route('local', 'ru')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Russian') }}</a>
+                                <x-lang-link :href="route('local', 'ru')" :active="request()->routeIs('task_statuses.index')">
+                                    {{ __('Russian') }}
+                                </x-lang-link>
                             </li>
                             </ul>
                         </div>
