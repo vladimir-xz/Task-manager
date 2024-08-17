@@ -1,3 +1,8 @@
+@php
+    $selectAttr = "class= rounded border-gray-300 dark:border-gray-700 dark:bg-black dark:text-neutral-200";
+@endphp
+
+
 <x-app-layout>
     <x-header>
         {{ __('Tasks')}}
@@ -5,9 +10,9 @@
 
     <div class="flex w-full items-center justify-between">
         {{  html()->form('GET', route('tasks.index'))->class('flex flex-wrap gap-x-1 gap-y-5')->open() }}
-                {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)->class('rounded border-gray-300')->placeholder(__('Status'))    }}
-                {{  html()->select('filter[created_by_id]', $usersByIds, $filter['created_by_id'] ?? 0)->class('rounded border-gray-300')->placeholder(__('Author'))    }}
-                {{  html()->select('filter[assigned_to_id]', $usersByIds, $filter['assigned_to_id'] ?? 0)->class('rounded border-gray-300')->placeholder(__('Executor'))    }}
+                {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)->class($selectAttr)->placeholder(__('Status'))    }}
+                {{  html()->select('filter[created_by_id]', $usersByIds, $filter['created_by_id'] ?? 0)->class($selectAttr)->placeholder(__('Author'))    }}
+                {{  html()->select('filter[assigned_to_id]', $usersByIds, $filter['assigned_to_id'] ?? 0)->class($selectAttr)->placeholder(__('Executor'))    }}
                 <x-primary-button>
                     {{ __('Accept') }}
                 </x-primary-button>
