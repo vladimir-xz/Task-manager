@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="flex items-center justify-between max-w-screen-xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
 
-
+            <!-- Dropdown menu -->
             <div class="flex-none sm:items-center md:hidden sm:ms-6">
                 <x-dropdown align="left" width="96">
                     <x-slot name="trigger">
@@ -20,10 +20,11 @@
                     </x-slot>
                 </x-dropdown>
             </div>
-                <!-- Logo -->
-                <a class="flex items-center" href="{{ route('dashboard') }}">
-                    <x-application-logo class="text-xl text-gray-800 dark:text-gray-200" />
-                </a>
+
+            <!-- Logo -->
+            <a class="flex items-center" href="{{ route('dashboard') }}">
+                <x-application-logo class="text-xl text-gray-800 dark:text-gray-200" />
+            </a>
 
                 
                 <!-- Navigation Links -->
@@ -33,7 +34,7 @@
 
 
             <div class="flex flex-inline items-center justify-between">
-                <div class="flex flex-inline">
+                <div class="hidden md:flex flex-inline">
 
                     <x-lang-button/>
                     <!-- Dropdown menu -->
