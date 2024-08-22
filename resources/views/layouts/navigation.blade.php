@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 py-2.5 shadow-md">
     <!-- Primary Navigation Menu -->
-    <div class="flex items-center justify-between max-w-screen-xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center md:justify-between max-w-screen-xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
 
             <!-- Dropdown menu -->
             <div class="flex-none sm:items-center md:hidden sm:ms-6">
@@ -23,7 +23,7 @@
 
             <!-- Logo -->
             <a class="flex items-center" href="{{ route('dashboard') }}">
-                <x-application-logo class="text-xl text-gray-800 dark:text-gray-200" />
+                <x-application-logo class="ms-4 md:ms-0 text-xl text-gray-800 dark:text-gray-200" />
             </a>
 
                 
@@ -33,8 +33,8 @@
             </div>
 
 
-            <div class="flex flex-inline items-center justify-between">
-                <div class="hidden md:flex flex-inline">
+            <div class="hidden md:flex flex-inline items-center justify-between">
+                <div class="flex-inline">
 
                     <x-lang-button/>
                     <!-- Dropdown menu -->
