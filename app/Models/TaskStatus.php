@@ -6,15 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Termwind\Components\Hr;
-
-/**
- * @property int $id
- * @property string $name
- */
 
 class TaskStatus extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name'
     ];

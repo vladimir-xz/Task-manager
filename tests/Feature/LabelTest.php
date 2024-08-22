@@ -81,28 +81,28 @@ class LabelTest extends TestCase
 
     public function testCantDestroyWhenAssignedToTask(): void
     {
-        $newlabel = Label::firstOrCreate(['name' => 'test']);
-        Task::factory()->create()->labels()->sync($newlabel);
+        $newLabel = Label::factory()->create();
+        Task::factory()->create()->labels()->sync($newLabel);
         $response = $this
             ->actingAs($this->user)
-            ->delete(route('labels.destroy', $newlabel));
+            ->delete(route('labels.destroy', $newLabel));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertModelExists($newlabel);
+        $this->assertModelExists($newLabel);
     }
 
     public function testDestroy(): void
     {
-        $newlabel = Label::firstOrCreate(['name' => 'test']);
+        $newLabel = Label::factory()->create();
         $response = $this
             ->actingAs($this->user)
-            ->delete(route('labels.destroy', $newlabel));
+            ->delete(route('labels.destroy', $newLabel));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertModelMissing($newlabel);
+        $this->assertModelMissing($newLabel);
     }
 }

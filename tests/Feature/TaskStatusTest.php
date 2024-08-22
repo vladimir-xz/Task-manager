@@ -76,7 +76,7 @@ class TaskStatusTest extends TestCase
 
     public function testCantDestroyWhenAssignedToTask(): void
     {
-        $newStatus = TaskStatus::firstOrCreate(['name' => 'test']);
+        $newStatus = TaskStatus::factory()->create();
         Task::factory()->for($newStatus, 'status')->create();
         $response = $this
             ->actingAs($this->user)
@@ -87,7 +87,7 @@ class TaskStatusTest extends TestCase
 
     public function testDestroy(): void
     {
-        $newStatus = TaskStatus::firstOrCreate(['name' => 'test2']);
+        $newStatus = TaskStatus::factory()->create();
         $response = $this
             ->actingAs($this->user)
             ->delete(route('task_statuses.destroy', $newStatus));
