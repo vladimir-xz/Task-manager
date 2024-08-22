@@ -17,7 +17,7 @@ class TaskRequest extends FormRequest
     {
         return [
             'status_id' => ['required', 'integer'],
-            'description' => ['string', 'nullable'],
+            'description' => ['string', 'nullable', 'max:1000'],
             'assigned_to_id' => ['integer', 'nullable'],
             'name' => [
                 'required',

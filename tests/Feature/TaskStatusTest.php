@@ -22,7 +22,7 @@ class TaskStatusTest extends TestCase
         $this->seed(TaskStatusSeeder::class);
         $this->taskStatus = TaskStatus::first();
         $this->user = User::factory()->create();
-        $this->body = [ 'name' => 'test'];
+        $this->body = ['name' => 'test'];
     }
 
     public function testIndex(): void
