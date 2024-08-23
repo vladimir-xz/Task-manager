@@ -14,7 +14,7 @@
                 {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)->class($selectAttr)->placeholder(__('Status'))    }}
                 {{  html()->select('filter[created_by_id]', $usersByIds, $filter['created_by_id'] ?? 0)->class($selectAttr)->placeholder(__('Author'))    }}
                 {{  html()->select('filter[assigned_to_id]', $usersByIds, $filter['assigned_to_id'] ?? 0)->class($selectAttr)->placeholder(__('Executor'))    }}
-                <div class="flex flex-1 basis-1/12 shrink gap-x-2 w-100">  
+                <div class="hidden flex flex-1 basis-1/12 shrink gap-x-2 w-100">  
                     {{  html()->input('filter[assigned_to_id]', $filter['fromDate'] ?? 0)->class($selectAttr . 'basis-1/12 py-2 px-3')->placeholder(__('From'))    }}
                     
                     {{  html()->input('filter[assigned_to_id]', $filter['tillDate'] ?? 0)->class($selectAttr . 'basis-1/12 px-3')->placeholder(__('Until'))    }}
