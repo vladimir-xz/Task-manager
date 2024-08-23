@@ -26,7 +26,6 @@ class TaskController extends Controller
                 AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             ])
-            ->latest('id')
             ->paginate(15);
 
         $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
