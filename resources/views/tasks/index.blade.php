@@ -43,9 +43,9 @@
                 @endauth
             </tr>
         </thead>
-        <tbody>
+        <tbody class="max-md:divide-y max-md:divide-slate-700">
             @foreach ($tasks as $task)
-                <tr class="flex flex-wrap justify-between md:table-row flex-initial w-full md:border-b md:border-dashed text-left">
+                <tr class="flex flex-wrap justify-between mb-2 md:mb-0 md:table-row flex-initial w-full md:border-b md:border-dashed text-left">
                     <td class="order-1 flex-none">{{  $task->id }}</td>
                     <td class="order-3 basis-full">{{  $task->status->name   }}</td>
                     <td class="order-2 grow basis-11/12" >
@@ -55,11 +55,11 @@
                     <td class="order-5 basis-full">{{  $task->author->name }}</td>
                     <td class="order-4 basis-full"> 
                         @if ($task->assignedTo?->name)
-                        <span class="text-orange-400">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
+                        <span class="md:hidden text-orange-400">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
                         @endif
                     </td>
-                    <td class="order-6 flex-auto w-64">{{  $task->created_at->format('d.m.Y')  }}</td>       
-                    <td class="order-7">                 
+                    <td class="order-6 flex-auto">{{  $task->created_at->format('d.m.Y')  }}</td>       
+                    <td class="order-7 ">                 
                         @can('delete', $task)
                             <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.destroy', $task->id)  }}">
                                 {{ __('Delete') }}
