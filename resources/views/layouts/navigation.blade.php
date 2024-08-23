@@ -17,7 +17,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-main-menu/>
+                        <x-main-menu role="dropdown"/>
                     </x-slot>
                 </x-dropdown>
             </div>
