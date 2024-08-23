@@ -20,7 +20,7 @@
         {{ html()->form()->close()}}
         
         @can('create', App\Models\Task::class)
-        <div>
+        <div class="my-8">
             <x-primary-link href="{{ route('tasks.create') }}">
                 {{ __('Create task') }}
             </x-primary-link>
@@ -46,16 +46,16 @@
         <tbody>
             @foreach ($tasks as $task)
                 <tr class="flex flex-wrap justify-between md:table-row flex-initial w-full md:border-b md:border-dashed text-left">
-                    <td class="order-1 flex-none w-10">{{  $task->id }}</td>
-                    <td class="order-3 c">{{  $task->status->name   }}</td>
-                    <td class="order-2 basis-11/12 max-w-full" >
+                    <td class="order-1 flex-none">{{  $task->id }}</td>
+                    <td class="order-3 basis-full">{{  $task->status->name   }}</td>
+                    <td class="order-2 grow basis-11/12" >
                         <a href="{{ route('tasks.show', $task->id)}}" class="text-blue-700 hover:text-indigo-400">
                             {{  $task->name }}
                         </a></td>
                     <td class="order-5 basis-full">{{  $task->author->name }}</td>
                     <td class="order-4 basis-full"> 
                         @if ($task->assignedTo?->name)
-                        {{  __('Assigned to: ') . $task->assignedTo?->name }}
+                        <span class="text-orange-400">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
                         @endif
                     </td>
                     <td class="order-6 flex-auto w-64">{{  $task->created_at->format('d.m.Y')  }}</td>       
