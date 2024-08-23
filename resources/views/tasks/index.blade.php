@@ -52,10 +52,10 @@
         <tbody class="max-md:divide-y max-md:divide-slate-700">
             @foreach ($tasks as $task)
                 <tr class="flex flex-wrap justify-between mb-2 md:mb-0 md:table-row flex-initial w-full md:border-b md:border-dashed text-left">
-                    <td class="order-1 flex-none">{{  $task->id }}</td>
+                    <td class="order-1 flex-none py-1">{{  $task->id }}</td>
                     <td class="order-3 basis-full">{{  $task->status->name   }}</td>
                     <td class="order-2 grow basis-11/12" >
-                        <a href="{{ route('tasks.show', $task->id)}}" class="text-blue-700 hover:text-indigo-400">
+                        <a href="{{ route('tasks.show', $task->id)}}" class="text-xl md:text-base text-blue-700 hover:text-indigo-400 ">
                             {{  $task->name }}
                         </a></td>
                     <td class="order-5 basis-full">{{  $task->author->name }}</td>
