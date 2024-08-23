@@ -3,7 +3,7 @@
 @php
     $menuUi = match ($role) {
         'mainMenu' => 'flex flex-col space-y-4 text-center md:space-y-0 justify-stretch md:flex-row md:space-x-4 ms-4 font-medium',
-        'dropdown' => 'block w-full px-4 py-4 text-center text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out',
+        'dropdown' => 'block w-full px-4 py-3 text-center text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out',
         default => 'flex flex-col space-y-4 text-center md:space-y-0 justify-stretch md:flex-row md:space-x-4 ms-4 font-medium'
     };
 @endphp
