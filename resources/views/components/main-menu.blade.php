@@ -3,12 +3,12 @@
 @php
     $menuUi = match ($role) {
         'mainMenu' => 'flex flex-col space-y-4 text-center md:space-y-0 justify-stretch md:flex-row md:space-x-4 ms-4 font-medium',
-        'dropdown' => 'block w-full px-4 py-2 text-center text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out',
+        'dropdown' => 'block w-full px-4 py-4 text-center text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out',
         default => 'flex flex-col space-y-4 text-center md:space-y-0 justify-stretch md:flex-row md:space-x-4 ms-4 font-medium'
-    }
+    };
 @endphp
 
-<ul {{ $attributes->merge(['class' => 'flex flex-col space-y-4 md:space-y-0 justify-stretch md:flex-row md:space-x-4 ms-4 font-medium'])   }}>
+<ul {{ $attributes->merge(['class' => 'flex flex-col justify-stretch md:flex-row md:space-x-4 ms-4 font-medium'])   }}>
     <li>
         <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index') " class="{{ $menuUi  }}">
             {{ __('Tasks') }}
