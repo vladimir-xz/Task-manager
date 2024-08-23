@@ -1,5 +1,7 @@
 import './bootstrap';
 
+import 'flowbite';
+
 import ujs from '@rails/ujs';
 
 import Alpine from 'alpinejs';

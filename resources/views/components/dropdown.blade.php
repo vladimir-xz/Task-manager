@@ -1,4 +1,4 @@
-@props(['align' => 'right', 'width' => '', 'contentClasses' => 'py-1 bg-white dark:text-white dark:bg-gray-900'])
+@props(['align' => 'right', 'width' => '', 'contentClasses' => 'py-3 bg-white dark:text-white dark:bg-gray-900'])
 
 @php
 $alignmentClasses = match ($align) {

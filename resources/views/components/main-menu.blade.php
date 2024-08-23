@@ -14,4 +14,25 @@
             {{ __('Labels') }}
         </x-nav-link>
     </li>
+
+    @auth
+        <li class="md:hidden border-t pt-3 dark:border-gray-500">
+            <x-nav-link data-method="post" href="{{ route('logout')  }}">
+                {{ __('Logout') }}
+            </x-nav-link>
+        </li>
+    @endauth
+    @guest
+        <li class="md:hidden border-t pt-3 dark:border-gray-500">
+            <x-nav-link href="{{ route('login') }}">
+            {{ __('Login') }}
+            </x-nav-link>
+        </li>
+        <li class="md:hidden">
+            <x-nav-link href="{{ route('register') }}">
+            {{ __('Sign up') }}
+            </x-nav-link>
+        </li>
+    @endguest
 </ul>
+

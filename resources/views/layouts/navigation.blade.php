@@ -2,7 +2,8 @@
     <!-- Primary Navigation Menu -->
     <div class="flex items-center md:justify-between max-w-screen-xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
 
-            <!-- Dropdown menu -->
+
+    <!-- Dropdown menu -->
             <div class="flex-none sm:items-center md:hidden sm:ms-6">
                 <x-dropdown align="left" width="96">
                     <x-slot name="trigger">
