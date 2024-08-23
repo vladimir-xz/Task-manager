@@ -1,6 +1,6 @@
 
 @php
-    $selectAttr = "class= rounded border-gray-300 dark:border-gray-700 dark:bg-black dark:text-neutral-200";
+    $selectAttr = "flex-1 rounded border-gray-300 dark:border-gray-700 dark:bg-black dark:text-neutral-200";
 @endphp
 
 
@@ -9,12 +9,18 @@
         {{ __('Tasks')}}
     </x-header>
 
-    <div class="flex flex-wrap w-full items-center justify-between">
-        {{  html()->form('GET', route('tasks.index'))->class('flex flex-wrap gap-x-1 gap-y-5')->open() }}
+    <div class="sm:flex flex-wrap w-full items-center justify-between">
+        {{  html()->form('GET', route('tasks.index'))->class('flex flex-wrap md:flex-row gap-x-1 gap-y-5')->open() }}
                 {{  html()->select('filter[status_id]', $statusesByIds, $filter['status_id'] ?? 0)->class($selectAttr)->placeholder(__('Status'))    }}
                 {{  html()->select('filter[created_by_id]', $usersByIds, $filter['created_by_id'] ?? 0)->class($selectAttr)->placeholder(__('Author'))    }}
                 {{  html()->select('filter[assigned_to_id]', $usersByIds, $filter['assigned_to_id'] ?? 0)->class($selectAttr)->placeholder(__('Executor'))    }}
-                <x-primary-button>
+                <div class="flex flex-1 basis-1/12 shrink gap-x-2 w-100">  
+                    {{  html()->input('filter[assigned_to_id]', $filter['fromDate'] ?? 0)->class($selectAttr . 'basis-1/12 py-2 px-3')->placeholder(__('From'))    }}
+                    
+                    {{  html()->input('filter[assigned_to_id]', $filter['tillDate'] ?? 0)->class($selectAttr . 'basis-1/12 px-3')->placeholder(__('Until'))    }}
+                </div>
+                {{  html()->input('filter[assigned_to_id]', $filter['description'] ?? 0)->class($selectAttr . 'shrink py-2 px-3')->placeholder(__('Search'))    }}
+                <x-primary-button class="justify-center ms-4 lg:ms-0">
                     {{ __('Accept') }}
                 </x-primary-button>
         {{ html()->form()->close()}}

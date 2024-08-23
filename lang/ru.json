@@ -26,6 +26,7 @@
     "Change": "Изменить",
     "Create status": "Создать статус",
     "Edit status": "Изменение статуса",
+    "Search": "Поиск",
     "Marsk": "Метки",
     "Mark": "Метка",
     "Status": "Статус",
@@ -42,5 +43,7 @@
     "Created at" : "Дата создания",
     "Actions" : "Действия",
     "Accept": "Применить",
-    "Assigned to": "Исполнитель"
+    "Assigned to": "Исполнитель",
+    "From": "От",
+    "Until": "До"
 }
