@@ -13,12 +13,12 @@ class Notification extends Model
 {
     use HasFactory;
 
-    public function task(): BelongsTo
+    public function task()
     {
         return $this->belongTo(Task::class);
     }
 
-    public function recipient(): BelongsTo
+    public function recipient()
     {
         return $this->belongTo(User::class);
     }
