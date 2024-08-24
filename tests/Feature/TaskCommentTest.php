@@ -18,7 +18,7 @@ class TaskCommentTest extends TestCase
 {
     protected Model $task;
     protected User $user;
-    protected TaskComment $comment;
+    protected ?TaskComment $comment;
     protected array $body;
 
     public function setUp(): void
@@ -53,14 +53,15 @@ class TaskCommentTest extends TestCase
     public function testUpdateNotAuthor()
     {
         $author = User::factory()->create();
+        $task = Task::first();
         $comment = TaskComment::factory()
             ->for($author, 'author')
-            ->for($this->task, 'task')
+            ->for($task, 'task')
             ->create();
 
         $response = $this
             ->actingAs($this->user)
-            ->patch(route('tasks.comments.update', [$this->task, $comment]), $this->body);
+            ->patch(route('tasks.comments.update', [$task, $comment]), $this->body);
 
         $response->assertSessionHasNoErrors();
         $response->assertForbidden();
@@ -91,7 +92,7 @@ class TaskCommentTest extends TestCase
         $newUser = User::factory()->create();
         $comment = TaskComment::factory()
             ->for($newUser, 'author')
-            ->for($this?->task, 'task')
+            ->for($this->task, 'task')
             ->create();
 
         $response = $this
@@ -108,7 +109,7 @@ class TaskCommentTest extends TestCase
     {
         $comment = TaskComment::factory()
             ->for($this->user, 'author')
-            ->for($this?->task, 'task')
+            ->for($this->task, 'task')
             ->create();
 
         $response = $this
