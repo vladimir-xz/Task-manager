@@ -16,7 +16,7 @@ use Database\Seeders\UserSeeder;
 
 class TaskCommentTest extends TestCase
 {
-    protected Model $task;
+    protected Task $task;
     protected User $user;
     protected ?TaskComment $comment;
     protected array $body;
