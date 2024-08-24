@@ -67,6 +67,6 @@ class User extends Authenticatable
 
     public function notifications()
     {
-        return $this->hasMany('App\Models\Notification', 'recipient_id');
+        return $this->hasMany('App\Models\TaskNotification', 'user_id');
     }
 }

@@ -8,17 +8,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\Label;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TaskNotification extends Model
 {
-    use HasFactory;
-
-    public function task()
+    public function task(): BelongsTo
     {
         return $this->belongsTo(Task::class);
     }
 
-    public function recipient()
+    public function recipients(): belongsTo
     {
         return $this->belongsTo(User::class);
     }
