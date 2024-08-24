@@ -29,8 +29,7 @@ class TaskCommentController extends Controller
 
         $notification = new TaskNotification();
         $notification->task()->associate($task);
-        $notification->
-        
+
         $executors = $task->assignedTo();
 
 
