@@ -27,6 +27,11 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->attach($recipients);
 
+        $notification = new TaskNotification();
+        $notification->task()->associate($task);
+        $executors = $task->assignedTo();
+
+
         flash(__('flash.commentStored'))->success();
         return to_route('tasks.show', $task);
     }
