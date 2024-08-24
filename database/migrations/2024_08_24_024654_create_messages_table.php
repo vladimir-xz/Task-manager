@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('task_comments', function (Blueprint $table) {
             $table->id();
             $table->text('content');
             $table->foreignId('created_by_id')->constrained('users');
-            $table->foreignId('recipient_id')->constrained('users')->nullable();
             $table->foreignId('task_id')->constrained('tasks');
             $table->timestamps();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('task_comments');
     }
 };

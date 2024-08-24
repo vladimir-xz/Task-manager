@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('task_comment_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_id')->constrained('tasks');
-            $table->foreignId('recipient_id')->constrained('users');
-            $table->foreignId('label_id')->constrained('labels');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('comment_id')->constrained('task_comments');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('task_comment_user');
     }
 };

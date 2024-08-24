@@ -55,14 +55,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Task', 'assigned_to_id');
     }
 
-    public function outgoingMessages()
+    public function writtenComments()
     {
-        return $this->hasMany('App\Models\Message', 'created_by_id');
+        return $this->hasMany('App\Models\Comment', 'created_by_id');
     }
 
-    public function incomingMessages()
+    public function addressedComments()
     {
-        return $this->hasMany('App\Models\Message', 'recipient_id');
+        return $this->belongsToMany('App\Models\Comment', 'task_comment_user', 'user_id', 'comment_id');
     }
 
     public function notifications()

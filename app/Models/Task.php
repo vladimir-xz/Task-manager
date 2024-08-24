@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\Label;
-use App\Models\Message;
+use App\Models\Comment;
 use App\Models\Notification;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -44,9 +44,9 @@ class Task extends Model
         return $this->belongsToMany(Label::class);
     }
 
-    public function messages(): HasMany
+    public function comments(): HasMany
     {
-        return $this->hasMany(Message::class, 'task_id');
+        return $this->hasMany(Comment::class, 'task_id');
     }
 
     public function notifications(): HasMany

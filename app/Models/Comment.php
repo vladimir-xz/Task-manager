@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Message extends Model
+class Comment extends Model
 {
     use HasFactory;
 
@@ -27,8 +28,8 @@ class Message extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function recipient(): BelongsTo
+    public function recipients(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'task_comment_user', 'user_id', 'comment_id');
     }
 }
