@@ -45,5 +45,13 @@
     "Accept": "Применить",
     "Assigned to": "Исполнитель",
     "From": "От",
-    "Until": "До"
+    "Until": "До",
+    "error": "ошибка",
+    "documentation": "документация",
+    "critical": "критично",
+    "modification": "доработка",
+    "New": "Новая",
+    "Underway": "В процессе",
+    "Testing": "На тестировании",
+    "Completed": "Завершена"
 }

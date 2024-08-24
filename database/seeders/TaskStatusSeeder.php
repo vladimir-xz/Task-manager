@@ -14,16 +14,16 @@ class TaskStatusSeeder extends Seeder
     public function run(): void
     {
         TaskStatus::firstOrCreate([
-            'name' => 'Новый'
+            'name' => 'New'
         ]);
         TaskStatus::firstOrCreate([
-            'name' => 'В работе'
+            'name' => 'Underway'
         ]);
         TaskStatus::firstOrCreate([
-            'name' => 'На тестировании'
+            'name' => 'Testing'
         ]);
         TaskStatus::firstOrCreate([
-            'name' => 'Завершен'
+            'name' => 'Completed'
         ]);
     }
 }
