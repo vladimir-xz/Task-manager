@@ -27,7 +27,7 @@ class TaskCommentController extends Controller
         $comment->recipients()->attach($recipients);
 
         flash(__('flash.commentStored'))->success();
-        return to_route('tasks.index');
+        return to_route('tasks.show', $task);
     }
 
     /**

@@ -25,7 +25,7 @@ class TaskComment extends Model
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     public function recipients(): BelongsToMany
