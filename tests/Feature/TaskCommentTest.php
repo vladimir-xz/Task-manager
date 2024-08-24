@@ -29,10 +29,10 @@ class TaskCommentTest extends TestCase
         $this->seed(TaskStatusSeeder::class);
         $this->seed(TaskSeeder::class);
 
+        $user = User::first();
         if (!$user) {
             break;
         }
-        $user = User::first();
         $this->task = Task::first();
         $this->user = $user;
         $this->comment = TaskComment::factory()
