@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 use App\Models\Task;
 use App\Models\User;
@@ -15,9 +16,9 @@ use Database\Seeders\UserSeeder;
 
 class TaskCommentTest extends TestCase
 {
-    protected ?Task $task;
+    protected Model $task;
     protected User $user;
-    protected ?TaskComment $comment;
+    protected TaskComment $comment;
     protected array $body;
 
     public function setUp(): void
@@ -54,7 +55,7 @@ class TaskCommentTest extends TestCase
         $author = User::factory()->create();
         $comment = TaskComment::factory()
             ->for($author, 'author')
-            ->for($this?->task, 'task')
+            ->for($this->task, 'task')
             ->create();
 
         $response = $this

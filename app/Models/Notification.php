@@ -15,12 +15,12 @@ class Notification extends Model
 
     public function task()
     {
-        return $this->belongTo(Task::class);
+        return $this->belongsTo(Task::class);
     }
 
     public function recipient()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function label(): BelongsTo
