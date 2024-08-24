@@ -57,12 +57,12 @@ class User extends Authenticatable
 
     public function writtenComments()
     {
-        return $this->hasMany('App\Models\Comment', 'created_by_id');
+        return $this->hasMany('App\Models\TaskComment', 'created_by_id');
     }
 
     public function addressedComments()
     {
-        return $this->belongsToMany('App\Models\Comment', 'task_comment_user', 'user_id', 'comment_id');
+        return $this->belongsToMany('App\Models\TaskComment', 'task_comment_user', 'user_id', 'comment_id');
     }
 
     public function notifications()

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Models\TaskComment;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class TaskCommentController extends Controller
 {
     /**
      * Store a newly created resource in storage.
@@ -18,7 +18,7 @@ class CommentController extends Controller
         ]);
         $recipients = $request->input('recipients');
 
-        $comment = new Comment();
+        $comment = new TaskComment();
         $comment->author()->associate($request->user());
         $comment->task()->associate($task);
         $comment->fill($data);
@@ -26,14 +26,14 @@ class CommentController extends Controller
         $comment->save();
         $comment->recipients()->attach($recipients);
 
-        flash(__('flash.commentStores'))->success();
+        flash(__('flash.commentStored'))->success();
         return to_route('tasks.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task, Comment $comment)
+    public function update(Request $request, Task $task, TaskComment $comment)
     {
         if ($request->user()->cannot('update', $comment)) {
             abort(403);
@@ -55,7 +55,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Task $task, Comment $comment)
+    public function destroy(Request $request, Task $task, TaskComment $comment)
     {
         if ($request->user()->cannot('delete', $comment)) {
             abort(403);
