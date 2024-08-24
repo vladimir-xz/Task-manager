@@ -50,9 +50,34 @@
 
     <div class="flex flex-wrap max-w-3xl">
         @foreach ($task->comments as $comment)
-            <div class="flex-1 basis-full p-4 my-4 bg-slate-200 rounded">
+
+        @php 
+            $usersMessage = Auth::user() == $comment->author ? 'order-first' : '';
+        @endphp
+
+        <div class="flex basis-full my-4">
+            <div class="flex flex-1 flex-col basis-2/12 items-center justify-center text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12 dark:fill-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+
+                <p >{{   $comment->author->name  }} </p>
+                @can('delete', $comment)
+                    <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="{{ route('tasks.comments.destroy', [$task, $comment])  }}">
+                        {{ __('Delete') }}
+                    </a>
+                @endcan
+                
+                @can('update', $comment)
+                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('tasks.comments.edit', [$task, $comment])  }}">
+                        {{ __('Change') }}
+                    </a>
+                @endcan
+            </div>
+            <div class="flex-1 basis-5/6 p-4 max-h-full flex break-words bg-slate-200 rounded {{  $usersMessage  }}">
                 {{  $comment->content   }}
             </div>
+        </div>
         @endforeach
     </div>
 </x-app-layout>

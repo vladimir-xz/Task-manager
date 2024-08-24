@@ -57,10 +57,6 @@ class TaskCommentController extends Controller
      */
     public function destroy(Request $request, Task $task, TaskComment $comment)
     {
-        if ($request->user()->cannot('delete', $comment)) {
-            abort(403);
-        }
-
         flash(__('flash.commentDeleted'))->success();
         $comment->recipients()->detach();
         $comment->delete();

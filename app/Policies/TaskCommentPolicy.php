@@ -38,7 +38,7 @@ class TaskCommentPolicy
      */
     public function update(User $user, TaskComment $taskComment): bool
     {
-        return $user->id === $taskComment->created_by_id;
+        return $user->id == $taskComment->created_by_id;
     }
 
     /**
@@ -46,6 +46,6 @@ class TaskCommentPolicy
      */
     public function delete(User $user, TaskComment $taskComment): bool
     {
-        return $user->id === $taskComment->created_by_id;
+        return $user->id == $taskComment->created_by_id;
     }
 }
