@@ -30,7 +30,7 @@ class TaskCommentTest extends TestCase
         $this->seed(TaskSeeder::class);
 
         $user = User::first();
-        if (!$user) {
+        if (is_null($user)) {
             exit();
         }
         $this->task = Task::first();
@@ -59,7 +59,7 @@ class TaskCommentTest extends TestCase
         $author = User::factory()->create();
         $task = Task::first();
 
-        if (!$task) {
+        if (is_null($task)) {
             exit();
         }
         $comment = TaskComment::factory()
@@ -97,7 +97,7 @@ class TaskCommentTest extends TestCase
 
     public function testDeleteNotAuthor()
     {
-        if (!$this->task) {
+        if (is_null($this->task)) {
             exit();
         }
         $newUser = User::factory()->create();
