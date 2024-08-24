@@ -31,7 +31,7 @@ class TaskCommentTest extends TestCase
 
         $user = User::first();
         if (!$user) {
-            break;
+            exit();
         }
         $this->task = Task::first();
         $this->user = $user;
@@ -60,7 +60,7 @@ class TaskCommentTest extends TestCase
         $task = Task::first();
 
         if (!$task) {
-            break;
+            exit();
         }
         $comment = TaskComment::factory()
             ->for($author, 'author')
@@ -98,7 +98,7 @@ class TaskCommentTest extends TestCase
     public function testDeleteNotAuthor()
     {
         if (!$this->task) {
-            break;
+            exit();
         }
         $newUser = User::factory()->create();
         $comment = TaskComment::factory()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskComment;
 use App\Models\Task;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class TaskCommentController extends Controller
@@ -26,7 +27,10 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->attach($recipients);
 
+        $notification = new Notification();
+
         $executors = $task->assignedTo();
+
 
         flash(__('flash.commentStored'))->success();
         return to_route('tasks.show', $task);
