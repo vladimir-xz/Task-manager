@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Models\Label;
 use App\Helpers\Utils;
 use App\Http\Requests\TaskRequest;
+use App\Models\TaskComment;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -72,7 +73,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return view('tasks.show', compact('task'));
+        $comment = new TaskComment();
+
+        return view('tasks.show', compact('task', 'comment'));
     }
 
     /**

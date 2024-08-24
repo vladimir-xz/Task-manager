@@ -3,6 +3,7 @@
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
@@ -23,8 +24,10 @@ Route::middleware('auth')->group(function () {
         ->except(['index', 'show']);
     Route::resource('labels', LabelController::class)
         ->except(['index', 'show']);
-});
 
+    Route::resource('tasks.comments', TaskCommentController::class)
+        ->except(['index', 'show', 'create']);
+});
 
 Route::resource('tasks', TaskController::class)->only([
     'index', 'show'
