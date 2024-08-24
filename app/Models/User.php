@@ -54,4 +54,19 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Task', 'assigned_to_id');
     }
+
+    public function outgoingMessages()
+    {
+        return $this->hasMany('App\Models\Message', 'created_by_id');
+    }
+
+    public function incomingMessages()
+    {
+        return $this->hasMany('App\Models\Message', 'recipient_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notification', 'recipient_id');
+    }
 }

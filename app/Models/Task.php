@@ -7,15 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\Label;
+use App\Models\Message;
+use App\Models\Notification;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
-/**
- * @property int $id
- * @property string $name
- * @property string $description
- * @property User::class $assigned_to_id
- */
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
@@ -46,5 +42,15 @@ class Task extends Model
     public function labels(): BelongsToMany
     {
         return $this->belongsToMany(Label::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'task_id');
+    }
+
+    public function notifications(): HasMany
+    {
+        return $$this->hasMany(Notification::class, 'task_id');
     }
 }

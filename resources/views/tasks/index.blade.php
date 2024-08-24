@@ -70,7 +70,7 @@
                     <td class="order-5 basis-full">{{  $task->author->name }}</td>
                     <td class="order-4 basis-full"> 
                         @if ($task->assignedTo?->name)
-                        <span class="md:hidden text-orange-700">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
+                            <span class="md:hidden text-orange-700">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
                         @endif
                     </td>
                     <td class="order-6 flex-auto">{{  $task->created_at->format('d.m.Y')  }}</td>       
