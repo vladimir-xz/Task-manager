@@ -27,11 +27,12 @@ class TaskCommentTest extends TestCase
         $this->seed(UserSeeder::class);
         $this->seed(TaskStatusSeeder::class);
         $this->seed(TaskSeeder::class);
-        $this->seed(TaskCommentSeeder::class);
 
         $this->task = Task::first();
         $this->user = User::first();
-        $this->comment = TaskComment::first();
+        $this->comment = TaskComment::factory()
+            ->for($this->user, 'author')
+            ->create();
         $this->body = ['content' => 'test2'];
     }
 
@@ -52,15 +53,15 @@ class TaskCommentTest extends TestCase
     {
         $author = User::factory()->create();
         $comment = TaskComment::factory()
-            ->for($author, 'created_by_id')
-            ->for($this->task, 'task_id')
+            ->for($author, 'author')
+            ->for($this->task, 'task')
             ->create();
         $response = $this
             ->actingAs($this->user)
             ->patch(route('tasks.comments.update', [$this->task, $comment]), $this->body);
 
         $response->assertSessionHasNoErrors();
-        $response->assertRedirect();
+        $response->assertForbidden();
 
         $this->assertDatabaseMissing('task_comments', [
             'id' => $this->comment?->id,
@@ -87,13 +88,13 @@ class TaskCommentTest extends TestCase
     {
         $newUser = User::factory()->create();
         $comment = TaskComment::factory()
-            ->for($newUser, 'created_by_id')
-            ->for($this->task, 'task_id')
+            ->for($newUser, 'author')
+            ->for($this->task, 'task')
             ->create();
 
         $response = $this
             ->actingAs($this->user)
-            ->delete(route('tasks.comments.update', [$this->task, $this->comment]));
+            ->delete(route('tasks.comments.destroy', [$this->task, $comment]));
 
         $response->assertSessionHasNoErrors();
         $response->assertForbidden();
@@ -104,13 +105,13 @@ class TaskCommentTest extends TestCase
     public function testDelete()
     {
         $comment = TaskComment::factory()
-            ->for($this->user, 'created_by_id')
-            ->for($this->task, 'task_id')
+            ->for($this->user, 'author')
+            ->for($this->task, 'task')
             ->create();
 
         $response = $this
             ->actingAs($this->user)
-            ->delete(route('tasks.comments.update', [$this->task, $this->comment]));
+            ->delete(route('tasks.comments.destroy', [$this->task, $comment]));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
