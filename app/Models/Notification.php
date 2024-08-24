@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Label;
 use App\Models\Task;
 
-class Notification extends Model
+class TaskNotification extends Model
 {
     use HasFactory;
 

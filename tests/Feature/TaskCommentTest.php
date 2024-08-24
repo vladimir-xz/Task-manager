@@ -13,6 +13,7 @@ use Database\Seeders\TaskCommentSeeder;
 use Database\Seeders\TaskSeeder;
 use Database\Seeders\TaskStatusSeeder;
 use Database\Seeders\UserSeeder;
+use Error;
 
 class TaskCommentTest extends TestCase
 {
@@ -118,6 +119,9 @@ class TaskCommentTest extends TestCase
 
     public function testDelete()
     {
+        if (is_null($this->task)) {
+            throw new Error('Task is null');
+        }
         $comment = TaskComment::factory()
             ->for($this->user, 'author')
             ->for($this->task, 'task')

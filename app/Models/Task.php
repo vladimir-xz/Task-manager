@@ -51,6 +51,6 @@ class Task extends Model
 
     public function notifications(): HasMany
     {
-        return $this->hasMany(Notification::class, 'task_id');
+        return $this->hasMany(TaskNotification::class, 'task_id');
     }
 }

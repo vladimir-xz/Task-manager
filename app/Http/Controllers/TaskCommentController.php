@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskComment;
 use App\Models\Task;
-use App\Models\Notification;
+use App\Models\TaskNotification;
 use Illuminate\Http\Request;
 
 class TaskCommentController extends Controller
@@ -27,8 +27,10 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->attach($recipients);
 
-        $notification = new Notification();
-
+        $notification = new TaskNotification();
+        $notification->task()->associate($task);
+        $notification->
+        
         $executors = $task->assignedTo();
 
 
