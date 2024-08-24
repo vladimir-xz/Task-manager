@@ -29,10 +29,11 @@ class TaskCommentTest extends TestCase
         $this->seed(TaskStatusSeeder::class);
         $this->seed(TaskSeeder::class);
 
+        $user = User::first();
         $this->task = Task::first();
-        $this->user = User::first();
+        $this->user = $user;
         $this->comment = TaskComment::factory()
-            ->for($this->user, 'author')
+            ->for($user, 'author')
             ->create();
         $this->body = ['content' => 'test2'];
     }
