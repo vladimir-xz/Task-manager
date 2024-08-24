@@ -57,11 +57,20 @@
                     <td class="order-2 grow basis-11/12" >
                         <a href="{{ route('tasks.show', $task->id)}}" class="text-xl md:text-base text-blue-700 hover:text-indigo-400 ">
                             {{  $task->name }}
-                        </a></td>
+                        </a>
+
+                        @if ($task->labels)
+                            @foreach ($task->labels as $label)
+                                <x-label :withIcon='false'>
+                                    {{ $label->name }}
+                                </x-label>
+                            @endforeach
+                        @endif
+                    </td>
                     <td class="order-5 basis-full">{{  $task->author->name }}</td>
                     <td class="order-4 basis-full"> 
                         @if ($task->assignedTo?->name)
-                        <span class="md:hidden text-orange-400">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
+                        <span class="md:hidden text-orange-700">{{  __('Assigned to') }}: </span>{{ $task->assignedTo?->name }}
                         @endif
                     </td>
                     <td class="order-6 flex-auto">{{  $task->created_at->format('d.m.Y')  }}</td>       

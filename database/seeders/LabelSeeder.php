@@ -14,20 +14,24 @@ class LabelSeeder extends Seeder
     public function run(): void
     {
         Label::firstOrCreate([
-            'name' => 'error',
-            'description' => 'Какая-то ошибка в коде или проблема с функциональностью'
+            'name' => 'normal',
+            'description' => 'Обычный приоритет задачи'
         ]);
         Label::firstOrCreate([
-            'name' => 'documentation',
-            'description' => 'Задача которая касается документации'
+            'name' => 'high',
+            'description' => 'Обычный приоритет задачи'
         ]);
         Label::firstOrCreate([
             'name' => 'critical',
             'description' => 'Критично важная задача'
         ]);
         Label::firstOrCreate([
-            'name' => 'modification',
-            'description' => 'Новая фича, которую нужно запилить'
+            'name' => 'error',
+            'description' => 'Произошла ошибка'
+        ]);
+        Label::firstOrCreate([
+            'name' => 'new response',
+            'description' => 'Новое сообщение'
         ]);
     }
 }
