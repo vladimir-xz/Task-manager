@@ -18,7 +18,7 @@ class TaskCommentController extends Controller
     public function store(Request $request, Task $task)
     {
         $data = $request->validate([
-            'content' => 'string|max:1000',
+            'content' => 'required|string|max:1000',
         ]);
         $recipientsId = array_filter($request->input('recipients', []));
 
@@ -85,7 +85,11 @@ class TaskCommentController extends Controller
         }
 
         flash(__('flash.commentDeleted'))->success();
-        $comment->recipients()->detach();
+
+        TaskNotification::where('comment_id', $comment->id)
+            ->delete();
+
+        $comment->recipients()->sync([]);
         $comment->delete();
 
         return to_route('tasks.show', $task);
