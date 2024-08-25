@@ -75,12 +75,13 @@ class TaskController extends Controller
     public function show(Request $request, Task $task)
     {
         $comment = new TaskComment();
+        $usersByIds = Utils::groupByIdWithName(User::all());
 
         $notification = TaskNotification::where('task_id', $task->id)
             ->where('user_id', $request->user()?->id)
             ->delete();
 
-        return view('tasks.show', compact('task', 'comment'));
+        return view('tasks.show', compact('task', 'comment', 'usersByIds'));
     }
 
     /**

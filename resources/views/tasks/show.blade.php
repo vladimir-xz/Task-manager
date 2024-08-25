@@ -39,10 +39,14 @@
             {{  html()->modelForm($comment, 'POST', route('tasks.comments.store', $task))->class('flex flex-col w-50')->open() }}
                 {{  html()->label(__('Comment') . ':', 'content')->class('font-medium') }}
                 {{  html()->textarea('content')->class('rounded min-h-8') }}
-                <div class="mt-2">
-                    <x-primary-button>
-                        {{ __('Create') }}
-                    </x-primary-button>
+                {{  html()->label(__('To') . ':', 'recipients')->class('font-medium') }}
+                <div class="flex flex-wrap justify-between mt-2 items-end">
+                    {{  html()->multiselect('recipients', $usersByIds)->class('rounded dark:text-black basis-5/6')->placeholder('')   }}
+                    <div class="mt-2">
+                        <x-primary-button >
+                            {{ __('Create') }}
+                        </x-primary-button>
+                    </div>    
                 </div>
             {{  html()->form()->close() }}
         </div>
