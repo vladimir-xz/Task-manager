@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\TaskNotification;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,5 +32,10 @@ class TaskComment extends Model
     public function recipients(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'task_comment_user', 'comment_id', 'user_id');
+    }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(TaskNotification::class, 'comment_id');
     }
 }

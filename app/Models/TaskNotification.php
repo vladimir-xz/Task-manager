@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\Label;
 use App\Models\Task;
+use App\Models\TaskComment;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TaskNotification extends Model
@@ -25,5 +26,10 @@ class TaskNotification extends Model
     public function label(): BelongsTo
     {
         return $this->belongsTo(Label::class);
+    }
+
+    public function comment(): BelongsTo
+    {
+        return $this->belongsTo(TaskComment::class);
     }
 }

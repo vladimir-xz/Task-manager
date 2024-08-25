@@ -31,11 +31,11 @@ class TaskCommentController extends Controller
         $comment->recipients()->sync($recipientsId);
 
         // Sending notifications
-        foreach ([$task->author->id, $task->assignedTo->id, ...$recipientsId] as $userId) {
+        foreach ([$task->author?->id, $task->assignedTo?->id, ...$recipientsId] as $userId) {
             $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
                 ->where('user_id', $userId)
                 ->exists();
-            if (!$ifAlredyNotified && $request->user()->id != $userId) {
+            if (!$ifAlredyNotified && $request->user()?->id != $userId) {
                 $notification = new TaskNotification();
                 $label = Label::where('name', 'new response')->first();
                 $notification->task()->associate($task);
