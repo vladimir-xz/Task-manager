@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function addressedComments()
     {
-        return $this->belongsToMany('App\Models\TaskComment', 'task_comment_user', 'user_id', 'comment_id');
+        return $this->belongsToMany('App\Models\TaskComment', 'task_comment_user', 'comment_id', 'user_id');
     }
 
     public function notifications()

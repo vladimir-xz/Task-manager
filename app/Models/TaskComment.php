@@ -30,6 +30,6 @@ class TaskComment extends Model
 
     public function recipients(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'task_comment_user', 'user_id', 'comment_id');
+        return $this->belongsToMany(User::class, 'task_comment_user', 'comment_id', 'user_id');
     }
 }

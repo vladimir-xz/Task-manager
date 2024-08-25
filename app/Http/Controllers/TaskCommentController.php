@@ -20,7 +20,7 @@ class TaskCommentController extends Controller
         $data = $request->validate([
             'content' => 'string|max:1000',
         ]);
-        $recipients = $request->input('recipients', []);
+        $recipientsId = array_filter($request->input('recipients', []));
 
         $comment = new TaskComment();
         $comment->author()->associate($request->user());
@@ -28,18 +28,18 @@ class TaskCommentController extends Controller
         $comment->fill($data);
 
         $comment->save();
-        $comment->recipients()->sync($recipients);
+        $comment->recipients()->sync($recipientsId);
 
         // Sending notifications
-        foreach ([$task->author, $task->assignedTo, ...$recipients] as $user) {
+        foreach ([$task->author->id, $task->assignedTo->id, ...$recipientsId] as $userId) {
             $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
-                ->where('user_id', $user->id)
+                ->where('user_id', $userId)
                 ->exists();
-            if (!$ifAlredyNotified && $request->user() != $user) {
+            if (!$ifAlredyNotified && $request->user()->id != $userId) {
                 $notification = new TaskNotification();
                 $label = Label::where('name', 'new response')->first();
                 $notification->task()->associate($task);
-                $notification->recipient()->associate($user);
+                $notification->recipient()->associate($userId);
                 $notification->label()->associate($label);
 
                 $notification->save();
@@ -81,8 +81,11 @@ class TaskCommentController extends Controller
             abort(403);
         }
 
+
         flash(__('flash.commentDeleted'))->success();
+        TaskNotification::
         $comment->recipients()->detach();
+        $comment->notifications->delete();
         $comment->delete();
 
         return to_route('tasks.show', $task);
