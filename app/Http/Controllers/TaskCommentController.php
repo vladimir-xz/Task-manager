@@ -93,7 +93,7 @@ class TaskCommentController extends Controller
         TaskNotification::where('comment_id', $comment->id)
             ->delete();
 
-        $comment->recipients()->sync([]);
+        $comment->recipients()->detach();
         $comment->delete();
 
         return to_route('tasks.show', $task);
