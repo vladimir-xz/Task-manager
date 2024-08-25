@@ -33,7 +33,7 @@ class TaskCommentController extends Controller
         // Saving notifications 'New Response' to database
         $label = Label::where('name', 'new response')->first();
         foreach ([$task->author?->id, $task->assignedTo?->id, ...$recipientsId] as $userId) {
-            if ($request->user()?->id == $userId || empty($userId)) {
+            if ($request->user()?->id == $userId || count($userId) === 0) {
                 continue;
             }
 
