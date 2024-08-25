@@ -77,11 +77,18 @@ class TaskController extends Controller
         $comment = new TaskComment();
         $usersByIds = Utils::groupByIdWithName(User::all());
 
-        $notification = TaskNotification::where('task_id', $task->id)
+        $userNotifications = TaskNotification::where('task_id', $task->id)
             ->where('user_id', $request->user()?->id)
-            ->delete();
+            ->get();
 
-        return view('tasks.show', compact('task', 'comment', 'usersByIds'));
+        $notifications = $userNotifications->map(function ($notification) {
+            $result = $notification->replicate();
+            $notification->delete();
+            return $result;
+        });
+
+
+        return view('tasks.show', compact('task', 'comment', 'usersByIds', 'notifications'));
     }
 
     /**

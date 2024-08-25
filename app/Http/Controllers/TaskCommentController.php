@@ -30,7 +30,7 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->sync($recipientsId);
 
-        // Saving notifications to database
+        // Saving notifications 'New Response' to database
         $label = Label::where('name', 'new response')->first();
         foreach ([$task->author?->id, $task->assignedTo?->id, ...$recipientsId] as $userId) {
             $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
@@ -63,7 +63,7 @@ class TaskCommentController extends Controller
         }
 
         $data = $request->validate([
-            'content' => 'string|max:1000',
+            'content' => 'required|string|max:1000',
         ]);
         $recipients = array_filter($request->input('recipients', []));
 

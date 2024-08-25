@@ -79,11 +79,17 @@
                 @endcan
             </div>
             <div class="basis-5/6 {{  $usersMessage  }}">
-                @if ($comment->recipients()->exists())
-                    <div class="">
+                <div class="flex flex-inline">
+                    @if ($notifications->contains(fn ($not) => $not->comment->id == $comment->id))
+                        <div class="bg-orange-300 rounded-full w-3 h-3 m-1"></div>
+                    @endif
+
+                    @if ($comment->recipients()->exists())
+                    <div class="flex-11/12">
                             {{  __('For') . ': ' . $comment->recipients->map(fn ($user) => $user->name)->join(', ')  }}
                     </div>
-                @endif
+                    @endif
+                </div>
                 <div class="flex-1 basis-full p-4 max-h-full flex break-words bg-slate-200 rounded dark:text-black">
                     {{  $comment->content   }}
                 </div>
