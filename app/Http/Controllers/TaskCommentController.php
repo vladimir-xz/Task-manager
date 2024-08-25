@@ -30,18 +30,18 @@ class TaskCommentController extends Controller
         $comment->recipients()->sync($recipient);
 
         $author = $task->assignedTo();
-        $label = Label::where('name', 'new response');
         $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
-            ->where('recipient_id', $recipient)
+            ->where('recipient_id', $author)
             ->exists();
 
         if ($author->exists() && !$ifAlredyNotified) {
-                $notification = new TaskNotification();
-                $notification->task()->associate($task);
-                $notification->recipient()->associate($author);
-                $notification->label()->associate($label);
+            $notification = new TaskNotification();
+            $label = Label::where('name', 'new response')->first();
+            $notification->task()->associate($task);
+            $notification->recipient()->associate($author);
+            $notification->label()->associate($label);
 
-                // $notification->save();
+            $notification->save();
         }
 
         flash(__('flash.commentStored'))->success();
