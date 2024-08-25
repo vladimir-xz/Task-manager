@@ -32,7 +32,7 @@ class TaskCommentController extends Controller
 
         $author = $task->assignedTo;
         $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
-            ->where('user_id', $author->id)
+            ->where('user_id', $author?->id)
             ->exists();
 
         if ($author->exists() && !$ifAlredyNotified) {
