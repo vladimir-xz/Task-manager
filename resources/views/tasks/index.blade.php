@@ -59,11 +59,21 @@
                             {{  $task->name }}
                         </a>
 
-                        @if ($task->labels)
+                        @if ($task->labels()->exists())
                             @foreach ($task->labels as $label)
                                 <x-label :withIcon='false'>
                                     {{ $label->name }}
                                 </x-label>
+                            @endforeach
+                        @endif
+
+                        @if ($task->notifications()->exists())
+                            @foreach ($task->notifications as $notification)
+                                @if ($notification->user_id == Auth::user()->id)
+                                <x-label :withIcon='false'>
+                                    {{ $label->name }}
+                                </x-label>
+                                @endif
                             @endforeach
                         @endif
                     </td>

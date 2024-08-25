@@ -30,7 +30,7 @@ class TaskCommentController extends Controller
 
 
         $label = Label::where('name', 'new response');
-        if ($recipient) {
+        if ($task->assignedTo()->exists()) {
             $notification = TaskNotification::firstOrCreate([
                 'task_id' => $task->id,
                 'recipient_id' => $recipient,
