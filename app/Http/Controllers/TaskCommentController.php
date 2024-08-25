@@ -7,6 +7,7 @@ use App\Models\TaskComment;
 use App\Models\Task;
 use App\Models\TaskNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TaskCommentController extends Controller
 {
@@ -34,7 +35,7 @@ class TaskCommentController extends Controller
             ->where('recipient_id', $recipient)
             ->exists();
 
-        if (!is_null($author) && !$ifAlredyNotified) {
+        if ($author->exists() && !$ifAlredyNotified) {
                 $notification = new TaskNotification();
                 $notification->task()->associate($task);
                 $notification->recipient()->associate($author);
