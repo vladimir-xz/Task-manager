@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\TaskStatus;
 use App\Models\Task;
 use App\Models\Label;
+use App\Models\TaskNotification;
 use App\Helpers\Utils;
 use App\Http\Requests\TaskRequest;
 use App\Models\TaskComment;
@@ -71,9 +72,13 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Request $request, Task $task)
     {
         $comment = new TaskComment();
+
+        $notification = TaskNotification::where('task_id', $task->id)
+            ->where('user_id', $request->user()?->id)
+            ->delete();
 
         return view('tasks.show', compact('task', 'comment'));
     }

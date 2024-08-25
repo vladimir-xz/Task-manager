@@ -4,7 +4,7 @@
 
         @if ($errors->any())
             <div class="font-medium text-red-600 dark:text-red-400">
-                Упс! Что-то пошло не так:
+                {{  __('Oops! Something went wrong:')}}
             </div>
             <x-input-error :messages="$errors->all()" class="mt-2 list-disc" />
         @endif
