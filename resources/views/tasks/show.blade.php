@@ -74,7 +74,7 @@
                     </a>
                 @endcan
             </div>
-            <div class="flex-1 basis-5/6 p-4 max-h-full flex break-words bg-slate-200 rounded {{  $usersMessage  }}">
+            <div class="flex-1 basis-5/6 p-4 max-h-full flex break-words bg-slate-200 rounded dark:text-black {{  $usersMessage  }}">
                 {{  $comment->content   }}
             </div>
         </div>

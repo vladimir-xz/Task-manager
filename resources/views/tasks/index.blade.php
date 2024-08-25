@@ -1,4 +1,3 @@
-
 @php
     $selectAttr = "flex-1 rounded border-gray-300 dark:border-gray-700 dark:bg-black dark:text-neutral-200";
 @endphp

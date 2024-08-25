@@ -20,7 +20,7 @@ class TaskCommentController extends Controller
         $data = $request->validate([
             'content' => 'string|max:1000',
         ]);
-        $recipient = $request->input('recipients', []);
+        $recipients = $request->input('recipients', []);
 
         $comment = new TaskComment();
         $comment->author()->associate($request->user());
@@ -28,21 +28,22 @@ class TaskCommentController extends Controller
         $comment->fill($data);
 
         $comment->save();
-        $comment->recipients()->sync($recipient);
+        $comment->recipients()->sync($recipients);
 
-        $author = $task->assignedTo;
-        $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
-            ->where('user_id', $author?->id)
-            ->exists();
+        // Sending notifications
+        foreach ([$task->author, $task->assignedTo, ...$recipients] as $user) {
+            $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
+                ->where('user_id', $user->id)
+                ->exists();
+            if (!$ifAlredyNotified && $request->user() != $user) {
+                $notification = new TaskNotification();
+                $label = Label::where('name', 'new response')->first();
+                $notification->task()->associate($task);
+                $notification->recipient()->associate($user);
+                $notification->label()->associate($label);
 
-        if (!is_null($author) && !$ifAlredyNotified) {
-            $notification = new TaskNotification();
-            $label = Label::where('name', 'new response')->first();
-            $notification->task()->associate($task);
-            $notification->recipient()->associate($author);
-            $notification->label()->associate($label);
-
-            $notification->save();
+                $notification->save();
+            }
         }
 
         flash(__('flash.commentStored'))->success();
