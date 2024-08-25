@@ -135,6 +135,7 @@ class TaskController extends Controller
 
         flash(__('flash.taskDeleted'))->success();
         $task->labels()->detach();
+        $task->notifications()->delete();
         $task->delete();
 
         return to_route('tasks.index');

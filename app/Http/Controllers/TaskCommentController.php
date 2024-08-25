@@ -33,10 +33,7 @@ class TaskCommentController extends Controller
         // Saving notifications 'New Response' to database
         $label = Label::where('name', 'new response')->first();
         foreach ([$task->author?->id, $task->assignedTo?->id, ...$recipientsId] as $userId) {
-            $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
-                ->where('user_id', $userId)
-                ->exists();
-            if ($ifAlredyNotified || $request->user()?->id == $userId) {
+            if ($request->user()?->id == $userId) {
                 continue;
             }
 

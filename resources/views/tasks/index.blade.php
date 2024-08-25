@@ -67,13 +67,13 @@
                         @endif
 
                         @if ($task->notifications()->exists())
-                            @foreach ($task->notifications as $notification)    
-                                @if ($notification->recipient == Auth::user())
-                                <x-label :withIcon='false'>
-                                    {{ $notification->label->name }}
-                                </x-label>
-                                @endif
-                            @endforeach
+                            @php $newMessage = $task->notifications->first(fn ($notif) => $notif->label->name === 'new response' && $notif->recipient == Auth::user())
+                            @endphp
+                            @if ($newMessage)
+                            <x-label :withIcon='false'>
+                                {{ $newMessage->label->name }}
+                            </x-label>
+                            @endif
                         @endif
                     </td>
                     <td class="order-5 basis-full">{{  $task->author->name }}</td>
