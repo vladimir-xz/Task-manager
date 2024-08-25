@@ -31,6 +31,6 @@ class Label extends Model
 
     public function notifications(): HasMany
     {
-        return $this->hasMany(TaskNotification::class);
+        return $this->hasMany(TaskNotification::class, 'label_id');
     }
 }

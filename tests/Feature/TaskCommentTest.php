@@ -9,6 +9,7 @@ use Tests\TestCase;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\TaskComment;
+use Database\Seeders\LabelSeeder;
 use Database\Seeders\TaskCommentSeeder;
 use Database\Seeders\TaskSeeder;
 use Database\Seeders\TaskStatusSeeder;
@@ -27,6 +28,7 @@ class TaskCommentTest extends TestCase
         parent::setUp();
 
         $this->seed(UserSeeder::class);
+        $this->seed(LabelSeeder::class);
         $this->seed(TaskStatusSeeder::class);
         $this->seed(TaskSeeder::class);
 

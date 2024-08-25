@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Label;
 use App\Models\TaskComment;
 use App\Models\Task;
+use App\Models\User;
 use App\Models\TaskNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -29,9 +30,9 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->sync($recipient);
 
-        $author = $task->assignedTo();
+        $author = $task->assignedTo;
         $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
-            ->where('recipient_id', $author)
+            ->where('user_id', $author->id)
             ->exists();
 
         if ($author->exists() && !$ifAlredyNotified) {
