@@ -35,7 +35,7 @@ class TaskCommentController extends Controller
             ->where('user_id', $author?->id)
             ->exists();
 
-        if ($author && !$ifAlredyNotified) {
+        if (!is_null($author) && !$ifAlredyNotified) {
             $notification = new TaskNotification();
             $label = Label::where('name', 'new response')->first();
             $notification->task()->associate($task);
