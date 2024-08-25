@@ -81,11 +81,8 @@ class TaskCommentController extends Controller
             abort(403);
         }
 
-
         flash(__('flash.commentDeleted'))->success();
-        TaskNotification::
         $comment->recipients()->detach();
-        $comment->notifications->delete();
         $comment->delete();
 
         return to_route('tasks.show', $task);
