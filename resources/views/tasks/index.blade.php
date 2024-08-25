@@ -68,10 +68,10 @@
                         @endif
 
                         @if ($task->notifications()->exists())
-                            @foreach ($task->notifications as $notification)
-                                @if ($notification->user_id == Auth::user()->id)
+                            @foreach ($task->notifications as $notification)    
+                                @if ($notification->recipient == Auth::user())
                                 <x-label :withIcon='false'>
-                                    {{ $label->name }}
+                                    {{ $notification->label->name }}
                                 </x-label>
                                 @endif
                             @endforeach
