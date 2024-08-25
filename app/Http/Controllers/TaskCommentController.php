@@ -70,6 +70,9 @@ class TaskCommentController extends Controller
         $comment->fill($data);
         $comment->save();
         $comment->recipients()->sync($recipients);
+        TaskNotification::where('comment_id', $comment->id)
+            ->whereNone('user_id', $recipients)
+            ->delete();
 
         flash(__('flash.commentUpdated'))->success();
         return to_route('tasks.show', $task);
