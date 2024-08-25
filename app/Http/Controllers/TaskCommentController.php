@@ -28,14 +28,13 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->sync($recipient);
 
-
+        $author = $task->assignedTo();
         $label = Label::where('name', 'new response');
         $ifAlredyNotified = TaskNotification::where('task_id', $task->id)
             ->where('recipient_id', $recipient)
             ->exists();
-        $author = $task->assignedTo();
-        if (!is_null($author) && !$ifAlredyNotified) {
 
+        if (!is_null($author) && !$ifAlredyNotified) {
                 $notification = new TaskNotification();
                 $notification->task()->associate($task);
                 $notification->recipient()->associate($author);
