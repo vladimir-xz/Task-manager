@@ -78,13 +78,13 @@
                     </a>
                 @endcan
             </div>
-            <div class="basis-5/6">
+            <div class="basis-5/6 {{  $usersMessage  }}">
                 @if ($comment->recipients()->exists())
                     <div class="">
                             {{  __('For') . ': ' . $comment->recipients->map(fn ($user) => $user->name)->join(', ')  }}.
                     </div>
                 @endif
-                <div class="flex-1 basis-full p-4 max-h-full flex break-words bg-slate-200 rounded dark:text-black {{  $usersMessage  }}">
+                <div class="flex-1 basis-full p-4 max-h-full flex break-words bg-slate-200 rounded dark:text-black">
                     {{  $comment->content   }}
                 </div>
             </div>
