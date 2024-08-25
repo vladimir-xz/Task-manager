@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Label;
 use App\Models\TaskComment;
 use App\Models\Task;
 use App\Models\TaskNotification;
@@ -17,7 +18,7 @@ class TaskCommentController extends Controller
         $data = $request->validate([
             'content' => 'string|max:1000',
         ]);
-        $recipients = $request->input('recipients');
+        $recipient = $request->input('recipients', []);
 
         $comment = new TaskComment();
         $comment->author()->associate($request->user());
@@ -25,12 +26,18 @@ class TaskCommentController extends Controller
         $comment->fill($data);
 
         $comment->save();
-        $comment->recipients()->attach($recipients);
+        $comment->recipients()->sync($recipient);
 
-        $notification = new TaskNotification();
-        $notification->task()->associate($task);
-        $executors = $task->assignedTo();
 
+        $label = Label::where('name', 'new response');
+        if ($recipient) {
+            $notification = TaskNotification::firstOrCreate([
+                'task_id' => $task->id,
+                'recipient_id' => $recipient,
+            ]);
+            $notification->label()->attach($label);
+            $notification->save();
+        }
 
         flash(__('flash.commentStored'))->success();
         return to_route('tasks.show', $task);

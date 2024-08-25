@@ -17,7 +17,7 @@ class TaskNotification extends Model
         return $this->belongsTo(Task::class);
     }
 
-    public function recipients(): belongsTo
+    public function recipient(): belongsTo
     {
         return $this->belongsTo(User::class);
     }
