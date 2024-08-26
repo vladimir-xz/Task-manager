@@ -23,7 +23,7 @@
             </div>
 
             <!-- Logo -->
-            <a class="flex items-center" href="{{ route('dashboard') }}">
+            <a class="flex items-center" href="{{ route('tasks.index') }}">
                 <x-application-logo class="ms-4 md:ms-0 text-xl text-gray-800 dark:text-gray-200" />
             </a>
 

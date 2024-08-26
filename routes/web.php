@@ -10,9 +10,9 @@ use App\Http\Controllers\TaskController;
 
 Route::get('about', function () {
     return view('index');
-})->name('aboud');
+})->name('about');
 
-Route::get('/', [TaskController::class, 'index'])->name('dashboard');
+Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
 Route::get('local/{local}', [LocalizationController::class, 'setLanguage'])
 ->name('local');
