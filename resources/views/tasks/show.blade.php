@@ -90,7 +90,7 @@
                     </div>
                     @endif
                 </div>
-                <div class="flex-1 basis-full p-4 max-h-full flex break-words bg-slate-200 rounded dark:text-black">
+                <div class="flex-1 basis-full p-4 w-full max-w-xl text-clip break-words bg-slate-200 rounded dark:text-black">
                     {{  $comment->content   }}
                 </div>
             </div>
