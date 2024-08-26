@@ -15,14 +15,13 @@ class TaskCommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Task $task)
+    public function store(Request $request, Task $task, TaskComment $comment)
     {
         $data = $request->validate([
             'content' => 'required|string|max:1000',
         ]);
         $recipientsId = array_filter($request->input('recipients', []));
 
-        $comment = new TaskComment();
         $comment->author()->associate($request->user());
         $comment->task()->associate($task);
         $comment->fill($data);

@@ -39,9 +39,8 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Task $task)
     {
-        $task = new Task();
         $usersByIds = Utils::groupByIdWithName(User::all());
         $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
         $labelsById = Utils::groupByIdWithName(Label::all());

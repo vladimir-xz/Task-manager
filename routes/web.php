@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
 
-Route::get('/', function () {
+Route::get('about', function () {
     return view('index');
-})->name('dashboard');
+})->name('aboud');
+
+Route::get('/', [TaskController::class, 'index'])->name('dashboard');
 
 Route::get('local/{local}', [LocalizationController::class, 'setLanguage'])
 ->name('local');
@@ -30,7 +32,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('tasks', TaskController::class)->only([
-    'index', 'show'
+    'show'
 ]);
 Route::resource('task_statuses', TaskStatusController::class)->only([
     'index'

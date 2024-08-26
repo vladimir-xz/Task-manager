@@ -33,5 +33,9 @@ class LabelSeeder extends Seeder
             'name' => 'new response',
             'description' => 'Новое сообщение'
         ]);
+        Label::firstOrCreate([
+            'name' => 'Доработка',
+            'description' => 'Новое сообщение'
+        ]);
     }
 }
