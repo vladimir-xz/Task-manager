@@ -22,19 +22,16 @@ class LabelController extends Controller
      */
     public function create(Label $label)
     {
-        $label = new Label();
-
         return view('labels.create', compact('label'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LabelRequest $request)
+    public function store(LabelRequest $request, Label $label)
     {
         $data = $request->validated();
 
-        $label = new Label();
         $label->fill($data);
         $label->save();
 

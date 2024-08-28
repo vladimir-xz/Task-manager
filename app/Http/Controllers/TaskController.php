@@ -51,13 +51,12 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TaskRequest $request)
+    public function store(TaskRequest $request, Task $task)
     {
         $data = $request->validated();
 
         $labels = $request->input('labels');
 
-        $task = new Task();
         $task->author()->associate($request->user());
         $task->fill($data);
         $task->save();
@@ -71,9 +70,8 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Task $task)
+    public function show(Request $request, Task $task, TaskComment $comment)
     {
-        $comment = new TaskComment();
         $usersByIds = Utils::groupByIdWithName(User::all());
 
         $userNotifications = TaskNotification::where('task_id', $task->id)
@@ -135,6 +133,10 @@ class TaskController extends Controller
         flash(__('flash.taskDeleted'))->success();
         $task->labels()->detach();
         $task->notifications()->delete();
+
+        // $task->comments()->recipients()->detach();
+        // $task->comments()->delete();
+
         $task->delete();
 
         return to_route('tasks.index');

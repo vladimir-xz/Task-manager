@@ -19,7 +19,7 @@ class LabelSeeder extends Seeder
         ]);
         Label::firstOrCreate([
             'name' => 'high',
-            'description' => 'Обычный приоритет задачи'
+            'description' => 'Высокий приоритет задачи'
         ]);
         Label::firstOrCreate([
             'name' => 'critical',
@@ -31,10 +31,6 @@ class LabelSeeder extends Seeder
         ]);
         Label::firstOrCreate([
             'name' => 'new response',
-            'description' => 'Новое сообщение'
-        ]);
-        Label::firstOrCreate([
-            'name' => 'Доработка',
             'description' => 'Новое сообщение'
         ]);
     }
