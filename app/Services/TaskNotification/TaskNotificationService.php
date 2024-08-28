@@ -10,25 +10,17 @@ use App\Models\TaskNotification;
 
 class TaskNotificationService
 {
-    protected Request $request;
     protected Task $task;
     protected ?TaskComment $comment;
 
-    public function __construct(Request $request, Task $task, TaskComment $comment)
+    public function retrieveWithDelete($task)
     {
-        $this->request = $request;
-        $this->task = $task;
-        $this->comment = $comment;
-    }
-
-    public function retrieveWithDelete()
-    {
-        $usersNotifications = $this->task->notifications()
-            ->where('user_id', $this->request?->user()?->id)
+        $usersNotifications = $task->notifications()
+            ->where('user_id', request()->user()?->id)
             ->clone();
 
-        $this->task->notifications()
-            ->where('user_id', $this->request?->user()?->id)
+        $task->notifications()
+            ->where('user_id', request()->user()?->id)
             ->delete();
 
         return $usersNotifications;
@@ -54,7 +46,7 @@ class TaskNotificationService
 
         $notificationsToSave = collect($recipientsIds)
             ->map(function ($userId) use ($label, $comment) {
-                if ($this->request?->user()?->id == $userId || is_null($userId)) {
+                if (request()->user()?->id == $userId || is_null($userId)) {
                     return;
                 }
 

@@ -130,14 +130,17 @@ class TaskController extends Controller
             abort(403);
         }
 
-        flash(__('flash.taskDeleted'))->success();
         $task->labels()->detach();
         $task->notifications()->delete();
 
-        // $task->comments()->recipients()->detach();
-        // $task->comments()->delete();
+        foreach ($task->comments()->get() as $comment) {
+            $comment->recipients()->detach();
+        }
+        $task->comments()->delete();
 
         $task->delete();
+
+        flash(__('flash.taskDeleted'))->success();
 
         return to_route('tasks.index');
     }
