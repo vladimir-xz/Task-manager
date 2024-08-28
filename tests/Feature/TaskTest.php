@@ -96,7 +96,7 @@ class TaskTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertForbidden();
 
-        $this->assertModelExists($task);
+        $this->assertNotSoftDeleted($task);
     }
 
     public function testDestroyAuthor(): void
@@ -109,6 +109,6 @@ class TaskTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertModelMissing($task);
+        $this->assertSoftDeleted($task);
     }
 }

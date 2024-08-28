@@ -116,7 +116,7 @@ class TaskCommentTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertForbidden();
 
-        $this->assertModelExists($comment);
+        $this->assertNotSoftDeleted($comment);
     }
 
     public function testDelete()
@@ -136,6 +136,6 @@ class TaskCommentTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertModelMissing($comment);
+        $this->assertSoftDeleted($comment);
     }
 }
