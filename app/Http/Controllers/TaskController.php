@@ -125,7 +125,7 @@ class TaskController extends Controller
         $task->labels()->detach();
         $task->notifications()->delete();
 
-        foreach ($task->comments()->get() as $comment) {
+        foreach ($task->comments as $comment) {
             $comment->recipients()->detach();
         }
         $task->comments()->delete();
