@@ -29,7 +29,7 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->sync($recipientsId);
 
-        $notification->storeSeveral($comment, $recipientsId);
+        $notification->store($recipientsId, 'new response', $comment);
 
         flash(__('flash.commentStored'))->success();
         return to_route('tasks.show', $task);

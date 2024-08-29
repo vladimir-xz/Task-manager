@@ -13,9 +13,17 @@ class TaskNotificationService
     protected Task $task;
     protected ?TaskComment $comment;
 
+    public function __construct()
+    {
+        $this->task = request('task', null);
+        $this->comment = request('comment', null);
+    }
+
     public function retrieveWithDelete($task)
     {
-        $usersNotifications = $task->notifications()
+        $notification = Task::find($this->task);
+        $usersNotifications = Task::find($this->task)
+            ->notifications()
             ->where('user_id', request()->user()?->id)
             ->clone();
 
@@ -39,24 +47,27 @@ class TaskNotificationService
     /**
      * Store a number of newly created resource in storage.
      */
-    public function storeSeveral(TaskComment $comment, array $recipientsIds)
+    public function store(array $recipientsIds = [], string $label = 'new response', ?TaskComment $comment = null)
     {
         // Saving notifications 'New Response' to database
-        $label = Label::where('name', 'new response')->first();
+        $label = Label::where('name', $label)->first();
 
-        $notificationsToSave = collect($recipientsIds)
-            ->map(function ($userId) use ($label, $comment) {
+        $notificationsToSave = collect([$this->task?->id, $this->task?->assignedTo->id, ...$recipientsIds])
+            ->reduce(function ($carry, $userId) use ($label, $comment) {
+                var_dump($userId);
                 if (request()->user()?->id == $userId || is_null($userId)) {
-                    return;
+                    return $carry;
                 }
 
                 $notification = new TaskNotification();
-                $notification->task()->associate($comment->task);
+                $notification->comment()->associate($comment);
                 $notification->recipient()->associate($userId);
                 $notification->label()->associate($label);
-                return $notification;
-            })->all();
+                $carry[] = $notification;
 
-        $comment->notifications()->saveMany($notificationsToSave);
+                return $carry;
+            }, []);
+
+        $this->task->notifications()->saveMany($notificationsToSave);
     }
 }

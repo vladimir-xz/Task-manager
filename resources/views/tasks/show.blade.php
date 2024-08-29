@@ -55,10 +55,6 @@
     <div class="flex flex-wrap max-w-3xl">
         @foreach ($task->comments as $comment)
 
-        @php 
-            $usersMessage = Auth::user() == $comment->author ? 'order-first' : '';
-        @endphp
-
         <div class="flex basis-full my-4">
             <div class="flex flex-1 flex-col basis-2/12 items-center justify-center text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12 dark:fill-white">
@@ -78,9 +74,9 @@
                     </a>
                 @endcan
             </div>
-            <div class="basis-5/6 {{  $usersMessage  }}">
+            <div class="basis-5/6 {{  Auth::user()?->is($comment->author) ? 'order-first' : ''  }}">
                 <div class="flex flex-inline">
-                    @if ($notifications->contains(fn ($not) => $not->comment->id == $comment->id))
+                    @if ($notifications->contains(fn ($not) => $not->comment->is($comment)))
                         <div class="bg-orange-300 rounded-full w-3 h-3 m-1"></div>
                     @endif
 
