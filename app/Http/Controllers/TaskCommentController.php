@@ -29,7 +29,7 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->sync($recipientsIds);
 
-        $allRecipientsIds = array_merge([$task->id], [$task->assignedTo?->id], $recipientsIds);
+        $allRecipientsIds = array_merge([$task->author->id, $task->assignedTo?->id], $recipientsIds);
         $notification->storeSeveral('new response', $allRecipientsIds, $comment);
 
         flash(__('flash.commentStored'))->success();

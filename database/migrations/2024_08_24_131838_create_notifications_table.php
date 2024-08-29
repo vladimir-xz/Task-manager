@@ -27,6 +27,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('task_notifications');
-        Schema::dropIfExists('task_notification_user');
     }
 };

@@ -24,13 +24,15 @@ class TaskNotificationService
         $usersNotifications = $this->task
             ->notifications()
             ->where('user_id', request()->user()?->id)
-            ->clone();
+            ->get();
+
+        $result = clone $usersNotifications;
 
         $this->task->notifications()
             ->where('user_id', request()->user()?->id)
             ->delete();
 
-        return $usersNotifications;
+        return $result;
     }
 
     public function deleteForComment()
@@ -50,7 +52,7 @@ class TaskNotificationService
 
         $notificationsToSave = collect($recipientsIds)
             ->reduce(function ($carry, $userId) use ($label, $comment) {
-                if (request()->user()?->id == $userId) {
+                if (request()->user()?->id == $userId || is_null($userId)) {
                     return $carry;
                 }
 

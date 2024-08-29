@@ -10,6 +10,7 @@ use App\Models\TaskNotification;
 use App\Helpers\Utils;
 use App\Http\Requests\TaskRequest;
 use App\Models\TaskComment;
+use App\Services\TaskNotification\TaskNotificationService;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -70,20 +71,11 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Task $task, TaskComment $comment)
+    public function show(Request $request, Task $task, TaskComment $comment, TaskNotificationService $notif)
     {
         $usersByIds = Utils::groupByIdWithName(User::all());
 
-        $userNotifications = TaskNotification::where('task_id', $task->id)
-            ->where('user_id', $request->user()?->id)
-            ->get();
-
-        $notifications = $userNotifications->map(function ($notification) {
-            $result = $notification->replicate();
-            $notification->delete();
-            return $result;
-        });
-
+        $notifications = $notif->retrieveWithDelete();
 
         return view('tasks.show', compact('task', 'comment', 'usersByIds', 'notifications'));
     }
