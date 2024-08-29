@@ -19,43 +19,38 @@ class TaskNotificationService
         $this->comment = request('comment', null);
     }
 
-    public function retrieveWithDelete($task)
+    public function retrieveWithDelete()
     {
-        $notification = Task::find($this->task);
-        $usersNotifications = Task::find($this->task)
+        $usersNotifications = $this->task
             ->notifications()
             ->where('user_id', request()->user()?->id)
             ->clone();
 
-        $task->notifications()
+        $this->task->notifications()
             ->where('user_id', request()->user()?->id)
             ->delete();
 
         return $usersNotifications;
     }
 
-    public function delete()
+    public function deleteForComment()
     {
         $this->comment->notifications()->delete();
     }
 
-    public function update(array $recipients)
+    public function updateForComment(array $recipients)
     {
         $this->comment->notifications()->whereNotIn('user_id', $recipients)->delete();
     }
 
-    /**
-     * Store a number of newly created resource in storage.
-     */
-    public function store(array $recipientsIds = [], string $label = 'new response', ?TaskComment $comment = null)
+    public function storeSeveral(string $labelName, array $recipientsIds = [], ?TaskComment $comment = null)
     {
         // Saving notifications 'New Response' to database
-        $label = Label::where('name', $label)->first();
+        $label = Label::where('name', $labelName)->first();
 
-        $notificationsToSave = collect([$this->task?->id, $this->task?->assignedTo->id, ...$recipientsIds])
+        $notificationsToSave = collect($recipientsIds)
             ->reduce(function ($carry, $userId) use ($label, $comment) {
-                var_dump($userId);
-                if (request()->user()?->id == $userId || is_null($userId)) {
+                if (request()->user()?->id == $userId) {
                     return $carry;
                 }
 

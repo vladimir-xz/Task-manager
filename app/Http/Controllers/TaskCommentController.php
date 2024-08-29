@@ -20,16 +20,17 @@ class TaskCommentController extends Controller
         $data = $request->validate([
             'content' => 'required|string|max:1000',
         ]);
-        $recipientsId = array_filter($request->input('recipients', []));
+        $recipientsIds = array_filter($request->input('recipients', []));
 
         $comment->author()->associate($request->user());
         $comment->task()->associate($task);
         $comment->fill($data);
 
         $comment->save();
-        $comment->recipients()->sync($recipientsId);
+        $comment->recipients()->sync($recipientsIds);
 
-        $notification->store($recipientsId, 'new response', $comment);
+        $allRecipientsIds = array_merge([$task->id], [$task->assignedTo?->id], $recipientsIds);
+        $notification->storeSeveral('new response', $allRecipientsIds, $comment);
 
         flash(__('flash.commentStored'))->success();
         return to_route('tasks.show', $task);
@@ -38,7 +39,7 @@ class TaskCommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task, TaskComment $comment)
+    public function update(Request $request, Task $task, TaskComment $comment, TaskNotificationService $notification)
     {
         if ($request->user()->cannot('update', $comment)) {
             abort(403);
@@ -53,9 +54,7 @@ class TaskCommentController extends Controller
         $comment->save();
         $comment->recipients()->sync($recipients);
 
-        TaskNotification::where('comment_id', $comment->id)
-            ->whereNotIn('user_id', $recipients)
-            ->delete();
+        $notification->updateForComment($recipients);
 
         flash(__('flash.commentUpdated'))->success();
         return to_route('tasks.show', $task);
@@ -64,7 +63,7 @@ class TaskCommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Task $task, TaskComment $comment)
+    public function destroy(Request $request, Task $task, TaskComment $comment, TaskNotificationService $notification)
     {
         if ($request->user()->cannot('delete', $comment)) {
             abort(403);
@@ -72,8 +71,7 @@ class TaskCommentController extends Controller
 
         flash(__('flash.commentDeleted'))->success();
 
-        TaskNotification::where('comment_id', $comment->id)
-            ->delete();
+        $notification->deleteForComment();
 
         $comment->recipients()->detach();
         $comment->delete();
