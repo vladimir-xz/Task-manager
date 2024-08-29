@@ -13,7 +13,7 @@ class TaskCommentUserSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             TaskComment::all()->random()->recipients()->sync([
                 rand(1, 4),
                 rand(1, 4)
