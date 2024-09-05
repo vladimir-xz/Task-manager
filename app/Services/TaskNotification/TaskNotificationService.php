@@ -12,11 +12,13 @@ class TaskNotificationService
 {
     protected Task $task;
     protected ?TaskComment $comment;
+    protected NotificationFactory $factory;
 
-    public function __construct()
+    public function __construct(NotificationFactory $notFactory)
     {
         $this->task = request('task', null);
         $this->comment = request('comment', null);
+        $this->factory = $notFactory;
     }
 
     public function retrieveWithDelete()
@@ -56,7 +58,7 @@ class TaskNotificationService
                     return $carry;
                 }
 
-                $notification = new TaskNotification();
+                $notification = $this->factory->create();
                 $notification->comment()->associate($comment);
                 $notification->recipient()->associate($userId);
                 $notification->label()->associate($label);
