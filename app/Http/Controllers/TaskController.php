@@ -78,6 +78,8 @@ class TaskController extends Controller
 
         $notifications = $notif->retrieveWithDelete();
 
+        $task->load('comments', 'comments.recipients:id,name');
+
         return view('tasks.show', compact('task', 'comment', 'usersByIds', 'notifications'));
     }
 
