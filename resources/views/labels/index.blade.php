@@ -16,8 +16,8 @@
             <tr>
                 <th>ID</th>
                 <th>{{ __('Name') }}</th>
-                <th>{{ __('Created at') }}</th>
                 <th>{{ __('Description') }}</th>
+                <th>{{ __('Created at') }}</th>
                 @auth
                     <th>{{ __('Actions') }}</th>
                 @endauth
@@ -28,7 +28,7 @@
                 <tr class="border-b border-dashed text-left">
                     <td>{{  $label->id }}</td>
                     <td>{{  __((string) $label->name)   }}</td>
-                    <td>{{  $label->description   }}</td>
+                    <td>{{  __($label->description)   }}</td>
                     <td>{{  $label->created_at->format('d.m.Y') }}</td>
                     <td>
                         @can('delete', $label)
