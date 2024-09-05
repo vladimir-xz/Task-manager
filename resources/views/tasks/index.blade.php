@@ -67,9 +67,7 @@
                         @endif
 
                         @if ($task->notifications()->exists())
-                            @php $newMessage = $task->notifications->first(fn ($notif) => $notif->label->name === 'new response' && $notif->recipient == Auth::user())
-                            @endphp
-                            @if ($newMessage)
+                            @if ($newMessage = $task->notifications()->where('user_id', Auth::user()?->id)->first())
                             <x-label :withIcon='false'>
                                 {{ $newMessage->label->name }}
                             </x-label>

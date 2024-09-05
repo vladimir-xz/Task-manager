@@ -45,7 +45,7 @@ class TaskController extends Controller
     {
         $usersByIds = Utils::groupByIdWithName(User::all());
         $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
-        $labelsById = Utils::groupByIdWithName(Label::all());
+        $labelsById = Utils::groupByIdWithName(Label::where('system', false)->get());
 
         return view('tasks.create', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }

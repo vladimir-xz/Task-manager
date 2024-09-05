@@ -27,11 +27,13 @@ class LabelSeeder extends Seeder
         ]);
         Label::firstOrCreate([
             'name' => 'error',
-            'description' => 'Произошла ошибка'
+            'description' => 'Произошла ошибка',
+            'system' => true
         ]);
         Label::firstOrCreate([
             'name' => 'new response',
-            'description' => 'Новое сообщение'
+            'description' => 'Новое сообщение',
+            'system' => true
         ]);
     }
 }
