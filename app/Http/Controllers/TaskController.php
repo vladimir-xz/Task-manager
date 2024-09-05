@@ -32,8 +32,8 @@ class TaskController extends Controller
             ->latest()
             ->paginate(15);
 
-        $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
-        $usersByIds = Utils::groupByIdWithName(User::all());
+        $statusesByIds = Utils::groupByIdWithi18nName(TaskStatus::all());
+        $usersByIds = Utils::groupByIdWithi18nName(User::all());
 
         return view('tasks.index', compact('tasks', 'usersByIds', 'statusesByIds', 'filter'));
     }
@@ -43,9 +43,9 @@ class TaskController extends Controller
      */
     public function create(Task $task)
     {
-        $usersByIds = Utils::groupByIdWithName(User::all());
-        $statusesByIds = Utils::groupByIdWithName(TaskStatus::all());
-        $labelsById = Utils::groupByIdWithName(Label::where('system', false)->get());
+        $usersByIds = Utils::groupByIdWithi18nName(User::all());
+        $statusesByIds = Utils::groupByIdWithi18nName(TaskStatus::all());
+        $labelsById = Utils::groupByIdWithi18nName(Label::where('system', false)->get());
 
         return view('tasks.create', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }
@@ -74,7 +74,7 @@ class TaskController extends Controller
      */
     public function show(Request $request, Task $task, TaskComment $comment, TaskNotificationService $notif)
     {
-        $usersByIds = Utils::groupByIdWithName(User::all());
+        $usersByIds = Utils::groupByIdWithi18nName(User::all());
 
         $notifications = $notif->retrieveWithDelete();
 
@@ -88,11 +88,11 @@ class TaskController extends Controller
     {
         $users = User::select('id', 'name')->get();
         $taskStatuses = TaskStatus::all();
-        $labels = Label::all();
+        $labels = Label::where('system', false)->get();
 
-        $usersByIds = Utils::groupByIdWithName($users);
-        $statusesByIds = Utils::groupByIdWithName($taskStatuses);
-        $labelsById = Utils::groupByIdWithName($labels);
+        $usersByIds = Utils::groupByIdWithi18nName($users);
+        $statusesByIds = Utils::groupByIdWithi18nName($taskStatuses);
+        $labelsById = Utils::groupByIdWithi18nName($labels);
 
         return view('tasks.edit', compact('task', 'usersByIds', 'statusesByIds', 'labelsById'));
     }

@@ -15,24 +15,24 @@ class LabelSeeder extends Seeder
     {
         Label::firstOrCreate([
             'name' => 'normal',
-            'description' => 'Обычный приоритет задачи'
+            'description' => 'Normal priority task'
         ]);
         Label::firstOrCreate([
             'name' => 'high',
-            'description' => 'Высокий приоритет задачи'
+            'description' => 'High priority task'
         ]);
         Label::firstOrCreate([
             'name' => 'critical',
-            'description' => 'Критично важная задача'
+            'description' => 'Critical task'
         ]);
         Label::firstOrCreate([
             'name' => 'error',
-            'description' => 'Произошла ошибка',
+            'description' => 'An error occured',
             'system' => true
         ]);
         Label::firstOrCreate([
             'name' => 'new response',
-            'description' => 'Новое сообщение',
+            'description' => 'New message',
             'system' => true
         ]);
     }

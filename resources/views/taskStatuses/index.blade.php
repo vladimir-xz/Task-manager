@@ -26,7 +26,7 @@
             @foreach ($taskStatuses as $taskStatus)
                 <tr class="border-b border-dashed text-left">
                     <td>{{  $taskStatus->id }}</td>
-                    <td>{{  $taskStatus->name   }}</td>
+                    <td>{{  __($taskStatus->name)   }}</td>
                     <td>{{  $taskStatus->created_at->format('d.m.Y') }}</td>
                     <td>
                         @can('update', $taskStatus)

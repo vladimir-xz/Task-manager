@@ -14,11 +14,10 @@ class Utils
     /**
      * @return array<int|null, string|null> Ассоциативный массив, где ключи — ID или null, а значения — имена или null
      */
-    public static function groupByIdWithName(Collection $collection): ?array
+    public static function groupByIdWithi18nName(Collection $collection): ?array
     {
-        /** @var \Illuminate\Support\Collection $collection */
         return $collection->mapWithKeys(function (Label|Task|TaskStatus|User|null $record) {
-            return [$record?->id => $record?->name];
+            return [$record?->id => __($record?->name)];
         })->all();
     }
 }

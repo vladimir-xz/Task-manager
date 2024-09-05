@@ -58,5 +58,10 @@
     "New": "Новая",
     "Underway": "В процессе",
     "Testing": "На тестировании",
-    "Completed": "Завершена"
+    "Completed": "Завершена",
+    "Normal priority task": "Обычный приоритет задачи",
+    "High priority task": "Высокий приоритет задачи",
+    "Critical task": "Критично важная задача",
+    "An error occured": "Произошла ошибка",
+    "New message": "Новое сообщение"
 }
