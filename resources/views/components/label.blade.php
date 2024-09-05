@@ -6,6 +6,7 @@
         'high' => 'bg-red-400 text-black',
         'critical' => 'bg-red-700 text-black',
         'error' => 'bg-red-300 text-red-700',
+        'docs' => 'bg-gray-300 text-gray-700',
         'new response' => 'bg-orange-300 text-orange-700',
         default => 'bg-blue-200 text-blue-400',
     };

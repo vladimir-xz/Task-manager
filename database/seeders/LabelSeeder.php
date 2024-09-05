@@ -26,6 +26,10 @@ class LabelSeeder extends Seeder
             'description' => 'Critical task'
         ]);
         Label::firstOrCreate([
+            'name' => 'docs',
+            'description' => 'Documents and management'
+        ]);
+        Label::firstOrCreate([
             'name' => 'error',
             'description' => 'An error occured',
             'system' => true

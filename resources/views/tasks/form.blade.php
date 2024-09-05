@@ -23,7 +23,7 @@
     {{  html()->label(__('Status'), 'status_id')->class($labelStyle) }}
 </div>
 <div {{ $divAttributes }}>
-    {{  html()->select('status_id', $statusesByIds)->class($inputStyle)->placeholder('') }}
+    {{  html()->select('status_id', $statusesByIds)->class($inputStyle) }}
 </div>
 <x-input-error :messages="$errors->get('status_id')" class="mt-2" />
 <div {{ $divAttributes }}>
