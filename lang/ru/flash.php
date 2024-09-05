@@ -12,4 +12,7 @@ return [
     "labelCreated" => "Метка успешно создана",
     "labelDeleted" => "Метка успешно удалена",
     "labelNotDeleted" => "Не удалось удалить метку",
+    "commentStored" => "Комментарий сохранён",
+    "commentUpdated" => "Комментарий обновлён",
+    "commentDeleted" => "Комментарий удалён"
 ];
